@@ -9,7 +9,8 @@
       name: "NavBar",
       props:{
         barTitle:{
-          type:String
+          type:String,
+          default:null
         }
       },
       methods:{
@@ -25,13 +26,12 @@
   height: 82px;
   display: flex;
   align-items: center;
-  font-weight: 600;
   .iconxia {
     margin-right: 28px;
-    font-size: 26px;
+    font-size: 24px;
   }
   .bar-text {
-    font-size: 26px;
+    font-size: 24px;
   }
 }
 </style>

@@ -21,7 +21,7 @@
         </div>
         <base-scroll :scroll-x='scrollX' class="net-nav-wrap">
           <ul class="nav-content">
-            <router-link to="/songslist" tag="li" class="nav-item">
+            <router-link to="/recommend" tag="li" class="nav-item">
               <div class="nav-icon">
                 <img class="img" src="../assets/day-recommend.gif" alt="">
               </div>
@@ -39,12 +39,12 @@
               </div>
               <p class="text">歌单</p>
             </router-link>
-            <li class="nav-item">
+            <router-link tag="li" to="/rank" class="nav-item">
               <div class="nav-icon">
                 <img class="img" src="../assets/rank.gif" alt="">
               </div>
               <p class="text">排行榜</p>
-            </li>
+            </router-link>
             <li class="nav-item">
               <div class="nav-icon">
                 <img class="img" src="../assets/live-play.gif" alt="">
@@ -143,13 +143,8 @@
         </div>
       </div>
     </base-scroll>
-    <transition name="van-slide-left">
-      <div @click="toggleSetting" v-show="isShowSetting" class="setting-wrap">
-        <div class="setting">
-        </div>
-      </div>
-    </transition>
-      <search-input @close="close" :is-show-search="isShowSearch"></search-input>
+    <slider-bar @toggle="toggleSetting" :isShowSetting="isShowSetting"></slider-bar>
+    <search-input @close="close" :is-show-search="isShowSearch"></search-input>
   </div>
 </template>
 
@@ -159,6 +154,7 @@ import BaseScroll from '../components/BaseScroll'
 import BaseSection from "../components/BaseSection";
 import BaseDivder from "../components/BaseDivder";
 import SearchInput from "../components/SearchInput";
+import SliderBar from "../components/SliderBar";
 import {getHomeSwiper,getRecommendList,getPrivateMusic} from '../api/index.js'
 import {createSong} from '../common/js/song'
 export default {
@@ -167,7 +163,8 @@ export default {
     BaseScroll,
     BaseSection,
     BaseDivder,
-    SearchInput
+    SearchInput,
+    SliderBar
   },
   created() {
     this._getSwiper()
@@ -353,6 +350,7 @@ export default {
           justify-content: center;
           align-items: center;
           color: rgb(51,51,51);
+          font-size: 18px;
           .iconbofang4 {
             margin-right: 5px;
           }
@@ -404,6 +402,7 @@ export default {
                       }
                       .lyric-overview {
                         padding-bottom: 18px;
+                        font-size: 18px;
                       }
                     }
                   }
@@ -413,21 +412,6 @@ export default {
           }
         }
       }
-    }
-  }
-  .setting-wrap {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width:100%;
-    z-index: 10;
-    background-color: rgba(102,102,102,0.5);
-    .setting {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 454px;
-      background-color: #ffffff;
     }
   }
 }

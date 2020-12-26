@@ -43,3 +43,15 @@ export const getHotSearchDetail = () => {
 export const getSearchSuggest = (keywords,type=mobile) => {
   return ajax( BASE +'/search/suggest',{keywords,type})
 }
+/*
+* 8.登录
+* */
+export const getLogin = (phone,password) => {
+  return ajax( BASE + '/login/cellphone', {phone,password},'POST')
+}
+/*
+* 9.每日推荐
+* */
+export const getDayRecommend = () => {
+  return ajax( BASE + '/recommend/songs')
+}

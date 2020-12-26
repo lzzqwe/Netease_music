@@ -36,7 +36,7 @@
             <div class="hot-in-list">
               <van-row type="flex" class="hot-in-item">
                 <van-col :key="item.searchWord" v-for="(item,index) in searchDetail" class="item" span="12">
-                  <span class="number">{{index+1}}</span><span class="keyword">{{item.searchWord}}</span><img v-show="item.iconUrl" width="40" height="14" :src="item.iconUrl" alt="">
+                  <span class="number">{{index+1}}</span><span class="keyword">{{item.searchWord}}</span><img class="icon" v-show="item.iconUrl" :src="item.iconUrl" alt="">
                 </van-col>
               </van-row>
             </div>
@@ -305,6 +305,7 @@
             padding: 18px 24px 0 24px;
             .hot-in-item {
               .item {
+                font-size: 18px;
                 margin-bottom: 34px;
                 color: rgb(51,51,51);
                 &:nth-last-child(2) {
@@ -319,6 +320,10 @@
                 }
                 .keyword {
                   margin-right: 10px;
+                }
+                .icon {
+                  width: 39px;
+                  height: 14px;
                 }
               }
 

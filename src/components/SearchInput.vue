@@ -38,6 +38,7 @@
                 <van-col :key="item.searchWord" v-for="(item,index) in searchDetail" class="item" span="12">
                   <span class="number">{{index+1}}</span><span class="keyword">{{item.searchWord}}</span><img class="icon" v-show="item.iconUrl" :src="item.iconUrl" alt="">
                 </van-col>
+                <net-loading v-show="!searchDetail.length"></net-loading>
               </van-row>
             </div>
             <div class="Song-zone">
@@ -110,6 +111,7 @@
 </template>
 <script>
   import BaseScroll from "./BaseScroll";
+  import NetLoading from "./NetLoading";
   import {getHotSearchDetail,getSearchSuggest} from '../api/index.js'
     export default {
       name: "SearchInput",
@@ -146,7 +148,8 @@
         }
       },
       components:{
-        BaseScroll
+        BaseScroll,
+        NetLoading
       },
       watch:{
         isShowSearch(newValue,oldValue) {

@@ -1,11 +1,11 @@
 export default class Song {
-  constructor(musicData) {
-    this.id = musicData.id
-    this.picUrl = musicData.picUrl
-    this.duration = musicData.song.duration/1000
-    this.singer = musicData.song.artists[0].name
-    this.url = getMusicUrl(musicData.id)
-    this.name= musicData.name
+  constructor({id,picUrl,duration,singer,name}) {
+    this.id = id
+    this.picUrl = picUrl
+    this.duration = duration/1000
+    this.singer = singer
+    this.url = getMusicUrl(id)
+    this.name= name
   }
 }
 export const createSong = (musicData) => {

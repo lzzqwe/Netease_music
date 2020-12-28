@@ -2085,9 +2085,9 @@ body{margin:0; padding:0;background: #f7f7f7;
         -webkit-transform: scaley(1);
         transform: scaley(1); } }
 .line-scale-pulse-out > div {
-    background-color: #e83e8c;
-    width: 4px;
-    height: 35px;
+    background-color: rgb(255,49,47);
+    width: 3px;
+    height: 20px;
     border-radius: 2px;
     margin: 2px;
     -webkit-animation-fill-mode: both;

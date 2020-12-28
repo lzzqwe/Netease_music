@@ -1,5 +1,5 @@
 <template>
-  <li class="song-list-item">
+  <li @click="selectItem(songItem)" class="song-list-item">
     <div class="item-icon">
       <img class="img" :src="songItem.coverImgUrl" alt="">
       <div class="play-count">
@@ -15,6 +15,11 @@
 <script>
     export default {
       name: "SongList",
+      methods:{
+        selectItem(item) {
+          this.$router.push(`/playlistCollection/${item.id}`)
+        }
+      },
       props:{
         songItem:{
           type:Object
@@ -26,6 +31,7 @@
 <style lang="less" scoped>
   .song-list-item {
     margin-bottom: 33px;
+    padding: 0 7px;
     &:last-child {
       margin-right: 0;
     }

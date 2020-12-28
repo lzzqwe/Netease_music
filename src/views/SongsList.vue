@@ -15,34 +15,13 @@
               </van-swipe>
             </div>
             <keep-alive>
-              <router-link tag="div" to="/songslist/1" class="songs-wrap">
+              <div class="songs-wrap">
                 <song-list :song-item="item" :key="index" v-for="(item,index) in songList.slice(3)"></song-list>
-                <div v-show="loading" class="loading-wrap">
-                  <div class="loader">
-                    <div class="line-scale-pulse-out">
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>
-                  </div>
-                </div>
-              </router-link>
-            </keep-alive>
-          </div>
-          <div v-show="!songList.length" class="loading-wrap">
-            <div class="loader">
-              <div class="line-scale-pulse-out">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+<!--                <net-loading v-show="loading"></net-loading>-->
               </div>
-            </div>
+            </keep-alive>
+            <net-loading v-show="!songList.length"></net-loading>
           </div>
-
         </base-scroll>
       </van-tab>
     </van-tabs>
@@ -55,6 +34,7 @@
   import NavBar from "../components/NavBar";
   import SongList from "../components/SongList";
   import BaseScroll from "../components/BaseScroll";
+  import NetLoading from "../components/NetLoading";
   import {getSongsTags,getSongList} from '../api/index'
   export default {
     name:'SongsList',
@@ -123,7 +103,8 @@
     components:{
       NavBar,
       SongList,
-      BaseScroll
+      BaseScroll,
+      NetLoading
     }
   }
 
@@ -138,11 +119,12 @@
     position: fixed;
     top: 178px;
     bottom: 0;
-    left: 24px;
-    right: 24px;
+    left:0;
+    right: 0;
     overflow: hidden;
     .song-list-content {
       .song-swiper {
+        padding: 0 24px;
         .my-swipe {
           margin-bottom: 32px;
           .van-swipe-item {
@@ -156,8 +138,8 @@
       }
       .songs-wrap {
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
+        padding: 0 16.5px;
       }
     }
 

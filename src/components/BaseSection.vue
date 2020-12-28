@@ -2,13 +2,13 @@
   <div class="section">
     <div class="title">
       <h1 class="text">{{title}}</h1>
-      <div class="more">
+      <div @click="$router.push('/playlistCollection')" class="more">
         更多<span class="iconfont icongengduo1"></span>
       </div>
     </div>
     <base-scroll :data="recommendList" :scroll-x="scrollX" class="song-list-wrap">
       <ul class="song-list-content">
-        <li :key="item.id" class="song-list-item" v-for="(item) in recommendList">
+        <li @click="skip(item)" :key="item.id" class="song-list-item" v-for="(item) in recommendList">
           <div class="item-icon">
             <img class="img" :src="item.picUrl" alt="">
             <div class="play-count">
@@ -38,6 +38,11 @@ export default {
   data() {
     return {
       scrollX:true
+    }
+  },
+  methods:{
+    skip(item) {
+      this.$router.push(`/playlistCollection/${item.id}`)
     }
   },
   components:{

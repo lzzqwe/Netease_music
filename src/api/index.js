@@ -55,3 +55,27 @@ export const getLogin = (phone,password) => {
 export const getDayRecommend = () => {
   return ajax( BASE + '/recommend/songs')
 }
+/*
+* 10.获取歌单详情
+* */
+export const getSongListDetail = (id) => {
+  return ajax( BASE + '/playlist/detail',{id})
+}
+/*
+* 11.获取歌单的所有歌曲
+* */
+export const getAllSongs = (tracks) => {
+  return ajax( BASE + `/song/detail?ids=${tracks}`)
+}
+/*
+* 12.获取首页的圆形图标
+* */
+export const getHomeCircleIcon = () => {
+  return ajax( BASE + '/homepage/dragon/ball')
+}
+/*
+* 13.获取歌单评论
+* */
+export const getCommentPlaylist = (id) => {
+  return ajax( BASE + '/comment/playlist',{id})
+}

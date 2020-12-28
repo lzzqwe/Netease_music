@@ -12,12 +12,12 @@ const routes = [{
     name: 'Home',
     component: Home
 },{
-  path:'/rank',
+  path:'/discovery/songrank',
   name:'NetRank',
   component: NetRank
 },
   {
-  path:'/songslist',
+  path:'/playlistCollection',
   name:'SongsList',
   component: SongsList,
   children:[
@@ -27,7 +27,7 @@ const routes = [{
     }
   ]
 },{
-  path:'/recommend',
+  path:'/songrcmd',
   name:'DailylRecommend',
   component: DailylRecommend
 },{
@@ -39,6 +39,10 @@ const routes = [{
 
 
 
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (to) {
+  return VueRouterPush.call(this, to).catch(err => err)
+}
 const router = new VueRouter({
     routes
 })

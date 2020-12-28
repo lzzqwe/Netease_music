@@ -7,7 +7,7 @@
     <transition name="van-slide-up">
       <div v-show="showPlay" class="backgroud"></div>
     </transition>
-    <base-scroll :probe-type="probeType" :listen-scroll="listenScroll" @onscroll="scroll" class="day-recommend-wrap">
+    <base-scroll :data="list" :probe-type="probeType" :listen-scroll="listenScroll" @onscroll="scroll" class="day-recommend-wrap">
       <div>
         <div :style="opacityStyle" class="day-recommend">
           <div class="date">
@@ -22,235 +22,19 @@
           </div>
         </div>
         <div class="recommend-content">
-          <!--          <div class="play-all">-->
-          <!--            <div class="play">-->
-          <!--              <span class="iconfont iconbofang7"></span>-->
-          <!--              <span>播放全部</span>-->
-          <!--            </div>-->
-          <!--            <span class="iconfont iconquanxuan"></span>-->
-          <!--          </div>-->
           <base-sticky v-show="isShow"></base-sticky>
           <ul class="play-list">
-            <li class="play-item">
+            <li :key="item.id" class="play-item" v-for="(item) in list">
               <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
+                <img class="icon-img" :src="item.picUrl" alt="">
               </div>
               <div class="text">
                 <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
+                  <h1 class="name">{{item.name}}</h1>
                   <div class="desc">
                     <span class="iconfont icondujia"></span>
                     <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
-                  </div>
-                </div>
-                <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
-                  <span class="iconfont iconsandian"></span>
-                </div>
-              </div>
-            </li>
-            <li class="play-item">
-              <div class="Thumbnails">
-                <img class="icon-img" src="http://p1.music.126.net/lxscOFxNDaBsi3IpKCiy5A==/109951165554013871.jpg?param=140y140" alt="">
-              </div>
-              <div class="text">
-                <div class="content">
-                  <h1 class="name">橙子的大萨达</h1>
-                  <div class="desc">
-                    <span class="iconfont icondujia"></span>
-                    <span class="iconfont iconsq"></span>
-                    <span>你的大表哥曲家-沉醉的情思</span>
+                    <span>{{item.singer}}-{{item.name}}</span>
                   </div>
                 </div>
                 <div class="play-icon">
@@ -260,6 +44,7 @@
               </div>
             </li>
           </ul>
+          <net-loading v-show="!this.list.length"></net-loading>
         </div>
       </div>
     </base-scroll>
@@ -268,15 +53,18 @@
 
 <script>
   import {getDayRecommend} from '../api/index.js'
+  import {createSong} from '../common/js/song'
   import BaseScroll from "./BaseScroll";
   import BaseSticky from "./BaseSticky";
   import NavBar from "./NavBar";
+  import NetLoading from "./NetLoading";
   export default {
     name: "RecommendContent",
     components:{
       NavBar,
       BaseScroll,
-      BaseSticky
+      BaseSticky,
+      NetLoading
     },
     data() {
       return {
@@ -304,8 +92,15 @@
       async _getDayRecommend() {
         const res = await getDayRecommend()
         if(res.code===200) {
-          this.list = res.data.dailySongs
+          this.list = this._createSong(res.data.dailySongs)
         }
+      },
+      _createSong (list) {
+        const result= []
+        list.forEach((item) => {
+          result.push(createSong({id:item.id,picUrl:item.al.picUrl,duration:item.dt,singer:item.ar[0].name,name:item.name}))
+        })
+        return result
       },
       scroll(pos) {
         // console.log(pos.y)

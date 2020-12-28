@@ -21,54 +21,54 @@
         </div>
         <base-scroll :scroll-x='scrollX' class="net-nav-wrap">
           <ul class="nav-content">
-            <router-link to="/recommend" tag="li" class="nav-item">
+            <router-link :to="handleString(item.url)" tag="li" :key="item.id" v-for="(item) in navIcon" class="nav-item">
               <div class="nav-icon">
-                <img class="img" src="../assets/day-recommend.gif" alt="">
+                <img class="img" :src="item.iconUrl" alt="">
               </div>
-              <p class="text">每日推荐</p>
+              <p class="text">{{item.name}}</p>
             </router-link>
-            <li class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/private-fm.gif" alt="">
-              </div>
-              <p class="text">私人FM</p>
-            </li>
-            <router-link tag="li" to="/songslist" class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/song-list.gif" alt="">
-              </div>
-              <p class="text">歌单</p>
-            </router-link>
-            <router-link tag="li" to="/rank" class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/rank.gif" alt="">
-              </div>
-              <p class="text">排行榜</p>
-            </router-link>
-            <li class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/live-play.gif" alt="">
-              </div>
-              <p class="text">直播</p>
-            </li>
-            <li class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/num-album.gif" alt="">
-              </div>
-              <p class="text">数字专辑</p>
-            </li>
-            <li class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/sing-chat.gif" alt="">
-              </div>
-              <p class="text">唱聊</p>
-            </li>
-            <li class="nav-item">
-              <div class="nav-icon">
-                <img class="img" src="../assets/game-zone.gif" alt="">
-              </div>
-              <p class="text">游戏专区</p>
-            </li>
+<!--            <li class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/private-fm.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">私人FM</p>-->
+<!--            </li>-->
+<!--            <router-link tag="li" to="/songslist" class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/song-list.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">歌单</p>-->
+<!--            </router-link>-->
+<!--            <router-link tag="li" to="/rank" class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/rank.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">排行榜</p>-->
+<!--            </router-link>-->
+<!--            <li class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/live-play.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">直播</p>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/num-album.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">数字专辑</p>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/sing-chat.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">唱聊</p>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <div class="nav-icon">-->
+<!--                <img class="img" src="../assets/game-zone.gif" alt="">-->
+<!--              </div>-->
+<!--              <p class="text">游戏专区</p>-->
+<!--            </li>-->
           </ul>
         </base-scroll>
         <base-section :recommend-list="recommednList" title="推荐歌单"></base-section>
@@ -91,6 +91,7 @@
                     <li :key="item.id" v-for="(item) in privateMusic.slice(0,3)" class="item">
                       <div class="cover">
                         <img class="cover-imgage" :src="item.picUrl" alt="">
+                        <span class="iconfont iconbofangliang1"></span>
                       </div>
                       <div class="desc">
                         <div class="name">
@@ -108,6 +109,7 @@
                     <li :key="item.id" v-for="(item) in privateMusic.slice(3,6)" class="item">
                       <div class="cover">
                         <img class="cover-imgage" :src="item.picUrl" alt="">
+                        <span class="iconfont iconbofangliang1"></span>
                       </div>
                       <div class="desc">
                         <div class="name">
@@ -125,6 +127,7 @@
                     <li :key="item.id" v-for="(item) in privateMusic.slice(6,9)" class="item">
                       <div class="cover">
                         <img class="cover-imgage" :src="item.picUrl" alt="">
+                        <span class="iconfont iconbofangliang1"></span>
                       </div>
                       <div class="desc">
                         <div class="name">
@@ -155,7 +158,7 @@ import BaseSection from "../components/BaseSection";
 import BaseDivder from "../components/BaseDivder";
 import SearchInput from "../components/SearchInput";
 import SliderBar from "../components/SliderBar";
-import {getHomeSwiper,getRecommendList,getPrivateMusic} from '../api/index.js'
+import {getHomeSwiper,getRecommendList,getPrivateMusic,getHomeCircleIcon} from '../api/index.js'
 import {createSong} from '../common/js/song'
 export default {
   name: 'NetHome',
@@ -170,6 +173,7 @@ export default {
     this._getSwiper()
     this._getRecommedList()
     this._getPrivateMusic()
+    this._getHomeCircleIcon()
   },
   data() {
     return {
@@ -178,7 +182,8 @@ export default {
       isShowSearch:false,
       swiper:[],
       recommednList:[],
-      privateMusic:[]
+      privateMusic:[],
+      navIcon:[]
     }
   },
   methods:{
@@ -197,7 +202,13 @@ export default {
     _createSong(res) {
       let result = []
       res.forEach((item) => {
-        result.push(createSong(item))
+        result.push(createSong({
+          id:item.id,
+          picUrl:item.picUrl,
+          duration:item.song.duration,
+          singer:item.song.artists[0].name,
+          name:item.name
+        }))
       })
       return result
     },
@@ -206,6 +217,15 @@ export default {
       if(res.code===200) {
         this.privateMusic = this._createSong(res.result)
       }
+    },
+    async _getHomeCircleIcon() {
+      const res = await getHomeCircleIcon()
+      if(res.code===200) {
+        this.navIcon = res.data
+      }
+    },
+    handleString(str) {
+      return str.slice(9)
     },
     toggleSetting() {
       this.isShowSetting = !this.isShowSetting
@@ -300,7 +320,7 @@ export default {
             .nav-icon {
               width: 68px;
               height: 68px;
-              background-color:#fef2f1;
+              background-color:#8f342d;
               border-radius: 50%;
               margin-bottom: 10px;
               display: flex;
@@ -373,10 +393,19 @@ export default {
                       height: 76px;
                       margin-right: 15px;
                       flex: 0 0 76px;
+                      position: relative;
                       .cover-imgage {
                         width: 100%;
                         height: 100%;
                         border-radius: 7px;
+                      }
+                      .iconbofangliang1 {
+                        font-size: 24px;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate3d(-50%,-50%,0);
+                        color: rgb(255,255,255);
                       }
                     }
                     .desc {

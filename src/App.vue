@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    <net-player></net-player>
+    <net-player v-if="$store.state.playList.length>0"></net-player>
   </div>
 </template>
 <script>
@@ -19,4 +19,3 @@
   width: 100%;
   height: 100%;
 }
-</style>

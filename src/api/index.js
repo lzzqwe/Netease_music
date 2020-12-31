@@ -85,3 +85,9 @@ export const getCommentPlaylist = (id) => {
 export const getPrivateFm = () => {
   return ajax( BASE + '/personal_fm')
 }
+/*
+ *15.获取歌曲评论
+ * */
+export const getSongComment = (id) => {
+  return ajax(BASE + '/comment/music',{id})
+}

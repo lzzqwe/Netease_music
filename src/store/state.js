@@ -4,5 +4,7 @@ export default {
   currentIndex:-1,
   playList:[],
   banners:[],
-  privateFm:[]
+  privateFm:[],
+  playing:false,
+  totalCount:0
 }

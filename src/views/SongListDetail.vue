@@ -64,7 +64,7 @@
           </div>
           <div class="list">
             <ul class="list-content">
-              <li :key="item.id" v-for="(item,index) in songs" class="list-item">
+              <li @click="playSong(index)" :key="item.id" v-for="(item,index) in songs" class="list-item">
                 <div class="item-index">{{index+1}}</div>
                 <div class="desc">
                   <div class="song-name-text">
@@ -97,6 +97,7 @@
    import NetComment from "../components/NetComment";
    import {getSongListDetail,getAllSongs} from '../api/index'
    import {createSong} from '../common/js/song'
+   import {mapActions} from 'vuex'
    export default {
      name: "SongListDetail",
      components:{
@@ -118,6 +119,10 @@
        isShowComment() {
          this.isShow =true
        },
+       playSong(index) {
+         this.select_play({playlist:this.songs,index})
+       },
+       ...mapActions(['select_play']),
        async _getSongListDetail(id) {
          const res = await getSongListDetail(id)
          try {
@@ -154,7 +159,8 @@
            }))
          })
          return songs
-       }
+       },
+       // ...mapMutations(['isFullscreen'])
      },
      created() {
        this._getSongListDetail(this.id)
@@ -211,7 +217,6 @@
       top: 145px;
       left: 0;
       right: 0;
-      bottom: 73px;
       .detail-cover-content {
         padding: 0 24px;
         display: flex;

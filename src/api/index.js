@@ -79,3 +79,9 @@ export const getHomeCircleIcon = () => {
 export const getCommentPlaylist = (id) => {
   return ajax( BASE + '/comment/playlist',{id})
 }
+/*
+* 14.获取私人FM
+* */
+export const getPrivateFm = () => {
+  return ajax( BASE + '/personal_fm')
+}

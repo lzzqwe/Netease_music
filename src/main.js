@@ -6,7 +6,16 @@ import './common/font/iconfont.css'
 import router from './router'
 import store from './store'
 
-import { Swipe, SwipeItem,Col, Row,Tab, Tabs,Image as VanImage,Form,Field,Button,Dialog } from 'vant';
+import { Swipe,
+  SwipeItem,
+  Col,
+  Row,Tab,
+  Tabs,
+  Image as VanImage,
+  Form,Field,
+  Button,Dialog,
+  NoticeBar
+  } from 'vant';
 
 Vue.use(Swipe)
   .use(SwipeItem)
@@ -19,6 +28,7 @@ Vue.use(Swipe)
   .use(Field)
   .use(Button)
   .use(Dialog)
+  .use(NoticeBar)
 
 Vue.config.productionTip = false
 

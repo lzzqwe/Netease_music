@@ -8,12 +8,12 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <base-scroll :data="recommednList" class="net-home">
+    <base-scroll :data="privateMusic" class="net-home">
       <div class="net-home-content">
         <div class="swiper-container">
           <div class="swiper-content">
             <van-swipe class="my-swipe" indicator-color="white">
-              <van-swipe-item :key="item.bannerId" v-for="(item) in swiper">
+              <van-swipe-item :key="item.bannerId" v-for="(item) in banners">
                 <img class="swip-item-img" width="100%" :src="item.pic" alt="">
               </van-swipe-item>
             </van-swipe>
@@ -158,8 +158,9 @@ import BaseSection from "../components/BaseSection";
 import BaseDivder from "../components/BaseDivder";
 import SearchInput from "../components/SearchInput";
 import SliderBar from "../components/SliderBar";
-import {getHomeSwiper,getRecommendList,getPrivateMusic,getHomeCircleIcon} from '../api/index.js'
+import {getRecommendList,getPrivateMusic,getHomeCircleIcon} from '../api/index.js'
 import {createSong} from '../common/js/song'
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name: 'NetHome',
   components:{
@@ -170,7 +171,7 @@ export default {
     SliderBar
   },
   created() {
-    this._getSwiper()
+    this.set_banners()
     this._getRecommedList()
     this._getPrivateMusic()
     this._getHomeCircleIcon()
@@ -180,19 +181,15 @@ export default {
       scrollX:true,
       isShowSetting:false,
       isShowSearch:false,
-      swiper:[],
       recommednList:[],
       privateMusic:[],
       navIcon:[]
     }
   },
+  computed:{
+    ...mapGetters(['banners'])
+  },
   methods:{
-    async _getSwiper() {
-      const res =await getHomeSwiper()
-      if(res.code===200) {
-        this.swiper = res.banners
-      }
-    },
     async _getRecommedList() {
       const res =await getRecommendList()
       if(res.code===200) {
@@ -235,7 +232,8 @@ export default {
     },
     close() {
       this.isShowSearch = false
-    }
+    },
+    ...mapActions(['set_banners'])
   }
 }
 </script>

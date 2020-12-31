@@ -9,7 +9,7 @@
     </transition>
     <base-scroll :data="list" :probe-type="probeType" :listen-scroll="listenScroll" @onscroll="scroll" class="day-recommend-wrap">
       <div>
-        <div :style="opacityStyle" class="day-recommend">
+        <div :style="{backgroundImage:`url(${banners[0].pic})`}"  class="day-recommend">
           <div class="date">
             <div class="title">
               <span class="large">22</span>/
@@ -24,7 +24,7 @@
         <div class="recommend-content">
           <base-sticky v-show="isShow"></base-sticky>
           <ul class="play-list">
-            <li :key="item.id" class="play-item" v-for="(item) in list">
+            <li @click="playSong(index)" :key="item.id" class="play-item" v-for="(item,index) in list">
               <div class="Thumbnails">
                 <img class="icon-img" :src="item.picUrl" alt="">
               </div>
@@ -58,6 +58,7 @@
   import BaseSticky from "./BaseSticky";
   import NavBar from "./NavBar";
   import NetLoading from "./NetLoading";
+  import {mapActions,mapGetters} from 'vuex'
   export default {
     name: "RecommendContent",
     components:{
@@ -88,6 +89,9 @@
     created() {
       this._getDayRecommend()
     },
+    computed:{
+      ...mapGetters(['banners'])
+    },
     methods:{
       async _getDayRecommend() {
         const res = await getDayRecommend()
@@ -95,6 +99,10 @@
           this.list = this._createSong(res.data.dailySongs)
         }
       },
+      playSong(index) {
+        this.select_play({playlist:this.list,index})
+      },
+      ...mapActions(['select_play']),
       _createSong (list) {
         const result= []
         list.forEach((item) => {
@@ -107,7 +115,6 @@
         let top = Math.abs(pos.y)
         let opacity = 0
         let backgroundColor ='#ffffff'
-        console.log(top)
         if(top >= 186) {
           this.opacityStyle = { opacity }
           this.barTitle='每日推荐'
@@ -137,9 +144,10 @@
     .nav-bar-wrap {
       position: fixed;
       top:32px;
-      left: 24px;
-      right: 24px;
+      left: 0;
+      right: 0;
       z-index:15;
+      padding: 0 24px;
       overflow: hidden;
     }
     .backgroud {
@@ -159,7 +167,6 @@
         height: 300px;
         box-sizing: border-box;
         padding: 32px 24px 0 24px;
-        background-image: url("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4229497013,2367969643&fm=26&gp=0.jpg");
         background-size: 540px 300px;
         background-repeat: no-repeat;
         color: rgb(233,255,255);

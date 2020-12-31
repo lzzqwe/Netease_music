@@ -6,6 +6,7 @@ import SongListDetail from "../views/SongListDetail";
 import DailylRecommend from "../views/DailylRecommend";
 import NetLogin from "../views/NetLogin";
 import NetRank from "../views/NetRank";
+import PersonalFm from "../views/PersonalFm";
 Vue.use(VueRouter)
 const routes = [{
     path: '/',
@@ -34,7 +35,11 @@ const routes = [{
   path:'/login',
   name:'NetLogin',
   component:NetLogin
-}
+},{
+    path:'/privatefm',
+    name:'PersonalFm',
+    component: PersonalFm
+  }
 ]
 
 

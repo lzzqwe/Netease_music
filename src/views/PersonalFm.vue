@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div v-show="$store.state.fullscreen"></div>
 </template>
 
 <script>

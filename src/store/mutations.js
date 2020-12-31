@@ -4,7 +4,7 @@ import {
   SET_CURRENTINDEX,
   SET_FULLSCREEN,
   GET_PRIVATEFM,
-  SET_PLAYINGSTATUS,
+  SET_PLAYING_STATUS,
   GET_COMMENT_NUM
 } from './mutation-types'
 export default {
@@ -23,7 +23,7 @@ export default {
   [GET_PRIVATEFM](state,{privateFm}) {
     state.privateFm = privateFm
   },
-  [SET_PLAYINGSTATUS](state,playing) {
+  [SET_PLAYING_STATUS](state,playing) {
     state.playing = playing
   },
   [GET_COMMENT_NUM](state,{totalCount}) {

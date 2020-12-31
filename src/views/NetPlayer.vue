@@ -1,5 +1,5 @@
 <template>
-   <div class="net-player">
+   <div v-if="$store.state.playList.length>0" class="net-player">
      <transition name="van-slide-up">
        <div v-show="$store.state.fullscreen" class="normal-player">
             <div :style="{backgroundImage:`url(${currentSong.picUrl})`}" class="background"></div>
@@ -74,12 +74,19 @@
       },
       watch:{
         currentSong(newSong,oldSong) {
+          console.log(newSong,oldSong)
           if(!newSong.id) {
             return
           }
-          this.$nextTick(() => {
+          console.log(newSong)
+          // this.$nextTick(() => {
+          //   this.$refs.audio.play()
+          // })
+
+          setTimeout(() => {
             this.$refs.audio.play()
-          })
+          },30)
+
         },
         playing(newPlaying,oldValue) {
           this.$nextTick(() => {

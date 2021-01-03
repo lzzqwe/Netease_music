@@ -8,7 +8,7 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <base-scroll :data="recommednList" class="net-home">
+    <base-scroll ref="netHome" :data="recommednList" class="net-home">
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
@@ -188,7 +188,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['banners'])
+    ...mapGetters(['banners','fullscreen'])
   },
   methods:{
     async _getRecommedList() {
@@ -242,6 +242,11 @@ export default {
       this.isShowSearch = false
     },
     ...mapActions(['set_banners'])
+  },
+  watch:{
+    fullscreen() {
+      this.$refs.netHome.refresh()
+    }
   }
 }
 </script>
@@ -263,7 +268,7 @@ export default {
     align-items: center;
     color: var(--font-color);
     background-color: var(--body-bgcolor);
-    z-index: 15;
+    z-index: 10;
     .iconliebiao {
       font-size: 28px;
     }

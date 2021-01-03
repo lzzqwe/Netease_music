@@ -31,14 +31,14 @@
           </div>
           <div class="song-detail-operation">
             <ul class="operation-list">
-              <li class="operator-item">
-                <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span><span>{{playlist.subscribedCount}}</span>
+              <li class="operator-item" v-if="playlist.subscribedCount">
+                <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span><span>{{_normalNum(playlist.subscribedCount,1)}}</span>
               </li>
-              <li @click="isShowComment" class="operator-item">
-                <span class="iconfont iconpinglun1"></span><span>{{playlist.commentCount}}</span>
+              <li @click="isShowComment" class="operator-item" v-if="playlist.commentCount">
+                <span class="iconfont iconpinglun1"></span><span>{{_normalNum(playlist.commentCount,1)}}</span>
               </li>
-              <li class="operator-item">
-                <span class="iconfont iconfenxiang1"></span><span>{{playlist.shareCount}}</span>
+              <li class="operator-item" v-if="playlist.shareCount">
+                <span class="iconfont iconfenxiang1"></span><span>{{_normalNum(playlist.shareCount,1)}}</span>
               </li>
             </ul>
           </div>
@@ -119,6 +119,17 @@
      methods:{
        isShowComment() {
          this.isShow =true
+       },
+       _normalNum(num,point) {
+         let numStr = num.toString();
+         if(numStr.length<6) {
+           return numStr
+         } else if(6<=numStr.length && numStr.length<=8) {
+           return parseInt(num/10000)+"万"
+         } else if(numStr.length>8) {//(1,3)
+           let decimal = numStr.substring(numStr.length-8,numStr.length-8+point)
+           return parseFloat(parseInt(num/100000000)+"."+decimal)+"亿"
+         }
        },
        playSong(index) {
          this.select_play({playlist:this.songs,index})

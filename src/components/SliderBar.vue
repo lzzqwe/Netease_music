@@ -2,17 +2,17 @@
   <transition name="van-slide-left">
     <div @click.self="toggle" v-show="isShowSetting" class="setting-wrap">
       <div class="setting">
-        <div class="avatar">
+        <div v-if="user.userId" class="avatar">
             <div class="avatar-image">
               <van-image
                 fit="cover"
                 round
-                src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1113177382,1537582296&fm=26&gp=0.jpg"
+                :src="user.avatarUrl"
               ></van-image>
             </div>
             <div class="user-name">
               <div class="name">
-                <span>liudehua</span>
+                <span>{{user.nickname}}</span>
                 <span class="iconfont icongengduo1"></span>
               </div>
               <div class="scan-code">
@@ -20,6 +20,24 @@
               </div>
             </div>
           </div>
+        <div v-else class="avatar">
+          <div class="avatar-image">
+            <van-image
+              fit="cover"
+              round
+              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F01%2F69%2F80%2F595f67c2aff1e_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612273689&t=46717d3dee2e757e5f1c0f7794bd112e"
+            ></van-image>
+          </div>
+          <div class="user-name">
+            <router-link to="/login" tag="div" class="name">
+              <span>立即登录</span>
+              <span class="iconfont icongengduo1"></span>
+            </router-link>
+            <div class="scan-code">
+              <span class="iconfont iconsaoma"></span>
+            </div>
+          </div>
+        </div>
         <base-scroll class="setting-content">
           <div>
             <div class="music-package">
@@ -63,6 +81,7 @@
   import storage from 'good-storage'
   import variables from "../common/themes/variables";
   import variablesBlack from '../common/themes/variables-black'
+  import {mapGetters} from 'vuex'
   const themes = {
     white:'white',
     dark:'dark'
@@ -78,6 +97,9 @@
       },
       components:{
         BaseScroll
+      },
+      computed:{
+        ...mapGetters(['user'])
       },
       created() {
         this.themeMap = {

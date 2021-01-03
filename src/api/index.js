@@ -97,3 +97,9 @@ export const getSongComment = (id) => {
 export const distinguishMusicUrl = (id) => {
   return ajax( BASE + '/check/music',{id})
 }
+/*
+* 17.获取歌词
+* */
+export const getlyric = (id) => {
+  return ajax( BASE + '/lyric',{id})
+}

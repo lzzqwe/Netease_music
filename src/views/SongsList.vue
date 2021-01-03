@@ -9,14 +9,14 @@
           <div class="song-list-content">
             <div class="song-swiper">
               <van-swipe v-show="needOne(index)" class="my-swipe" :autoplay="3000" indicator-color="white">
-                <van-swipe-item :key="index" v-for="(item,index) in songList.slice(0,3)">
+                <van-swipe-item @click="selectItem(item)" :key="index" v-for="(item,index) in songList.slice(0,3)">
                   <img width="100%" height="100%" :src="item.coverImgUrl" alt="">
                 </van-swipe-item>
               </van-swipe>
             </div>
             <keep-alive>
               <div class="songs-wrap">
-                <song-list :song-item="item" :key="index" v-for="(item,index) in songList.slice(3)"></song-list>
+                <song-list @select="selectItem(item)" :song-item="item" :key="index" v-for="(item,index) in songList.slice(3)"></song-list>
 <!--                <net-loading v-show="loading"></net-loading>-->
               </div>
             </keep-alive>
@@ -61,6 +61,9 @@
         } else {
           return false
         }
+      },
+      selectItem(item) {
+        this.$router.push(`/playlistCollection/${item.id}`)
       },
        loadMore() {
         this.loading = true

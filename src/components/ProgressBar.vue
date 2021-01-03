@@ -83,7 +83,7 @@
     display: flex;
     justify-content: space-between;
     color: rgb(185,191,200);
-    margin-top: 37px;
+    margin-top: 25px;
     align-items: center;
     /*position: relative;*/
     .time {

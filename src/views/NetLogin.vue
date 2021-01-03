@@ -42,9 +42,13 @@
             /*
             * 保存在localstorage
             * */
-            saveUserInfo(res.account)
+            saveUserInfo(res.profile)
             //保存在vuex中
-            this.save_user_info({userInfo: res.account})
+            this.save_user_info({userInfo: res.profile})
+            console.log(this.$route)
+            if(this.$route.path==='/login') {
+              this.$router.push('/')
+            }
           }
         },
         ...mapActions(['save_user_info'])

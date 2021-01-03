@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user.id" class="daily-recommend">
+  <div v-if="user.userId" class="daily-recommend">
     <recommend-content></recommend-content>
   </div>
   <div v-else>

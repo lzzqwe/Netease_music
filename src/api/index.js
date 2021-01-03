@@ -91,3 +91,9 @@ export const getPrivateFm = () => {
 export const getSongComment = (id) => {
   return ajax(BASE + '/comment/music',{id})
 }
+/*
+* 16.判断音乐是否可以用
+* */
+export const distinguishMusicUrl = (id) => {
+  return ajax( BASE + '/check/music',{id})
+}

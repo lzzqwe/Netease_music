@@ -111,6 +111,10 @@
 </script>
 <style lang="less" scoped>
 .song-piazza {
+  width: 100%;
+  height: 100%;
+  background-color: var(--body-bgcolor);
+  color: var(--font-color);
   .nav-bar-wrap {
     padding: 0 24px;
     background-color: rgb(193,197,201);

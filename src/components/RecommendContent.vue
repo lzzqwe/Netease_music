@@ -1,6 +1,6 @@
 <template>
   <div class="recommend-content-wrap">
-    <div :style="backgroundStyle" class="nav-bar-wrap">
+    <div class="nav-bar-wrap">
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
     <base-sticky :style="paddingStyle" v-show="showPlay"></base-sticky>
@@ -38,7 +38,7 @@
                   </div>
                 </div>
                 <div class="play-icon">
-                  <span class="iconfont iconbofang6"></span>
+                  <span v-show="item.mvId" class="iconfont iconbofang6"></span>
                   <span class="iconfont iconsandian"></span>
                 </div>
               </div>
@@ -106,7 +106,13 @@
       _createSong (list) {
         const result= []
         list.forEach((item) => {
-          result.push(createSong({id:item.id,picUrl:item.al.picUrl,duration:item.dt,singer:item.ar[0].name,name:item.name}))
+          result.push(createSong({id:item.id,
+            picUrl:item.al.picUrl,
+            duration:item.dt,
+            singer:item.ar[0].name,
+            name:item.name,
+            mvId:item.mv
+          }))
         })
         return result
       },
@@ -141,6 +147,8 @@
     top:0;
     bottom: 0;
     width: 100%;
+    background-color: var(--body-bgcolor);
+    color: var(--font-color);
     .nav-bar-wrap {
       position: fixed;
       top:32px;
@@ -149,10 +157,10 @@
       z-index:15;
       padding: 0 24px;
       overflow: hidden;
+      background-color: var(--body-bgcolor);
     }
     .backgroud {
       height: 32px;
-      background-color: #ffffff;
       position: fixed;
       top: 0;
       width: 100%;
@@ -207,7 +215,6 @@
           top: 114px;
           .play {
             font-size: 23px;
-            color: rgb(51,51,51);
             .iconbofang7 {
               font-size: 30px;
               margin-right: 23px;

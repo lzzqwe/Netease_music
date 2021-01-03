@@ -5,7 +5,8 @@ import {
   SET_FULLSCREEN,
   GET_PRIVATEFM,
   SET_PLAYING_STATUS,
-  GET_COMMENT_NUM
+  GET_COMMENT_NUM,
+  SAVE_USER_INFO
 } from './mutation-types'
 export default {
   [SET_FULLSCREEN](state,fullscreen) {
@@ -28,5 +29,8 @@ export default {
   },
   [GET_COMMENT_NUM](state,{totalCount}) {
     state.totalCount = totalCount
+  },
+  [SAVE_USER_INFO](state,{userInfo}) {
+    state.user = userInfo
   }
 }

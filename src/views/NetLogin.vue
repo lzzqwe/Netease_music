@@ -25,6 +25,8 @@
 
 <script>
   import {getLogin} from '../api/index.js'
+  import {saveUserInfo} from '../common/js/cache'
+  import {mapActions} from 'vuex'
     export default {
       name: "NetLogin",
       data() {
@@ -37,12 +39,16 @@
       async onSubmit() {
           const res = await getLogin(this.username,this.password)
           if(res.code===200) {
-            const {token} = res
-            localStorage.setItem('netToken',token)
-           this.$store.commit('save',res.account)
+            /*
+            * 保存在localstorage
+            * */
+            saveUserInfo(res.account)
+            //保存在vuex中
+            this.save_user_info({userInfo: res.account})
           }
         },
-      },
+        ...mapActions(['save_user_info'])
+      }
     }
 </script>
 

@@ -76,7 +76,7 @@
                     </div>
                   </div>
                   <div class="play-icon">
-                    <span class="iconfont iconbofang6"></span>
+                    <span v-show="item.mvId" class="iconfont iconbofang6"></span>
                     <span class="iconfont iconsandian"></span>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
           <net-loading v-show="!this.songs.length"></net-loading>
         </div>
       </base-scroll>
-      <net-comment :playlist="playlist" :id="id" v-if="isShow"></net-comment>
+      <net-comment :get-comment="getCommentPlaylist" :playlist="playlist" :id="id" v-if="isShow"></net-comment>
     </div>
 </template>
 
@@ -95,7 +95,7 @@
    import NetLoading from "../components/NetLoading";
    import BaseScroll from "../components/BaseScroll";
    import NetComment from "../components/NetComment";
-   import {getSongListDetail,getAllSongs} from '../api/index'
+   import {getSongListDetail,getAllSongs,getCommentPlaylist} from '../api/index'
    import {createSong} from '../common/js/song'
    import {mapActions} from 'vuex'
    export default {
@@ -112,7 +112,8 @@
          barTitle:'歌单',
          playlist:{},
          songs:[],
-         isShow:false
+         isShow:false,
+         getCommentPlaylist:getCommentPlaylist
        }
      },
      methods:{
@@ -155,7 +156,8 @@
              picUrl:item.al.picUrl,
              duration:item.dt,
              singer:item.ar[0].name,
-             name:item.name
+             name:item.name,
+             mvId:item.mv
            }))
          })
          return songs
@@ -175,7 +177,8 @@
   bottom: 0;
   width: 100%;
   z-index: 5;
-  background-color: #ffffff;
+  background-color: var(--body-bgcolor);
+  color: var(--font-color);
   .nav-bar-wrap {
     padding: 32px 24px 0 24px;
     position: fixed;
@@ -281,7 +284,7 @@
       }
     }
     .song-detail-operation {
-      background-color: rgb(250,250,250);
+      background-color: var(--song-detail-operation-color);
       height: 60px;
       position: absolute;
       top: 365px;
@@ -290,6 +293,7 @@
       border-radius: 30px;
       padding: 0 41px;
       box-shadow: 0 15px 30px  rgba(0, 0, 0, .4);
+      color: var(--font-color);
       .operation-list {
         display: flex;
         justify-content: space-between;
@@ -299,7 +303,7 @@
           font-size: 14px;
           display: flex;
           align-items: center;
-          border-right: 1px solid rgb(226,226,226);
+          border-right: 1px solid var(--border-right-color);
           padding-right: 23px;
           &:last-child {
             padding-right: 0;
@@ -372,12 +376,10 @@
       .down-select {
         .iconxiazai {
           font-size: 25px;
-          color: rgb(51,51,51);
           margin-right: 25px;
         }
         .iconquanxuan {
           font-size: 25px;
-          color: rgb(51,51,51);
         }
       }
     }

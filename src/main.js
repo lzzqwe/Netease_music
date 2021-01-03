@@ -14,7 +14,8 @@ import { Swipe,
   Image as VanImage,
   Form,Field,
   Button,Dialog,
-  NoticeBar
+  NoticeBar,
+  Switch
   } from 'vant';
 
 Vue.use(Swipe)
@@ -29,6 +30,7 @@ Vue.use(Swipe)
   .use(Button)
   .use(Dialog)
   .use(NoticeBar)
+  .use(Switch)
 
 Vue.config.productionTip = false
 

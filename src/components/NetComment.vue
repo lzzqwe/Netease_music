@@ -34,7 +34,7 @@
                 <div class="avatar">
                   <img class="avatar-img" :src="item.user.avatarUrl" alt="">
                 </div>
-                <div class="comment-info">
+                <div class="comment-info van-hairline--bottom">
                   <div class="user">
                     <div class="name">
                       <span class="nickname">{{item.user.nickname}}</span>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {getCommentPlaylist} from '../api/index.js'
+  // import {getCommentPlaylist} from '../api/index.js'
   import BaseDivder from "./BaseDivder";
   import NavBar from "./NavBar";
   import BaseScroll from "./BaseScroll";
@@ -71,6 +71,9 @@
         },
         playlist:{
           type:Object
+        },
+        getComment:{
+          type:Function
         }
       },
       data() {
@@ -94,7 +97,7 @@
       },
       methods:{
         async _getCommentPlaylist(id) {
-          const res = await getCommentPlaylist(id)
+          const res = await this.getComment(id)
           if(res.code === 200) {
              this.comment = this.comment.concat(res.hotComments.slice(0,5),res.comments)
           }
@@ -110,7 +113,8 @@
   bottom: 0;
   width: 100%;
   z-index:100;
-  background-color: #ffffff;
+  background-color: var(--body-bgcolor);
+  color: var(--font-color);
   .nav-bar-wrap {
     padding: 32px 24px 0 24px;
   }
@@ -213,7 +217,6 @@
           .comment-info {
             margin-left: 15px;
             flex: 1;
-            border-bottom: 1px solid rgb(236,236,236);
             padding-bottom: 25px;
             .user {
               display: flex;
@@ -246,7 +249,6 @@
               font-size: 18px;
               margin-top: 23px;
               line-height: 32px;
-              color: rgb(51,51,51);
             }
           }
         }

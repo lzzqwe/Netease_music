@@ -8,11 +8,11 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <base-scroll :data="privateMusic" class="net-home">
+    <base-scroll :data="recommednList" class="net-home">
       <div class="net-home-content">
-        <div class="swiper-container">
+        <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
-            <van-swipe class="my-swipe" indicator-color="white">
+            <van-swipe @change="onChange" class="my-swipe" indicator-color="white">
               <van-swipe-item :key="item.bannerId" v-for="(item) in banners">
                 <img class="swip-item-img" width="100%" :src="item.pic" alt="">
               </van-swipe-item>
@@ -85,7 +85,7 @@
           </div>
           <div class="private-song-wrap">
             <div class="private-song-content">
-              <van-swipe class="my-swipe" indicator-color="white">
+              <van-swipe  class="my-swipe" indicator-color="white">
                 <van-swipe-item>
                   <ul class="private-song-list">
                     <li :key="item.id" v-for="(item) in privateMusic.slice(0,3)" class="item">
@@ -97,9 +97,9 @@
                         <div class="name">
                           <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
                         </div>
-                        <div class="lyric-overview">
-                          <span class="quality"></span>我曾以为我会永远守护在她身旁
-                        </div>
+<!--                        <div class="lyric-overview">-->
+<!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
+<!--                        </div>-->
                       </div>
                     </li>
                   </ul>
@@ -115,9 +115,9 @@
                         <div class="name">
                           <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
                         </div>
-                        <div class="lyric-overview">
-                          <span class="quality"></span>我曾以为我会永远守护在她身旁
-                        </div>
+<!--                        <div class="lyric-overview">-->
+<!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
+<!--                        </div>-->
                       </div>
                     </li>
                   </ul>
@@ -133,9 +133,9 @@
                         <div class="name">
                           <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
                         </div>
-                        <div class="lyric-overview">
-                          <span class="quality"></span>我曾以为我会永远守护在她身旁
-                        </div>
+<!--                        <div class="lyric-overview">-->
+<!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
+<!--                        </div>-->
                       </div>
                     </li>
                   </ul>
@@ -183,7 +183,8 @@ export default {
       isShowSearch:false,
       recommednList:[],
       privateMusic:[],
-      navIcon:[]
+      navIcon:[],
+      bacUrl:''
     }
   },
   computed:{
@@ -196,6 +197,9 @@ export default {
         this.recommednList = res.result
       }
     },
+    onChange(index) {
+      // this.bacUrl = `url(${this.banners[index].pic})`
+    },
     _createSong(res) {
       let result = []
       res.forEach((item) => {
@@ -204,7 +208,8 @@ export default {
           picUrl:item.picUrl,
           duration:item.song.duration,
           singer:item.song.artists[0].name,
-          name:item.name
+          name:item.name,
+          mvId:item.mv
         }))
       })
       return result
@@ -218,7 +223,10 @@ export default {
     async _getHomeCircleIcon() {
       const res = await getHomeCircleIcon()
       if(res.code===200) {
-        this.navIcon = res.data
+        const nav = res.data
+        nav[4].name='mv'
+        nav[4].url='orpheus://mv'
+        this.navIcon = nav
       }
     },
     handleString(str) {
@@ -238,15 +246,24 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@import '~../common/less/variable.less';
 .net-home-wrap {
   width: 100%;
   height: 100%;
+  background-color: var(--body-bgcolor);
+  color: var(--font-color);
   .search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
     display: flex;
     padding: 16px 24px 28px 24px;
     align-items: center;
-    background-color: #eae8e6;
-    color:#2d2d2d;
+    color: var(--font-color);
+    background-color: var(--body-bgcolor);
+    z-index: 15;
     .iconliebiao {
       font-size: 28px;
     }
@@ -259,7 +276,7 @@ export default {
       display: flex;
       align-items: center;
       padding-left: 23px;
-      font-size: 14px;
+      font-size:@font_size_small-s;
       color: #989898;
       .iconsousuo {
         font-size: 30px;
@@ -272,13 +289,28 @@ export default {
   }
   .net-home {
     overflow: hidden;
-    position: fixed;
-    top: 97px;
-    bottom: 0;
+    /*position: fixed;*/
+    /*top: 97px;*/
+    /*bottom: 0;*/
+    height: 100%;
     width: 100%;
+    /*box-sizing: border-box;*/
     .net-home-content {
       .swiper-container {
-        background-color: #eae8e6;
+        background-color: var(--body-bgcolor);
+        color: var(--font-color);
+        padding-top: 97px;
+        position: relative;
+        &:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          /*background-image: var(--bacUrl);*/
+          filter: blur(200px);
+          background-size: 100% 100%;
+        }
         .swiper-content {
           padding: 0 24px 0 24px;
           .my-swipe {
@@ -305,7 +337,7 @@ export default {
         padding: 24px 0 24px 0;
         margin-left: 24px;
         margin-right: 24px;
-        background-color: #fff;
+        overflow: hidden;
         .nav-content {
           display: flex;
           width: 754px;
@@ -330,8 +362,7 @@ export default {
               }
             }
             .text {
-              font-size: 14px;
-              color: #333;
+              font-size: @font_size_small-s;
             }
           }
         }
@@ -342,16 +373,15 @@ export default {
         position: relative;
         .custom-made-title {
           .title {
-            font-size: 16px;
+            font-size: @font_size_small;
             margin-bottom: 10px;
             color: rgb(179,179,179);
           }
           .refresh {
             font-size: 26px;
             font-weight: 600;
-            color: rgb(51,51,51);
             .iconrefresh {
-              font-size: 26px;
+              font-size: @font_size_large;
               margin-right: 11px;
             }
           }
@@ -362,13 +392,12 @@ export default {
           right: 0;
           width: 85px;
           height: 37px;
-          border: 1px solid rgb(230,230,230);
+          border: 1px solid var(--btn-border-color);
           border-radius: 12px;
           display: flex;
           justify-content: center;
           align-items: center;
-          color: rgb(51,51,51);
-          font-size: 18px;
+          font-size: @font_size_medium-s;
           .iconbofang4 {
             margin-right: 5px;
           }
@@ -413,14 +442,14 @@ export default {
                         border-bottom: 0;
                       }
                       .name {
-                        font-size: 16px;
+                        font-size: @font_size_small;
                         display: flex;
                         align-items: center;
                         color: rgb(153,153,153);
                         margin-top: 15px;
                         margin-bottom: 15px;
                         .text {
-                          font-size: 22px;
+                          font-size: @font_size_medium-l;
                           color: rgb(51,51,51);
                         }
                         .horizontal {
@@ -429,7 +458,7 @@ export default {
                       }
                       .lyric-overview {
                         padding-bottom: 18px;
-                        font-size: 18px;
+                        font-size: @font_size_medium-s;
                       }
                     }
                   }

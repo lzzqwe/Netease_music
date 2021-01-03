@@ -11,6 +11,6 @@
 <style lang="less" scoped>
   .divder {
     height: 15px;
-    background-color: rgb(245,245,245);
+    background-color: var(--divder-color);
   }
 </style>

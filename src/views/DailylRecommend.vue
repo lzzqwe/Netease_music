@@ -1,5 +1,5 @@
 <template>
-  <div v-if="token" class="daily-recommend">
+  <div v-if="user.id" class="daily-recommend">
     <recommend-content></recommend-content>
   </div>
   <div v-else>
@@ -10,11 +10,11 @@
 <script>
     import NetLogin from "./NetLogin";
     import RecommendContent from "../components/RecommendContent";
+    import {mapGetters} from 'vuex'
     export default {
       name: "DailyRecommend",
       data() {
         return {
-          token:localStorage.netToken,
           dailySongs:[]
         }
       },
@@ -22,8 +22,8 @@
         NetLogin,
         RecommendContent
       },
-      methods:{
-
+      computed:{
+        ...mapGetters(['user'])
       },
       mounted() {
         const token = localStorage.netToken

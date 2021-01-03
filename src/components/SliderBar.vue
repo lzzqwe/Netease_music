@@ -1,6 +1,6 @@
 <template>
   <transition name="van-slide-left">
-    <div @click="toggle" v-show="isShowSetting" class="setting-wrap">
+    <div @click.self="toggle" v-show="isShowSetting" class="setting-wrap">
       <div class="setting">
         <div class="avatar">
             <div class="avatar-image">
@@ -44,59 +44,10 @@
               <ul class="info-center-list">
                 <li class="list-item">
                   <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
+                    <span class="iconfont iconcomiisyejianmoshi"></span>
+                    <span class="text">夜间模式</span>
                   </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
-                </li>
-                <li class="list-item">
-                  <div class="infomation">
-                    <span class="iconfont iconicon-test1"></span>
-                    <span class="text">我的消息</span>
-                  </div>
-                  <span class="iconfont icongengduo1"></span>
+                  <van-switch @change="change" v-model="checked" />
                 </li>
               </ul>
             </div>
@@ -109,6 +60,15 @@
 
 <script>
   import BaseScroll from "./BaseScroll";
+  import storage from 'good-storage'
+  import variables from "../common/themes/variables";
+  import variablesBlack from '../common/themes/variables-black'
+  const themes = {
+    white:'white',
+    dark:'dark'
+  }
+  const THEME_KEY = '__theme__'
+  const CHECK_KEY = '__check__'
     export default {
       name: "SliderBar",
       props:{
@@ -119,28 +79,73 @@
       components:{
         BaseScroll
       },
+      created() {
+        this.themeMap = {
+          [themes.white]:{
+            file:variables,
+            title:'浅色'
+          },
+          [themes.dark]:{
+            file: variablesBlack,
+            title:'黑色'
+          }
+        }
+        this.initTheme()
+      },
+      data() {
+        return {
+          checked:false || storage.get(CHECK_KEY)
+        }
+      },
       methods:{
         toggle() {
           this.$emit('toggle')
+        },
+        initTheme() {
+          if(!storage.get(THEME_KEY)) {
+            this.changeThems(storage.get(THEME_KEY,themes.white))
+          } else {
+            this.changeThems(storage.get(THEME_KEY))
+          }
+        },
+        changeThems(themeKey) {
+          storage.set(THEME_KEY,themeKey)
+          const theme = this.themeMap[themeKey].file
+          Object.keys(theme).forEach((key) => {
+            const value = theme[key]
+            document.documentElement.style.setProperty(key,value)
+          })
+        },
+        change(flag) {
+          if(flag) {
+            storage.set(CHECK_KEY,flag)
+            this.changeThems(themes.dark)
+          } else {
+            storage.set(CHECK_KEY,false)
+            this.changeThems(themes.white)
+          }
+
         }
       }
     }
 </script>
 
 <style lang="less" scoped>
+  @import '~../common/less/variable.less';
   .setting-wrap {
     position: fixed;
     top: 0;
     bottom: 0;
     width:100%;
-    z-index: 10;
     background-color: rgba(102,102,102,0.5);
+    z-index: 20;
     .setting {
       position: absolute;
       top: 0;
       bottom: 0;
       width: 454px;
-      background-color: rgb(245,245,245);
+      background-color: var(--body-bgcolor);
+      color: var(--font-color);
       .setting-content {
         position: fixed;
         top: 64px;
@@ -166,13 +171,13 @@
               }
               .web-font {
                 font-family: "webfont" !important;
-                font-size: 27px;
+                font-size: @font_size_large-l;
                 font-style: normal;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
               }
               .desc {
-                font-size: 16px;
+                font-size: @font_size_small;
                 color: rgb(216,216,216);
                 display: flex;
                 .text {
@@ -189,7 +194,7 @@
               border-radius: 17px;
               border: 1px solid rgb(238,238,238);
               color: rgb(238,238,238);
-              font-size: 18px;
+              font-size: @font_size_medium-s;
             }
           }
           .member-system {
@@ -199,7 +204,7 @@
             margin-top: 15px;
             align-items: center;
             color: rgb(215,215,215);
-            font-size: 18px;
+            font-size: @font_size_medium-s;
           }
         }
         .info-center {
@@ -215,16 +220,16 @@
                 border-bottom: 0;
               }
               .infomation {
-                font-size: 20px;
+                font-size: @font_size_medium;
                 .iconicon-test1 {
-                  font-size: 22px;
+                  font-size: @font_size_medium-l;
                 }
                 .text {
                   margin-left: 18px;
                 }
               }
               .icongengduo1 {
-                font-size: 22px;
+                font-size: @font_size_medium-l;
                 color: rgb(204,204,204);
               }
             }
@@ -246,18 +251,17 @@
           justify-content: space-between;
           align-items: center;
           .name {
-            font-size: 18px;
-            color: rgb(49,49,49);
+            font-size: @font_size_medium-s;
             .icongengduo1 {
               margin-left: 9px;
-              font-size: 18px;
+              font-size: @font_size_medium-s;
             }
           }
           .scan-code {
             width: 32px;
             height: 32px;
             .iconsaoma {
-              font-size: 32px;
+              font-size: @font_size_giant;
             }
           }
         }

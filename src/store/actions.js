@@ -6,7 +6,8 @@ import {SET_BANNERS,
   SET_FULLSCREEN,
   GET_PRIVATEFM,
   SET_PLAYING_STATUS,
-  GET_COMMENT_NUM
+  GET_COMMENT_NUM,
+  SAVE_USER_INFO
 } from './mutation-types'
 export default {
   async set_banners({commit}) {
@@ -35,5 +36,8 @@ export default {
     })
     commit(GET_PRIVATEFM,{privateFm:result})
     await dispatch('select_play',{playlist:state.privateFm,index:0})
+  },
+  save_user_info({commit},{userInfo}) {
+    commit(SAVE_USER_INFO,{userInfo})
   }
 }

@@ -155,6 +155,8 @@
   top: 0;
   bottom: 0;
   width: 100%;
+  background-color: var(--body-bgcolor);
+  color: var(--font-color);
   .nav-bar-wrap {
     position: fixed;
     top: 0;

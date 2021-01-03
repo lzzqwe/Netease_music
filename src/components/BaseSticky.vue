@@ -23,7 +23,8 @@
     position: sticky;
     top: 114px;
     overflow: hidden;
-    background-color: #ffffff;
+    background-color: var(--body-bgcolor);
+    color: var(--font-color);
     z-index: 14;
     .play {
       font-size: 23px;

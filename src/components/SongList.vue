@@ -73,7 +73,7 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       font-size: 16px;
-      color: #2f2f2f;
+      color: var(--font-color);
       line-height: 26px;
     }
   }

@@ -172,13 +172,15 @@
 </script>
 
 <style lang="less" scoped>
+  @import '~../common/less/variable.less';
   .search-input-wrap {
     position: fixed;
     top: 0;
     bottom: 0;
     width:100%;
-    z-index: 11;
-    background-color: #ffffff;
+    z-index: 21;
+    background-color: var(--body-bgcolor);
+    color: var(--font-color);
     .input-content {
       display: flex;
       padding-left: 27px;
@@ -190,7 +192,7 @@
       z-index: 10;
       overflow: hidden;
       .iconxia {
-        font-size: 26px;
+        font-size: @font_size_large;
         margin-right: 27px;
         flex: 0 0 26px;
       }
@@ -214,7 +216,7 @@
         }
         flex: 1;
         .input-value {
-          font-size: 20px;
+          font-size: @font_size_medium;
           line-height: 20px;
           color: rgb(179,179,179);
           box-sizing: border-box;
@@ -248,7 +250,7 @@
           justify-content: space-between;
           align-items: center;
           .title {
-            font-size: 20px;
+            font-size: @font_size_medium;
             font-weight: 600;
             margin-right: 24px;
           }
@@ -264,7 +266,7 @@
                 background-color: rgb(243,243,243);
                 color: rgb(49,49,49);
                 border-radius: 20px;
-                font-size: 18px;
+                font-size: @font_size_medium-s;
                 &:last-child {
                   margin-right: 0;
                 }
@@ -272,7 +274,7 @@
             }
           }
           .iconlajitong {
-            font-size: 24px;
+            font-size: @font_size_large-s;
             margin-left: 24px;
           }
         }
@@ -285,7 +287,7 @@
             padding: 35px 0 17px 0;
             border-bottom: 1px solid rgb(230,230,230);
             .hot-title {
-              font-size: 20px;
+              font-size: @font_size_medium;
               font-weight: 600;
             }
             .hot-play {

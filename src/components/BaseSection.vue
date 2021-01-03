@@ -52,32 +52,35 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  @import '~../common/less/variable.less';
 .section {
   margin-left: 24px;
   margin-right: 24px;
   padding: 18px 0 29px 0;
-  border-top: 1px solid rgb(230,230,230);
+  border-top: 1px solid rgb(var(--font-color));
+  color: var(--font-color);
   .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
     .text {
-      font-size: 26px;
+      font-size: @font_size_large;
       font-weight: 600;
     }
     .more {
       width: 79px;
       height: 37px;
-      border: 1px solid #e5e5e5;
+      border: 1px solid var(--btn-border-color);
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 16px;
-      font-size: 14px;
+      font-size: @font_size_small-s;
     }
   }
   .song-list-wrap {
+    overflow: hidden;
     .song-list-content {
       display: flex;
       width: 1734px;
@@ -108,9 +111,9 @@ export default {
             justify-content: center;
             align-items: center;
             color: rgb(255,255,255);
-            font-size: 12px;
+            font-size: @font_size_small-m;
             .iconbofangliang1 {
-              font-size: 12px;
+              font-size: @font_size_small-m;
               margin-right: 5px;
             }
           }
@@ -123,8 +126,7 @@ export default {
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
-          font-size: 16px;
-          color: #2f2f2f;
+          font-size: @font_size_small;
           line-height: 26px;
         }
       }

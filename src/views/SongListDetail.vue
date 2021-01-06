@@ -3,7 +3,7 @@
       <div class="nav-bar-wrap">
         <nav-bar :bar-title="barTitle"></nav-bar>
       </div>
-      <base-scroll :data="songs" class="song-list-wrap">
+      <base-scroll ref="songs" :bounce="bounce" :data="songs" class="song-list-wrap">
         <div>
           <div class="background-wrap">
             <div :style="{backgroundImage:`url(${playlist.coverImgUrl})`}" class="song-list-background"> </div>
@@ -34,8 +34,10 @@
               <li class="operator-item" v-if="playlist.subscribedCount">
                 <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span><span>{{_normalNum(playlist.subscribedCount,1)}}</span>
               </li>
-              <li @click="isShowComment" class="operator-item" v-if="playlist.commentCount">
-                <span class="iconfont iconpinglun1"></span><span>{{_normalNum(playlist.commentCount,1)}}</span>
+              <li @click="isShowComment" class="operator-item">
+                <span class="iconfont iconpinglun1"></span>
+                <span v-if="playlist.commentCount">{{_normalNum(playlist.commentCount,1)}}</span>
+                <span v-else>评论</span>
               </li>
               <li class="operator-item" v-if="playlist.shareCount">
                 <span class="iconfont iconfenxiang1"></span><span>{{_normalNum(playlist.shareCount,1)}}</span>
@@ -86,7 +88,6 @@
           <net-loading v-show="!this.songs.length"></net-loading>
         </div>
       </base-scroll>
-      <net-comment :get-comment="getCommentPlaylist" :playlist="playlist" :id="id" v-if="isShow"></net-comment>
     </div>
 </template>
 
@@ -94,31 +95,50 @@
    import NavBar from "../components/NavBar";
    import NetLoading from "../components/NetLoading";
    import BaseScroll from "../components/BaseScroll";
-   import NetComment from "../components/NetComment";
-   import {getSongListDetail,getAllSongs,getCommentPlaylist} from '../api/index'
+   import {getSongListDetail,getAllSongs} from '../api/index'
    import {createSong} from '../common/js/song'
-   import {mapActions} from 'vuex'
+   import {mapActions,mapGetters} from 'vuex'
    export default {
      name: "SongListDetail",
      components:{
        NavBar,
        BaseScroll,
-       NetComment,
        NetLoading
+     },
+     created() {
+       this._getSongListDetail(this.songListId)
+     },
+     mounted() {
+       this.handlePlaylist(this.playList)
+     },
+     computed:{
+       ...mapGetters(['playList'])
      },
      data() {
        return {
-         id:Number(this.$route.params.id),
+         songListId:Number(this.$route.params.id),
          barTitle:'歌单',
          playlist:{},
          songs:[],
          isShow:false,
-         getCommentPlaylist:getCommentPlaylist
+         bounce:{
+           top: false,
+           bottom: true,
+           left: true,
+           right: true
+         }
        }
      },
      methods:{
+       handlePlaylist(playList) {
+         if(playList.length>0) {
+           this.$refs.songs.$el.classList.add('bottom')
+         } else {
+           this.$refs.songs.$el.classList.remove('bottom')
+         }
+       },
        isShowComment() {
-         this.isShow =true
+         this.$router.push(`/comment?songListId=${this.songListId}`)
        },
        _normalNum(num,point) {
          let numStr = num.toString();
@@ -134,12 +154,18 @@
        playSong(index) {
          this.select_play({playlist:this.songs,index})
        },
-       ...mapActions(['select_play']),
+       ...mapActions(['select_play','save_obj']),
        async _getSongListDetail(id) {
          const res = await getSongListDetail(id)
          try {
            if(res.code === 200) {
              this.playlist = res.playlist
+             const obj =createSong({
+               picUrl:this.playlist.coverImgUrl,
+               name:this.playlist.name,
+               singer:this.playlist.creator.nickname
+             })
+             this.save_obj({obj})
            }
            this._normalizeSongs(res.playlist)
          } catch (e) {
@@ -173,11 +199,7 @@
          })
          return songs
        },
-       // ...mapMutations(['isFullscreen'])
-     },
-     created() {
-       this._getSongListDetail(this.id)
-     },
+     }
    }
 </script>
 
@@ -199,16 +221,21 @@
     z-index: 1;
   }
   .song-list-wrap {
-    position: relative;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     overflow: hidden;
+    &.bottom {
+      bottom: 82px;
+    }
     .background-wrap {
       overflow: hidden;
       .song-list-background {
         height: 400px;
         width: 100%;
         position: relative;
-        background-image: url("http://p3.music.126.net/1sH2hLcE5vNY_47m47pF9Q==/109951165351179804.jpg");
         background-size: cover;
         filter: blur(20px);
         background-repeat: no-repeat;

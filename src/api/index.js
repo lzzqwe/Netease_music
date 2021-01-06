@@ -103,3 +103,9 @@ export const distinguishMusicUrl = (id) => {
 export const getlyric = (id) => {
   return ajax( BASE + '/lyric',{id})
 }
+/*
+* 18.搜索
+* */
+export const getSearch = (keywords,type=1018) => {
+  return ajax( BASE + '/search',{keywords,type})
+}

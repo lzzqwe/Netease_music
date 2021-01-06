@@ -8,5 +8,6 @@ export default {
   banners:[],
   privateFm:[],
   playing:false,
-  totalCount:0
+  totalCount:0,
+  obj:{}
 }

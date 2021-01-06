@@ -3,7 +3,7 @@
     <div class="nav-bar-wrap">
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
-    <base-scroll class="net-rank-wrap">
+    <base-scroll ref="netRank" class="net-rank-wrap">
       <div class="net-rank-content">
         <rank-list></rank-list>
         <div class="rank-official">
@@ -134,12 +134,29 @@
   import NavBar from "../components/NavBar";
   import RankList from "../components/RankList";
   import BaseScroll from "../components/BaseScroll";
+  import {mapActions,mapGetters} from 'vuex'
   export default {
     name: "NetRank",
     components:{
       NavBar,
       RankList,
       BaseScroll
+    },
+    mounted() {
+      this.handlePlaylist(this.playList)
+    },
+    computed: {
+      ...mapGetters(['playList'])
+    },
+    methods:{
+      handlePlaylist(playList) {
+        if(playList.length>0) {
+          this.$refs.netRank.$el.classList.add('bottom')
+        } else {
+          this.$refs.netRank.$el.classList.remove('bottom')
+        }
+        this.$refs.netRank.refresh()
+      }
     },
     data() {
       return {
@@ -170,6 +187,9 @@
     bottom: 0;
     width: 100%;
     overflow: hidden;
+    &.bottom {
+      bottom: 82px;
+    }
     .net-rank-content {
       .rank-official {
         padding: 0 24px;

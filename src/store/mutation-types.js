@@ -6,4 +6,5 @@ export const GET_PRIVATEFM = 'get_privateFm'
 export const GET_COMMENT_NUM ='get_comment_num'
 export const SET_PLAYING_STATUS = 'set_playing_status'
 export const SAVE_USER_INFO = 'save_user_info'
+export const SET_OBJ = 'set_obj'
 

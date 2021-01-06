@@ -41,7 +41,7 @@
                   <span class="iconfont iconshoucang"></span>
                   <span class="iconfont icondibar-xiazai"></span>
                   <span class="iconfont iconicon-test"></span>
-                  <span class="iconfont iconpinglun1">
+                  <span @click.stop="selectComment" class="iconfont iconpinglun1">
                   <span class="comment-count">{{totalCount}}</span>
                 </span>
                   <span class="iconfont iconsandian"></span>
@@ -132,6 +132,9 @@
         },
         showPlayer() {
           this.set_fullscreen(true)
+        },
+        selectComment() {
+          this.$router.push(`/comment?id=${this.currentSong.id}`)
         },
         onPercentChange(percent) {
           console.log(percent)

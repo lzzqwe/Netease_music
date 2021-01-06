@@ -8,7 +8,7 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <base-scroll ref="netHome" :data="recommednList" class="net-home">
+    <base-scroll :delay-time="delayTime" ref="netHome" :data="privateMusic" class="net-home">
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
@@ -27,48 +27,6 @@
               </div>
               <p class="text">{{item.name}}</p>
             </router-link>
-<!--            <li class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/private-fm.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">私人FM</p>-->
-<!--            </li>-->
-<!--            <router-link tag="li" to="/songslist" class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/song-list.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">歌单</p>-->
-<!--            </router-link>-->
-<!--            <router-link tag="li" to="/rank" class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/rank.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">排行榜</p>-->
-<!--            </router-link>-->
-<!--            <li class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/live-play.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">直播</p>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/num-album.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">数字专辑</p>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/sing-chat.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">唱聊</p>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--              <div class="nav-icon">-->
-<!--                <img class="img" src="../assets/game-zone.gif" alt="">-->
-<!--              </div>-->
-<!--              <p class="text">游戏专区</p>-->
-<!--            </li>-->
           </ul>
         </base-scroll>
         <base-section :recommend-list="recommednList" title="推荐歌单"></base-section>
@@ -85,62 +43,22 @@
           </div>
           <div class="private-song-wrap">
             <div class="private-song-content">
-              <van-swipe  class="my-swipe" indicator-color="white">
-                <van-swipe-item>
-                  <ul class="private-song-list">
-                    <li :key="item.id" v-for="(item) in privateMusic.slice(0,3)" class="item">
-                      <div class="cover">
-                        <img class="cover-imgage" :src="item.picUrl" alt="">
-                        <span class="iconfont iconbofangliang1"></span>
-                      </div>
-                      <div class="desc">
-                        <div class="name">
-                          <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
-                        </div>
-<!--                        <div class="lyric-overview">-->
-<!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
-<!--                        </div>-->
-                      </div>
-                    </li>
-                  </ul>
-                </van-swipe-item>
-                <van-swipe-item>
-                  <ul class="private-song-list">
-                    <li :key="item.id" v-for="(item) in privateMusic.slice(3,6)" class="item">
-                      <div class="cover">
-                        <img class="cover-imgage" :src="item.picUrl" alt="">
-                        <span class="iconfont iconbofangliang1"></span>
-                      </div>
-                      <div class="desc">
-                        <div class="name">
-                          <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
-                        </div>
-<!--                        <div class="lyric-overview">-->
-<!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
-<!--                        </div>-->
-                      </div>
-                    </li>
-                  </ul>
-                </van-swipe-item>
-                <van-swipe-item>
-                  <ul class="private-song-list">
-                    <li :key="item.id" v-for="(item) in privateMusic.slice(6,9)" class="item">
-                      <div class="cover">
-                        <img class="cover-imgage" :src="item.picUrl" alt="">
-                        <span class="iconfont iconbofangliang1"></span>
-                      </div>
-                      <div class="desc">
-                        <div class="name">
-                          <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
-                        </div>
-<!--                        <div class="lyric-overview">-->
-<!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
-<!--                        </div>-->
-                      </div>
-                    </li>
-                  </ul>
-                </van-swipe-item>
-              </van-swipe>
+              <ul class="private-song-list">
+                <li :key="item.id" v-for="(item) in privateMusic" class="item">
+                  <div class="cover">
+                    <img class="cover-imgage" :src="item.picUrl" alt="">
+                    <span class="iconfont iconbofangliang1"></span>
+                  </div>
+                  <div class="desc">
+                    <div class="name">
+                      <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
+                    </div>
+                    <!--                        <div class="lyric-overview">-->
+                    <!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
+                    <!--                        </div>-->
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -176,6 +94,9 @@ export default {
     this._getPrivateMusic()
     this._getHomeCircleIcon()
   },
+  mounted() {
+    this.handlePlaylist(this.playList)
+  },
   data() {
     return {
       scrollX:true,
@@ -184,13 +105,22 @@ export default {
       recommednList:[],
       privateMusic:[],
       navIcon:[],
-      bacUrl:''
+      bacUrl:'',
+      delayTime:30
     }
   },
   computed:{
-    ...mapGetters(['banners','fullscreen'])
+    ...mapGetters(['banners','fullscreen','playList'])
   },
   methods:{
+    handlePlaylist(playList) {
+      if(playList.length>0) {
+        this.$refs.netHome.$el.classList.add('bottom')
+      } else {
+        this.$refs.netHome.$el.classList.remove('bottom')
+      }
+        this.$refs.netHome.refresh()
+    },
     async _getRecommedList() {
       const res =await getRecommendList()
       if(res.code===200) {
@@ -294,12 +224,14 @@ export default {
   }
   .net-home {
     overflow: hidden;
-    /*position: fixed;*/
-    /*top: 97px;*/
-    /*bottom: 0;*/
-    height: 100%;
-    width: 100%;
-    /*box-sizing: border-box;*/
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    &.bottom {
+      bottom: 82px;
+    }
     .net-home-content {
       .swiper-container {
         background-color: var(--body-bgcolor);
@@ -410,62 +342,58 @@ export default {
         .private-song-wrap {
           padding: 23px 0;
           .private-song-content {
-            .my-swipe {
-              .van-swipe-item {
-                .private-song-list {
-                  .item {
+            .private-song-list {
+              .item {
+                display: flex;
+                width: 468px;
+                margin-bottom: 8px;
+                &:last-child {
+                  margin-bottom: 0;
+                }
+                .cover {
+                  width: 76px;
+                  height: 76px;
+                  margin-right: 15px;
+                  flex: 0 0 76px;
+                  position: relative;
+                  .cover-imgage {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 7px;
+                  }
+                  .iconbofangliang1 {
+                    font-size: 24px;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate3d(-50%,-50%,0);
+                    color: rgb(255,255,255);
+                  }
+                }
+                .desc {
+                  flex: 1;
+                  border-bottom: 1px solid rgb(230,230,230);
+                  &:last-child {
+                    border-bottom: 0;
+                  }
+                  .name {
+                    font-size: @font_size_small;
                     display: flex;
-                    width: 468px;
-                    margin-bottom: 8px;
-                    &:last-child {
-                      margin-bottom: 0;
+                    align-items: center;
+                    color: rgb(153,153,153);
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                    .text {
+                      font-size: @font_size_medium-l;
+                      color: rgb(51,51,51);
                     }
-                    .cover {
-                      width: 76px;
-                      height: 76px;
-                      margin-right: 15px;
-                      flex: 0 0 76px;
-                      position: relative;
-                      .cover-imgage {
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 7px;
-                      }
-                      .iconbofangliang1 {
-                        font-size: 24px;
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate3d(-50%,-50%,0);
-                        color: rgb(255,255,255);
-                      }
+                    .horizontal {
+                      margin: 0 5px;
                     }
-                    .desc {
-                      flex: 1;
-                      border-bottom: 1px solid rgb(230,230,230);
-                      &:last-child {
-                        border-bottom: 0;
-                      }
-                      .name {
-                        font-size: @font_size_small;
-                        display: flex;
-                        align-items: center;
-                        color: rgb(153,153,153);
-                        margin-top: 15px;
-                        margin-bottom: 15px;
-                        .text {
-                          font-size: @font_size_medium-l;
-                          color: rgb(51,51,51);
-                        }
-                        .horizontal {
-                          margin: 0 5px;
-                        }
-                      }
-                      .lyric-overview {
-                        padding-bottom: 18px;
-                        font-size: @font_size_medium-s;
-                      }
-                    }
+                  }
+                  .lyric-overview {
+                    padding-bottom: 18px;
+                    font-size: @font_size_medium-s;
                   }
                 }
               }

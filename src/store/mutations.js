@@ -6,7 +6,8 @@ import {
   GET_PRIVATEFM,
   SET_PLAYING_STATUS,
   GET_COMMENT_NUM,
-  SAVE_USER_INFO
+  SAVE_USER_INFO,
+  SET_OBJ
 } from './mutation-types'
 export default {
   [SET_FULLSCREEN](state,fullscreen) {
@@ -32,5 +33,8 @@ export default {
   },
   [SAVE_USER_INFO](state,{userInfo}) {
     state.user = userInfo
+  },
+  [SET_OBJ](state,{obj}) {
+    state.obj = obj
   }
 }

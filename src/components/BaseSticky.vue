@@ -21,7 +21,7 @@
     align-items: center;
     padding: 22px 0 22px 0;
     position: sticky;
-    top: 114px;
+    top: 82px;
     overflow: hidden;
     background-color: var(--body-bgcolor);
     color: var(--font-color);

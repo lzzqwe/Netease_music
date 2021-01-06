@@ -7,6 +7,9 @@ import DailylRecommend from "../views/DailylRecommend";
 import NetLogin from "../views/NetLogin";
 import NetRank from "../views/NetRank";
 import PersonalFm from "../views/PersonalFm";
+import NetSearch from "../views/NetSearch";
+import NetMe from "../views/NetMe";
+import NetComment from "../views/NetComment";
 Vue.use(VueRouter)
 const routes = [{
     path: '/',
@@ -39,6 +42,22 @@ const routes = [{
     path:'/privatefm',
     name:'PersonalFm',
     component: PersonalFm
+  },
+  {
+    path: '/search',
+    name:'NetSearch',
+    component: NetSearch,
+    props:(route) => ({keyword:route.query.keyword})
+  },
+  {
+    path: '/me',
+    name:'NetMe',
+    component: NetMe
+  },
+  {
+    path: '/comment',
+    name:'NetComment',
+    component: NetComment
   }
 ]
 

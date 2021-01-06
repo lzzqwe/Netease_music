@@ -3,14 +3,14 @@
     <div @click.self="toggle" v-show="isShowSetting" class="setting-wrap">
       <div class="setting">
         <div v-if="user.userId" class="avatar">
-            <div class="avatar-image">
+            <div @click="goToMe" class="avatar-image">
               <van-image
                 fit="cover"
                 round
                 :src="user.avatarUrl"
               ></van-image>
             </div>
-            <div class="user-name">
+            <div @click="goToMe" class="user-name">
               <div class="name">
                 <span>{{user.nickname}}</span>
                 <span class="iconfont icongengduo1"></span>
@@ -123,6 +123,10 @@
         toggle() {
           this.$emit('toggle')
         },
+        goToMe() {
+          this.toggle()
+          this.$router.push('/me')
+        },
         initTheme() {
           if(!storage.get(THEME_KEY)) {
             this.changeThems(storage.get(THEME_KEY,themes.white))
@@ -160,7 +164,7 @@
     bottom: 0;
     width:100%;
     background-color: rgba(102,102,102,0.5);
-    z-index: 20;
+    z-index: 101;
     .setting {
       position: absolute;
       top: 0;

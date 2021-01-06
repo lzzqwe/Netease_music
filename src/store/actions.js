@@ -7,7 +7,8 @@ import {SET_BANNERS,
   GET_PRIVATEFM,
   SET_PLAYING_STATUS,
   GET_COMMENT_NUM,
-  SAVE_USER_INFO
+  SAVE_USER_INFO,
+  SET_OBJ
 } from './mutation-types'
 export default {
   async set_banners({commit}) {
@@ -39,5 +40,8 @@ export default {
   },
   save_user_info({commit},{userInfo}) {
     commit(SAVE_USER_INFO,{userInfo})
+  },
+  save_obj({commit},{obj}) {
+    commit(SET_OBJ,{obj})
   }
 }

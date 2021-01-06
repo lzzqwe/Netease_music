@@ -7,7 +7,7 @@
       </div>
     </div>
     <p class="text">
-      {{songItem.description}}
+      {{songItem.name}}
     </p>
   </li>
 </template>

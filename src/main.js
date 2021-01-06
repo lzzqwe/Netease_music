@@ -15,8 +15,11 @@ import { Swipe,
   Form,Field,
   Button,Dialog,
   NoticeBar,
-  Switch
-  } from 'vant';
+  Switch,
+  PullRefresh,
+  List,
+  Cell, CellGroup
+} from 'vant';
 
 Vue.use(Swipe)
   .use(SwipeItem)
@@ -31,6 +34,10 @@ Vue.use(Swipe)
   .use(Dialog)
   .use(NoticeBar)
   .use(Switch)
+  .use(PullRefresh)
+  .use(List)
+  .use(Cell)
+  .use(CellGroup)
 
 Vue.config.productionTip = false
 

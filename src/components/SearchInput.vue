@@ -5,10 +5,11 @@
         <span @click="isClose" class="iconfont iconxia"></span>
         <div class="input-keyword">
           <input ref="keyword" v-model="keyword" class="input-value" type="text">
+          <span @click.stop="clearKeyword" v-show="keyword" class="iconfont iconiconjia"></span>
         </div>
       </div>
-      <base-scroll :data="searchDetail" ref="search" class="search-content-wrap">
-        <div class="search-content">
+      <base-scroll  :data="searchDetail" ref="search" class="search-content-wrap">
+        <div v-show="result" class="search-content">
           <div class="advertising">
             <img class="advertising-image" src="http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/3402298.jpg" alt="">
           </div>
@@ -34,8 +35,8 @@
               </div>
             </div>
             <div class="hot-in-list">
-              <van-row type="flex" class="hot-in-item">
-                <van-col :key="item.searchWord" v-for="(item,index) in searchDetail" class="item" span="12">
+              <van-row  type="flex" class="hot-in-item">
+                <van-col @click="searchKeyword(item.searchWord)" :key="item.searchWord" v-for="(item,index) in searchDetail" class="item" span="12">
                   <span class="number">{{index+1}}</span><span class="keyword">{{item.searchWord}}</span><img class="icon" v-show="item.iconUrl" :src="item.iconUrl" alt="">
                 </van-col>
                 <net-loading v-show="!searchDetail.length"></net-loading>
@@ -99,7 +100,7 @@
           <div class="search-suggest-content">
             <h1 class="keyword">搜索{{keyword}}</h1>
             <ul>
-              <li class="suggest-item" :key="index" v-for="(item,index) in allMatch">
+              <li @click="_searchContent(item.keyword)" class="suggest-item" :key="index" v-for="(item,index) in allMatch">
                 <span class="iconfont iconsousuo"></span>{{item.keyword}}
               </li>
             </ul>
@@ -112,6 +113,7 @@
 <script>
   import BaseScroll from "./BaseScroll";
   import NetLoading from "./NetLoading";
+  import {mapGetters} from 'vuex'
   import {getHotSearchDetail,getSearchSuggest} from '../api/index.js'
     export default {
       name: "SearchInput",
@@ -126,12 +128,34 @@
           scrollX:true,
           searchDetail:[],
           keyword:'',
-          allMatch:[]
+          allMatch:[],
+          result:{}
         }
       },
+      computed:{
+        ...mapGetters(['playList'])
+      },
+      mounted() {
+        this.handlePlaylist(this.playList)
+      },
       methods:{
+        handlePlaylist(playList) {
+          const bottom = playList.length>0? '82px':0
+          this.$refs.search.$el.style.bottom = bottom
+          this.$refs.search.refresh()
+        },
         isClose() {
           this.$emit('close')
+          this.keyword = ''
+        },
+        searchKeyword(keyword) {
+          this.keyword =keyword
+        },
+        clearKeyword() {
+          this.keyword = ''
+        },
+        async _searchContent(searchWord) {
+          this.$router.push(`/search?keyword=${searchWord}`)
           this.keyword = ''
         },
         async _getHotSearchDetail() {
@@ -204,6 +228,9 @@
       .input-keyword {
         position: relative;
         overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         &:before {
           content: '';
           display: inline-block;

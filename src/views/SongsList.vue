@@ -3,7 +3,7 @@
     <div class="nav-bar-wrap">
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
-    <van-tabs @click="changeTag" line-height="9" line-width="50">
+    <van-tabs @click="changeTag">
       <van-tab :key="item.name" v-for="(item,index) in tags" :title="item.name">
         <base-scroll @scrollToEnd="loadMore" :pullup="pullup" :data="songList" :key="index" class="song-list-wrap">
           <div class="song-list-content">
@@ -168,6 +168,10 @@
   /deep/ .van-tab--active {
     color: rgb(38,41,41);
     font-weight: 600;
+  }
+  /deep/ .van-tabs__line {
+    height: 9px;
+    width: 50px;
   }
 }
 /*.loader {*/

@@ -1,15 +1,24 @@
 <template>
   <div class="recommend-content-wrap">
-    <div class="nav-bar-wrap">
-      <nav-bar :bar-title="barTitle"></nav-bar>
+    <div ref="nav" :class="bgStyle">
+      <nav-bar  :bar-title="barTitle"></nav-bar>
     </div>
+    <div :style="bgStyle"></div>
     <base-sticky :style="paddingStyle" v-show="showPlay"></base-sticky>
-    <transition name="van-slide-up">
-      <div v-show="showPlay" class="backgroud"></div>
-    </transition>
-    <base-scroll :data="list" :probe-type="probeType" :listen-scroll="listenScroll" @onscroll="scroll" class="day-recommend-wrap">
+<!--    <transition name="van-slide-up">-->
+<!--      <div v-show="showPlay" class="backgroud"></div>-->
+<!--    </transition>-->
+    <base-scroll
+      :bounce="bounce"
+      :data="list"
+      :probe-type="probeType"
+      :listen-scroll="listenScroll"
+      @onscroll="scroll"
+      class="day-recommend-wrap"
+      ref="recommend"
+    >
       <div>
-        <div :style="{backgroundImage:`url(${banners[0].pic})`}"  class="day-recommend">
+        <div ref="dayRecommend" :style="{backgroundImage:`url(${banners[0].pic})`}"  class="day-recommend">
           <div class="date">
             <div class="title">
               <span class="large">22</span>/
@@ -73,26 +82,55 @@
         showPlay:false,
         listenScroll:true,
         probeType:3,
+        bounce: {
+          top: false,
+          bottom: true,
+          left: true,
+          right: true
+        },
         barTitle:'',
         isShow:true,
         opacityStyle:{
           opacity: 1
         },
-        backgroundStyle:{
-          backgroundColor:''
-        },
+        color:'#fffff',
         paddingStyle:{
-          padding:'24px'
-        }
+          padding:'22px 24px 22px 24px'
+        },
+        backgroundStyle:{
+          background:'#fffff'
+        },
+        scrollY:0
       }
     },
     created() {
       this._getDayRecommend()
     },
+    mounted() {
+      this.handlePlaylist(this.playList)
+      this.imageHeight= this.$refs.dayRecommend.clientHeight
+      this.miniTranslateY = -this.imageHeight+82
+      console.log(this.miniTranslateY)
+    },
     computed:{
-      ...mapGetters(['banners'])
+      bgStyle() {
+        if(this.scrollY<this.miniTranslateY) {
+          return 'nav-bar-wrap bgc'
+        } else {
+          return 'nav-bar-wrap'
+        }
+      },
+      ...mapGetters(['banners','playList'])
     },
     methods:{
+      handlePlaylist(playList) {
+        if(playList.length>0) {
+          this.$refs.recommend.$el.classList.add('bottom')
+        } else {
+          this.$refs.recommend.$el.classList.remove('bottom')
+        }
+        this.$refs.recommend.refresh()
+      },
       async _getDayRecommend() {
         const res = await getDayRecommend()
         if(res.code===200) {
@@ -117,25 +155,23 @@
         return result
       },
       scroll(pos) {
-        // console.log(pos.y)
-        let top = Math.abs(pos.y)
-        let opacity = 0
-        let backgroundColor ='#ffffff'
-        if(top >= 186) {
-          this.opacityStyle = { opacity }
-          this.barTitle='每日推荐'
-          this.isShow = false
-          this.showPlay= true
-          this.backgroundStyle = {backgroundColor}
+        this.scrollY = pos.y
+      }
+    },
+    watch:{
+      scrollY(newValue,oldValue) {
+         let blur = 0
+         const percent =Math.abs(newValue/this.imageHeight)
+        // console.log(newValue)
+        if(newValue<this.miniTranslateY) {
+          this.showPlay = true
+          this.barTitle ='每日推荐'
         } else {
-          opacity=1
-          backgroundColor=''
-          this.opacityStyle = { opacity }
-          this.barTitle=''
-          this.isShow = true
-          this.showPlay= false
-          this.backgroundStyle = {backgroundColor}
+          this.showPlay = false
+          this.barTitle = ''
         }
+        blur = Math.min(20*percent,20)
+        this.$refs.dayRecommend.style.filter = `blur(${blur}px)`
       }
     }
   }
@@ -151,13 +187,16 @@
     color: var(--font-color);
     .nav-bar-wrap {
       position: fixed;
-      top:32px;
+      top:0;
       left: 0;
       right: 0;
       z-index:15;
       padding: 0 24px;
       overflow: hidden;
-      background-color: var(--body-bgcolor);
+      transition: all 0.5s;
+      &.bgc {
+        background-color: #ffffff;
+      }
     }
     .backgroud {
       height: 32px;
@@ -171,6 +210,9 @@
       top: 0;
       bottom: 0;
       width: 100%;
+      &.bottom {
+        bottom: 82px;
+      }
       .day-recommend {
         height: 300px;
         box-sizing: border-box;
@@ -212,7 +254,7 @@
           align-items: center;
           padding: 22px 0 22px 0;
           position: sticky;
-          top: 114px;
+          top: 82px;
           .play {
             font-size: 23px;
             .iconbofang7 {

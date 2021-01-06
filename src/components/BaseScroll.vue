@@ -41,6 +41,17 @@ export default {
         beforeScroll:{
             type:Boolean,
             default:false
+        },
+        bounce: {
+          type:Object,
+          default:() => {
+            return {
+              top: true,
+              bottom: true,
+              left: true,
+              right: true
+            }
+          }
         }
     },
     mounted() {
@@ -57,7 +68,8 @@ export default {
                 this.scroll = new BScroll(this.$refs.scroll, {
                     click: this.click,
                     probeType: this.probeType,
-                    scrollX:this.scrollX
+                    scrollX:this.scrollX,
+                    bounce: this.bounce
                 })
                 if (this.listenScroll) {
                     this.scroll.on('scroll', (pos) => {

@@ -31,7 +31,7 @@
           </div>
           <div class="song-detail-operation">
             <ul class="operation-list">
-              <li class="operator-item" v-if="playlist.subscribedCount">
+              <li @click="$toast('待开发')" class="operator-item" v-if="playlist.subscribedCount">
                 <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span><span>{{_normalNum(playlist.subscribedCount,1)}}</span>
               </li>
               <li @click="isShowComment" class="operator-item">
@@ -70,15 +70,17 @@
                 <div class="item-index">{{index+1}}</div>
                 <div class="desc">
                   <div class="song-name-text">
-                    <h1 class="name">{{item.name}}</h1>
-                    <div class="text">
-                      <span class="iconfont icondujia"></span>
-                      <span class="iconfont iconsq"></span>
-                      <span>{{item.singer}}-{{item.name}}</span>
+                    <div class="song-name-content">
+                      <h1 class="name">{{item.name}}</h1>
+                      <div class="text">
+                        <span class="iconfont icondujia"></span>
+                        <span class="iconfont iconsq"></span>
+                        <span>{{item.singer}}-{{item.name}}</span>
+                      </div>
                     </div>
+                    <span v-show="item.mvId" class="iconfont iconbofang6"></span>
                   </div>
                   <div class="play-icon">
-                    <span v-show="item.mvId" class="iconfont iconbofang6"></span>
                     <span class="iconfont iconsandian"></span>
                   </div>
                 </div>
@@ -112,7 +114,7 @@
        this.handlePlaylist(this.playList)
      },
      computed:{
-       ...mapGetters(['playList'])
+       ...mapGetters(['playList','user'])
      },
      data() {
        return {
@@ -121,12 +123,15 @@
          playlist:{},
          songs:[],
          isShow:false,
+         id:parseInt(this.$route.params.id),
          bounce:{
            top: false,
            bottom: true,
            left: true,
            right: true
-         }
+         },
+         list:[],
+         flag:true
        }
      },
      methods:{
@@ -442,29 +447,43 @@
             margin-left: 37px;
             align-items: center;
             .song-name-text {
-              .name {
-                font-size: 20px;
-                margin-bottom: 16px;
+              margin-right: 39px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              .song-name-content {
+                flex: 0 0 320px;
+                width: 320px;
+                .name {
+                  width: 100%;
+                  font-size: 20px;
+                  margin-bottom: 16px;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                }
+                .text {
+                  font-size: 12px;
+                  color: rgb(179,179,179);
+                  .icondujia {
+                    margin-right: 5px;
+                    color: rgb(246,162,159);
+                  }
+                  .iconsq {
+                    color: rgb(225,113,71);
+                    margin-right: 5px;
+                  }
+                }
               }
-              .text {
-                font-size: 12px;
+              .iconbofang6 {
+                font-size: 22px;
+                margin-left: 34px;
                 color: rgb(179,179,179);
-                .icondujia {
-                  margin-right: 5px;
-                  color: rgb(246,162,159);
-                }
-                .iconsq {
-                  color: rgb(225,113,71);
-                  margin-right: 5px;
-                }
               }
             }
             .play-icon {
-              .iconbofang6 {
-                font-size: 22px;
-                margin-right: 34px;
-                color: rgb(179,179,179);
-              }
+              flex: 0 0 22px;
+              width: 22px;
               .iconsandian {
                 font-size: 22px;
                 color: rgb(179,179,179);

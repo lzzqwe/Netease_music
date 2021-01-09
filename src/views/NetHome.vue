@@ -12,7 +12,7 @@
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
-            <van-swipe @change="onChange" class="my-swipe" indicator-color="white">
+            <van-swipe  class="my-swipe" indicator-color="white">
               <van-swipe-item :key="item.bannerId" v-for="(item) in banners">
                 <img class="swip-item-img" width="100%" :src="item.pic" alt="">
               </van-swipe-item>
@@ -44,7 +44,7 @@
           <div class="private-song-wrap">
             <div class="private-song-content">
               <ul class="private-song-list">
-                <li :key="item.id" v-for="(item) in privateMusic" class="item">
+                <li @click="selectItem(index)" :key="item.id" v-for="(item,index) in privateMusic" class="item">
                   <div class="cover">
                     <img class="cover-imgage" :src="item.picUrl" alt="">
                     <span class="iconfont iconbofangliang1"></span>
@@ -53,9 +53,6 @@
                     <div class="name">
                       <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
                     </div>
-                    <!--                        <div class="lyric-overview">-->
-                    <!--                          <span class="quality"></span>我曾以为我会永远守护在她身旁-->
-                    <!--                        </div>-->
                   </div>
                 </li>
               </ul>
@@ -127,9 +124,6 @@ export default {
         this.recommednList = res.result
       }
     },
-    onChange(index) {
-      // this.bacUrl = `url(${this.banners[index].pic})`
-    },
     _createSong(res) {
       let result = []
       res.forEach((item) => {
@@ -150,12 +144,16 @@ export default {
         this.privateMusic = this._createSong(res.result)
       }
     },
+    selectItem(index) {
+      this.select_play({playlist:this.privateMusic,index})
+    },
     async _getHomeCircleIcon() {
       const res = await getHomeCircleIcon()
       if(res.code===200) {
         const nav = res.data
         nav[4].name='mv'
         nav[4].url='orpheus://mv'
+        nav[3].url='orpheus://rank'
         this.navIcon = nav
       }
     },
@@ -171,7 +169,7 @@ export default {
     close() {
       this.isShowSearch = false
     },
-    ...mapActions(['set_banners'])
+    ...mapActions(['set_banners','select_play'])
   },
   watch:{
     fullscreen() {

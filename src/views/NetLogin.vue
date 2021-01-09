@@ -1,4 +1,6 @@
 <template>
+  <div class="login-wrap">
+<!--    <h1 class="login-logo"></h1>-->
     <div class="login">
       <van-form @submit="onSubmit">
         <van-field
@@ -21,6 +23,8 @@
         </div>
       </van-form>
     </div>
+  </div>
+
 </template>
 
 <script>
@@ -57,7 +61,15 @@
 </script>
 
 <style lang="less" scoped>
-.login {
-  padding: 50px 24px 0 24px;
+.login-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  .login {
+    padding: 150px 24px 0 24px;
+  }
 }
+
 </style>

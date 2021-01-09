@@ -3,16 +3,16 @@
     <div class="nav-bar-wrap">
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
-    <base-scroll ref="comment" :data="comment" class="comment-content">
+    <base-scroll :pullup="pullup" @scrollToEnd="loadMore" ref="comment" :data="comment" class="comment-content">
       <div>
         <div class="playlist-cover">
           <div class="cover">
-            <img  class="image-cover" :src="obj.picUrl" alt="">
+            <img  class="image-cover" :src="cover.picUrl" alt="">
           </div>
           <div class="title">
             <div class="desc">
-              <p class="content">{{obj.name}}</p>
-              <span class="name"><span class="from">by</span> {{obj.singer}}</span>
+              <p class="content">{{cover.name}}</p>
+              <span class="name"><span class="from">by</span> {{cover.singer}}</span>
             </div>
             <span class="iconfont icongengduo1"></span>
           </div>
@@ -49,9 +49,10 @@
                 <p class="text">{{item.content}}</p>
               </div>
             </li>
+            <net-loading v-show="hasMore"></net-loading>
+            <div class="no-result" v-show="!hasMore">已经没有了更多了</div>
           </ul>
         </div>
-        <net-loading v-show="!this.comment.length"></net-loading>
       </div>
     </base-scroll>
   </div>
@@ -70,7 +71,11 @@
       return {
         comment:[],
         total:0,
-        cover:{}
+        cover:{},
+        hasMore:true,
+        offset:0,
+        limit:20,
+        pullup:true
       }
     },
     computed:{
@@ -95,17 +100,29 @@
         if(this.$route.query.hasOwnProperty('songListId')) {
             id=this.$route.query.songListId
             this.cover = this.obj
-            res = await getCommentPlaylist(id)
+            res = await getCommentPlaylist(id,this.offset,this.limit)
         } else {
           id = this.$route.query.id
           this.cover = this.currentSong
-          res = await getSongComment(id)
+          res = await getSongComment(id,this.offset,this.limit)
         }
         if(res.code === 200) {
-          this.comment = this.comment.concat(res.hotComments.slice(0,5),res.comments)
+          let hotComments = []
+          if(res.hotComments) {
+            hotComments=res.hotComments.slice(0,5)
+          }
+          this.comment = this.comment.concat(hotComments,res.comments)
           this.total = res.total
         }
-      }
+      },
+      loadMore() {
+        this.offset++
+        if(this.comment.length<this.total) {
+          this._getCommentPlaylist()
+        } else {
+          this.hasMore = false
+        }
+      },
     }
   }
 </script>
@@ -258,6 +275,13 @@
                 line-height: 32px;
               }
             }
+          }
+          .no-result {
+            width: 100%;
+            line-height: 40px;
+            font-size: 20px;
+            padding-bottom: 30px;
+            text-align: center;
           }
         }
       }

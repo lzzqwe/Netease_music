@@ -18,7 +18,9 @@ import { Swipe,
   Switch,
   PullRefresh,
   List,
-  Cell, CellGroup
+  Toast,
+  Cell,
+  CellGroup
 } from 'vant';
 
 Vue.use(Swipe)
@@ -38,6 +40,7 @@ Vue.use(Swipe)
   .use(List)
   .use(Cell)
   .use(CellGroup)
+  .use(Toast)
 
 Vue.config.productionTip = false
 

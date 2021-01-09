@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm run serve",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "cross-env NODE_ENV=development vue-cli-service serve --open",
+    "build": "cross-env NODE_ENV=production vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -21,7 +21,8 @@
     "vant": "^2.11.3",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "cross-env": "^5.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

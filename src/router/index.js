@@ -16,7 +16,7 @@ const routes = [{
     name: 'Home',
     component: Home
 },{
-  path:'/discovery/songrank',
+  path:'/rank',
   name:'NetRank',
   component: NetRank
 },

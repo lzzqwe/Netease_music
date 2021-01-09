@@ -8,7 +8,7 @@
         <base-scroll @scrollToEnd="loadMore" :pullup="pullup" :data="songList" :key="index" class="song-list-wrap">
           <div class="song-list-content">
             <div class="song-swiper">
-              <van-swipe v-show="needOne(index)" class="my-swipe" :autoplay="3000" indicator-color="white">
+              <van-swipe :stop-propagation="false" v-show="needOne(index)" class="my-swipe" :autoplay="3000" indicator-color="white">
                 <van-swipe-item @click="selectItem(item)" :key="index" v-for="(item,index) in songList.slice(0,3)">
                   <img width="100%" height="100%" :src="item.coverImgUrl" alt="">
                 </van-swipe-item>
@@ -17,10 +17,10 @@
             <keep-alive>
               <div class="songs-wrap">
                 <song-list @select="selectItem(item)" :song-item="item" :key="index" v-for="(item,index) in songList.slice(3)"></song-list>
-<!--                <net-loading v-show="loading"></net-loading>-->
+                <net-loading v-show="hasMore"></net-loading>
+                <div class="no-result" v-show="!hasMore">已经没有了</div>
               </div>
             </keep-alive>
-            <net-loading v-show="!songList.length"></net-loading>
           </div>
         </base-scroll>
       </van-tab>
@@ -47,7 +47,8 @@
         pullup:true,
         limit:50,
         offset:0,
-        loading:false
+        loading:false,
+        hasMore:true
       }
     },
     created() {
@@ -68,12 +69,7 @@
        loadMore() {
         this.loading = true
         this.offset++
-         setTimeout(() => {
-           this._getSongList(this.cat,this.limit,this.offset)
-           this.loading = false
-         },2000)
-
-
+         this._getSongList(this.cat,this.limit,this.offset)
       },
       changeTag(name,title) {
         console.log(name,title)
@@ -90,6 +86,12 @@
         const res = await getSongList(cat,limit,offset)
         if(res.code === 200) {
           this.songList = this.songList.concat(res.playlists)
+          this._checkMore(res.playlists)
+        }
+      },
+      _checkMore(list) {
+        if(!list.length) {
+          this.hasMore = false
         }
       }
     },
@@ -120,7 +122,6 @@
   color: var(--font-color);
   .nav-bar-wrap {
     padding: 0 24px;
-    background-color: rgb(193,197,201);
   }
   .song-list-wrap {
     position: fixed;
@@ -147,6 +148,11 @@
         display: flex;
         flex-wrap: wrap;
         padding: 0 16.5px;
+        .no-result {
+          width: 100%;
+          line-height: 40px;
+          font-size: 20px;
+        }
       }
     }
 

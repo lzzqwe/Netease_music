@@ -20,7 +20,8 @@ import { Swipe,
   List,
   Toast,
   Cell,
-  CellGroup
+  CellGroup,
+  Lazyload
 } from 'vant';
 
 Vue.use(Swipe)
@@ -41,6 +42,9 @@ Vue.use(Swipe)
   .use(Cell)
   .use(CellGroup)
   .use(Toast)
+  .use(Lazyload,{
+    lazyComponent: true,
+  })
 
 Vue.config.productionTip = false
 

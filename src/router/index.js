@@ -18,7 +18,13 @@ const routes = [{
 },{
   path:'/rank',
   name:'NetRank',
-  component: NetRank
+  component: NetRank,
+  children: [
+    {
+      path:':id',
+      component: SongListDetail
+    }
+  ]
 },
   {
   path:'/playlistCollection',

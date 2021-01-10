@@ -1,9 +1,12 @@
 <template>
   <div class="recommend-content-wrap">
-    <div ref="nav" :class="bgStyle">
+    <div ref="nav" class="nav-bar-wrap">
       <nav-bar  :bar-title="barTitle"></nav-bar>
+      <div
+        :style="{backgroundImage:`url(${banners[0].pic})`,opacity:opacity}"
+        class="bgc"
+      ></div>
     </div>
-    <div :style="bgStyle"></div>
     <base-sticky :style="paddingStyle" v-show="showPlay"></base-sticky>
 <!--    <transition name="van-slide-up">-->
 <!--      <div v-show="showPlay" class="backgroud"></div>-->
@@ -18,7 +21,7 @@
       ref="recommend"
     >
       <div>
-        <div ref="dayRecommend" :style="{backgroundImage:`url(${banners[0].pic})`}"  class="day-recommend">
+        <div ref="dayRecommend" :style="{backgroundImage:`url(${banners[0].pic})`,opacity:1-opacity}"  class="day-recommend">
           <div class="date">
             <div class="title">
               <span class="large">22</span>/
@@ -31,7 +34,7 @@
           </div>
         </div>
         <div class="recommend-content">
-          <base-sticky v-show="isShow"></base-sticky>
+          <base-sticky></base-sticky>
           <ul class="play-list">
             <li @click="playSong(index)" :key="item.id" class="play-item" v-for="(item,index) in list">
               <div class="Thumbnails">
@@ -89,18 +92,11 @@
           right: true
         },
         barTitle:'',
-        isShow:true,
-        opacityStyle:{
-          opacity: 1
-        },
-        color:'#fffff',
         paddingStyle:{
           padding:'22px 24px 22px 24px'
         },
-        backgroundStyle:{
-          background:'#fffff'
-        },
-        scrollY:0
+        scrollY:0,
+        opacity:0
       }
     },
     created() {
@@ -108,18 +104,8 @@
     },
     mounted() {
       this.handlePlaylist(this.playList)
-      this.imageHeight= this.$refs.dayRecommend.clientHeight
-      this.miniTranslateY = -this.imageHeight+82
-      console.log(this.miniTranslateY)
     },
     computed:{
-      bgStyle() {
-        if(this.scrollY<this.miniTranslateY) {
-          return 'nav-bar-wrap bgc'
-        } else {
-          return 'nav-bar-wrap'
-        }
-      },
       ...mapGetters(['banners','playList'])
     },
     methods:{
@@ -155,23 +141,25 @@
         return result
       },
       scroll(pos) {
-        this.scrollY = pos.y
+        this.scrollY = Math.abs(pos.y)
       }
     },
     watch:{
       scrollY(newValue,oldValue) {
-         let blur = 0
-         const percent =Math.abs(newValue/this.imageHeight)
-        // console.log(newValue)
-        if(newValue<this.miniTranslateY) {
+        const height = this.$refs.dayRecommend.clientHeight-this.$refs.nav.clientHeight
+        const percent = newValue/height
+        if(percent>1) {
+          this.opacity =1
           this.showPlay = true
-          this.barTitle ='每日推荐'
+          this.barTitle='每日推荐'
         } else {
+          this.opacity = 1*percent
           this.showPlay = false
-          this.barTitle = ''
+          this.barTitle =''
         }
-        blur = Math.min(20*percent,20)
-        this.$refs.dayRecommend.style.filter = `blur(${blur}px)`
+      },
+      playList(newValue) {
+        this.handlePlaylist(newValue)
       }
     }
   }
@@ -193,9 +181,20 @@
       z-index:15;
       padding: 0 24px;
       overflow: hidden;
-      transition: all 0.5s;
-      &.bgc {
-        background-color: #ffffff;
+      color: #ffffff;
+      .bgc {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        filter: blur(10px);
+        background-position: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transform: scale(3);
+        z-index: -1;
       }
     }
     .backgroud {
@@ -217,10 +216,9 @@
         height: 300px;
         box-sizing: border-box;
         padding: 32px 24px 0 24px;
-        background-size: 540px 300px;
+        background-size: cover;
         background-repeat: no-repeat;
         color: rgb(233,255,255);
-        transition: all 0.5s;
         .date {
           margin-top: 123px;
           .title {

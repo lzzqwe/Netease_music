@@ -1,24 +1,12 @@
 <template>
   <div class="rank-recommend">
-    <h1 class="rank-title">榜单推荐</h1>
+    <h1 v-if="data.length>0" class="rank-title">榜单推荐</h1>
     <ul class="rank-list">
-      <li class="rank-item">
+      <li @click="selectDetail(item.id)" :key="item.id" v-for="(item) in data" class="rank-item">
         <div class="song-cover">
-          <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
+          <img class="song-cover-img" :src="item.coverImgUrl" alt="">
         </div>
-        <p class="text">云音乐达人榜</p>
-      </li>
-      <li class="rank-item">
-        <div class="song-cover">
-          <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-        </div>
-        <p class="text">云音乐达人榜</p>
-      </li>
-      <li class="rank-item">
-        <div class="song-cover">
-          <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-        </div>
-        <p class="text">云音乐达人榜</p>
+        <p class="text">{{item.name}}</p>
       </li>
     </ul>
   </div>
@@ -27,9 +15,16 @@
 <script>
     export default {
       name: "RankList",
-      // props:{
-      //
-      // }
+      props:{
+        data:{
+          type:Array
+        }
+      },
+      methods:{
+        selectDetail(id) {
+          this.$router.push(`/rank/${id}`)
+        },
+      }
     }
 </script>
 
@@ -53,16 +48,22 @@
           width: 155px;
           height: 155px;
           padding: 0 7px;
+          font-size: 0;
           .song-cover-img {
             width: 100%;
             height: 100%;
+            border-radius: 20px;
           }
         }
         .text {
           font-size: 14px;
           margin-top: 13px;
           text-align: left;
-          padding-left: 7px;
+          padding: 0 7px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 155px;
         }
       }
     }

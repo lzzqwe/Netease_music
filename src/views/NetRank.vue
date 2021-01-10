@@ -3,144 +3,52 @@
     <div class="nav-bar-wrap">
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
-    <base-scroll ref="netRank" class="net-rank-wrap">
+    <base-scroll :data="top" ref="netRank" class="net-rank-wrap">
       <div class="net-rank-content">
-        <rank-list></rank-list>
         <div class="rank-official">
-          <h1 class="official-title">官方榜</h1>
+          <h1 v-if="top.length>0" class="rank-title">官方榜</h1>
           <ul class="rank-official-list">
-            <li class="rank-official-item">
+            <li @click="selectDetail(item.id)" :key="item.id" class="rank-official-item" v-for="(item) in top.slice(0,4)">
               <div class="song-cover">
-                <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
+                <img class="song-cover-img" :src="item.coverImgUrl" alt="">
               </div>
-              <ul class="tracks-list">
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-              </ul>
-            </li>
-            <li class="rank-official-item">
-              <div class="song-cover">
-                <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-              </div>
-              <ul class="tracks-list">
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-              </ul>
-            </li>
-            <li class="rank-official-item">
-              <div class="song-cover">
-                <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-              </div>
-              <ul class="tracks-list">
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-              </ul>
-            </li>
-            <li class="rank-official-item">
-              <div class="song-cover">
-                <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-              </div>
-              <ul class="tracks-list">
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-              </ul>
-            </li>
-            <li class="rank-official-item">
-              <div class="song-cover">
-                <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-              </div>
-              <ul class="tracks-list">
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-              </ul>
-            </li>
-            <li class="rank-official-item">
-              <div class="song-cover">
-                <img class="song-cover-img" src="https://p2.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg" alt="">
-              </div>
-              <ul class="tracks-list">
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
-                </li>
-                <li class="tracks-item">
-                  <span class="index">1</span>
-                  <span class="name">周杰伦的撒打算的撒</span>
+              <ul class="tracks-list" v-if="item.tracks">
+                <li :key="index" v-for="(song,index) in item.tracks" class="tracks-item">
+                  <span class="index">{{index+1}}.</span>
+                  <span class="name">{{song.first}}-{{song.second}}</span>
                 </li>
               </ul>
             </li>
           </ul>
         </div>
+        <rank-list :data="top.slice(4)"></rank-list>
+        <net-loading v-show="!this.top.length"></net-loading>
       </div>
     </base-scroll>
+    <transition name="van-slide-right">
+      <router-view></router-view>
+    </transition>
+
   </div>
 </template>
 
 <script>
+  import {getTop} from '../api'
   import NavBar from "../components/NavBar";
   import RankList from "../components/RankList";
   import BaseScroll from "../components/BaseScroll";
+  import NetLoading from "../components/NetLoading";
   import {mapActions,mapGetters} from 'vuex'
   export default {
     name: "NetRank",
     components:{
       NavBar,
       RankList,
-      BaseScroll
+      BaseScroll,
+      NetLoading
+    },
+    created() {
+      this._getTop()
     },
     mounted() {
       this.handlePlaylist(this.playList)
@@ -149,6 +57,15 @@
       ...mapGetters(['playList'])
     },
     methods:{
+      async _getTop() {
+        const res = await getTop()
+        if(res.code===200) {
+          this.top = res.list
+        }
+      },
+      selectDetail(id) {
+        this.$router.push(`/rank/${id}`)
+      },
       handlePlaylist(playList) {
         if(playList.length>0) {
           this.$refs.netRank.$el.classList.add('bottom')
@@ -160,7 +77,8 @@
     },
     data() {
       return {
-        barTitle:'排行榜'
+        barTitle:'排行榜',
+        top:[]
       }
     }
   }
@@ -213,6 +131,7 @@
               .song-cover-img {
                 width: 100%;
                 height: 100%;
+                border-radius: 20px;
               }
             }
             .tracks-list {

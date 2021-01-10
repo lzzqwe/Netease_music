@@ -14,7 +14,7 @@
           <div class="swiper-content">
             <van-swipe  class="my-swipe" indicator-color="white">
               <van-swipe-item :key="item.bannerId" v-for="(item) in banners">
-                <img class="swip-item-img" width="100%" :src="item.pic" alt="">
+                <img class="swip-item-img" width="100%" v-lazy="item.pic" alt="">
               </van-swipe-item>
             </van-swipe>
           </div>
@@ -23,7 +23,7 @@
           <ul class="nav-content">
             <router-link :to="handleString(item.url)" tag="li" :key="item.id" v-for="(item) in navIcon" class="nav-item">
               <div class="nav-icon">
-                <img class="img" :src="item.iconUrl" alt="">
+                <img v-lazy="item.iconUrl" class="img"  alt="">
               </div>
               <p class="text">{{item.name}}</p>
             </router-link>
@@ -46,7 +46,7 @@
               <ul class="private-song-list">
                 <li @click="selectItem(index)" :key="item.id" v-for="(item,index) in privateMusic" class="item">
                   <div class="cover">
-                    <img class="cover-imgage" :src="item.picUrl" alt="">
+                    <img v-lazy="item.picUrl" class="cover-imgage" alt="">
                     <span class="iconfont iconbofangliang1"></span>
                   </div>
                   <div class="desc">
@@ -174,6 +174,9 @@ export default {
   watch:{
     fullscreen() {
       this.$refs.netHome.refresh()
+    },
+    playList(newValue) {
+      this.handlePlaylist(newValue)
     }
   }
 }

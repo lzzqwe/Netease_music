@@ -4,9 +4,9 @@
     <div ref="progerssBar" class="progress-bar">
       <div ref="progressInnerBar" class="progress-inner-bar"></div>
       <div
-        @touchstart="handleStart"
-        @touchmove="handleMove"
-        @touchend="handleEnd"
+        @touchstart.prevent="handleStart"
+        @touchmove.prevent="handleMove"
+        @touchend.prevent="handleEnd"
         ref="progressCircle" class="progress-circle"></div>
     </div>
     <span class="time">{{format(currentSong.duration)}}</span>
@@ -47,6 +47,7 @@
           const distance = e.touches[0].pageX-this.touch.startX
           console.log(distance+this.touch.width)
           this.$refs.progressInnerBar.style.width =`${distance+this.touch.width}px`
+          this.$refs.progressCircle.style.transform =`translateX(${distance}px)`
         },
         handleEnd() {
           this.touch.initStatus =false

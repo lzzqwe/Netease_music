@@ -1,5 +1,5 @@
 import ajax from './ajax.js'
-//基础地质
+//基础地址
 let BASE
 const env = process.env.NODE_ENV
 if (env === 'development') {
@@ -126,4 +126,10 @@ export const handleCollect = (t,id) => {
 * */
 export const getUserPlaylist = (uid) => {
   return ajax( BASE + '/user/playlist',{uid})
+}
+/*
+* 21.获取歌单的排行榜
+* */
+export const getTop = () => {
+  return ajax(BASE+ '/toplist/detail')
 }

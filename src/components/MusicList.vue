@@ -1,111 +1,224 @@
 <template>
-    <div class="song-list-detail">
-      <music-list
-        :songs="songs"
-        :playlist="playlist"
-        @comment="isShowComment"
-        :bar-title="barTitle"
-        ></music-list>
+    <div class="music-list">
+      <div ref="navWrap" class="nav-bar-wrap">
+        <nav-bar :bar-title="barTitle"></nav-bar>
+        <div
+          :style="{backgroundImage:`url(${playlist.coverImgUrl})`,opacity:opacity}"
+          class="background"></div>
+        <span @click="showSearch" class="iconfont iconsousuo"></span>
+      </div>
+      <base-scroll
+        :listen-scroll="listenScroll"
+        ref="songs"
+        @onscroll="scroll"
+        :bounce="bounce"
+        :probe-type="probeType"
+        :data="songs"
+        class="song-list-wrap">
+        <div>
+          <div ref="cover" class="background-wrap">
+            <div :style="{backgroundImage:`url(${playlist.coverImgUrl})`}" class="song-list-background"> </div>
+          </div>
+          <div class="song-detail-cover">
+            <div class="detail-cover-content">
+              <div class="cover-img">
+                <img class="icon-album" :src="playlist.coverImgUrl" alt="">
+              </div>
+              <div class="description">
+                <p class="song-list-title">{{playlist.name}}</p>
+                <div v-if="playlist.creator" class="attention">
+                  <img class="avatar" :src="playlist.creator.avatarUrl" alt="">
+                  <span class="user-name">{{playlist.creator.nickname}}</span>
+                  <div class="increase">
+                    <span class="iconfont iconhao"></span>
+                  </div>
+                </div>
+                <div class="song-list-content">
+                  <p class="text">{{playlist.description}}</p>
+                  <span class="iconfont icongengduo1"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="song-detail-operation">
+            <ul class="operation-list">
+              <li @click="$toast('待开发')" class="operator-item" v-if="playlist.subscribedCount">
+                <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span><span>{{_normalNum(playlist.subscribedCount,1)}}</span>
+              </li>
+              <li @click="isShowComment" class="operator-item">
+                <span class="iconfont iconpinglun1"></span>
+                <span v-if="playlist.commentCount">{{_normalNum(playlist.commentCount,1)}}</span>
+                <span v-else>评论</span>
+              </li>
+              <li class="operator-item" v-if="playlist.shareCount">
+                <span class="iconfont iconfenxiang1"></span><span>{{_normalNum(playlist.shareCount,1)}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="open-vip">
+            <div class="vip-song">
+              <span class="iconfont iconVIP-"></span>
+              <span>含有14首VIP专享歌曲</span>
+            </div>
+            <div class="price">
+              <span>首开vip仅仅5元</span>
+              <span class="iconfont icongengduo1"></span>
+            </div>
+          </div>
+          <div class="play-all">
+            <div class="play">
+              <span class="iconfont iconbofang7"></span>
+              <span class="all">播放全部</span>
+              <span class="num">(132)</span>
+            </div>
+            <div class="down-select">
+              <span class="iconfont iconxiazai"></span><span class="iconfont iconquanxuan"></span>
+            </div>
+          </div>
+          <div class="list">
+              <base-songs @play="playSong" :songs="songs"></base-songs>
+          </div>
+          <net-loading v-show="!this.songs.length"></net-loading>
+        </div>
+      </base-scroll>
+      <songs-search :songs="songs" @hide="hide" :pic-url="playlist.coverImgUrl" v-show="isShowSearch"></songs-search>
     </div>
 </template>
 
 <script>
-   import MusicList from "../components/MusicList";
-   import {getSongListDetail,getAllSongs} from '../api/index'
-   import {createSong} from '../common/js/song'
-   import {mapActions} from 'vuex'
-   export default {
-     name: "SongListDetail",
-     components:{
-       MusicList
-     },
-     created() {
-       this._getSongListDetail(this.id)
-     },
-     data() {
-       return {
-         barTitle:'歌单',
-         playlist:{},
-         songs:[],
-         id:parseInt(this.$route.params.id),
-         bounce:{
-           top: false,
-           bottom: true,
-           left: true,
-           right: true
-         },
-         list:[],
-       }
-     },
-     methods:{
-       isShowComment() {
-         this.$router.push(`/comment?songListId=${this.id}`)
-       },
-       async _getSongListDetail(id) {
-         const res = await getSongListDetail(id)
-         try {
-           if(res.code === 200) {
-             this.playlist = res.playlist
-             const obj =createSong({
-               picUrl:this.playlist.coverImgUrl,
-               name:this.playlist.name,
-               singer:this.playlist.creator.nickname
-             })
-             this.save_obj({obj})
-           }
-           this._normalizeSongs(res.playlist)
-         } catch (e) {
-           console.log(e)
-         }
-
-       },
-       async _normalizeSongs(list) {
-         const tracksId= []
-         list.trackIds.forEach((item) => {
-           if(item.id) {
-             tracksId.push(item.id)
-           }
-         })
-         const res = await getAllSongs(tracksId)
-         if(res.code === 200) {
-           this.songs = this._createSong(res.songs)
-         }
-       },
-       _createSong(list) {
-         const songs = []
-         list.forEach((item) => {
-           songs.push(createSong({
-             id:item.id,
-             picUrl:item.al.picUrl,
-             duration:item.dt,
-             singer:item.ar[0].name,
-             name:item.name,
-             mvId:item.mv
-           }))
-         })
-         return songs
-       },
-       ...mapActions(['select_play','save_obj'])
-     }
-   }
+  import NetLoading from "./NetLoading";
+  import SongsSearch from "./SongsSearch";
+  import NavBar from "./NavBar";
+  import BaseScroll from "./BaseScroll";
+  import BaseSongs from "./BaseSongs";
+  import {mapActions,mapGetters} from 'vuex'
+  export default {
+    name: "MusicList",
+    props:{
+      playlist:{
+        type:Object
+      },
+      songs:{
+        type:Array
+      },
+      barTitle:{
+        type:String
+      }
+    },
+    mounted() {
+      this.handlePlaylist(this.playList)
+    },
+    computed:{
+      ...mapGetters(['playList'])
+    },
+    data() {
+      return {
+        bounce:{
+          top: false,
+          bottom: true,
+          left: true,
+          right: true
+        },
+        listenScroll:true,
+        scrollY:0,
+        opacity:0,
+        probeType:3,
+        isShowSearch:false
+      }
+    },
+    components:{
+      NetLoading,
+      BaseScroll,
+      BaseSongs,
+      NavBar,
+      SongsSearch
+    },
+    methods:{
+      handlePlaylist(playList) {
+        if(playList.length>0) {
+          this.$refs.songs.$el.classList.add('bottom')
+        } else {
+          this.$refs.songs.$el.classList.remove('bottom')
+        }
+      },
+      showSearch() {
+        this.isShowSearch = true
+      },
+      hide() {
+        this.isShowSearch = false
+      },
+      scroll(pos) {
+        this.scrollY = Math.abs(pos.y)
+      },
+      playSong(index) {
+        this.select_play({playlist:this.songs,index})
+      },
+      isShowComment() {
+        this.$emit('comment')
+      },
+      _normalNum(num,point) {
+        let numStr = num.toString();
+        if(numStr.length<6) {
+          return numStr
+        } else if(6<=numStr.length && numStr.length<=8) {
+          return parseInt(num/10000)+"万"
+        } else if(numStr.length>8) {//(1,3)
+          let decimal = numStr.substring(numStr.length-8,numStr.length-8+point)
+          return parseFloat(parseInt(num/100000000)+"."+decimal)+"亿"
+        }
+      },
+      ...mapActions(['select_play'])
+    },
+    watch:{
+      scrollY(newValue) {
+        const height =this.$refs.cover.clientHeight-this.$refs.navWrap.clientHeight
+        const percent = newValue/height
+        if(newValue>this.$refs.navWrap.clientHeight ) {
+           this.$parent.barTitle=this.playlist.name
+        } else {
+           this.$parent.barTitle='歌单'
+        }
+        if(percent>1) {
+          this.opacity=1
+        } else {
+          this.opacity = 1*percent
+        }
+      }
+    }
+  }
 </script>
 
 <style lang="less" scoped>
-.song-list-detail {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 5;
-  background-color: var(--body-bgcolor);
-  color: var(--font-color);
+.music-list {
   .nav-bar-wrap {
-    padding: 32px 24px 0 24px;
+    padding: 0 24px;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1;
+    overflow: hidden;
+    color: rgb(255,255,255);
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      z-index: -1;
+      filter: blur(13px);
+      transform: scale(3);
+    }
+    .iconsousuo {
+      font-size: 30px;
+      color: #ffffff;
+      position: absolute;
+      right: 50px;
+      top: 26px;
+    }
   }
   .song-list-wrap {
     position: absolute;

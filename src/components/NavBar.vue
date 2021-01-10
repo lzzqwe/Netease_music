@@ -32,6 +32,11 @@
   }
   .bar-text {
     font-size: 24px;
+    width: 270px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 </style>

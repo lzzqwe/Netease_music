@@ -10,7 +10,7 @@
       <ul class="song-list-content">
         <li @click="skip(item)" :key="item.id" class="song-list-item" v-for="(item) in recommendList">
           <div class="item-icon">
-            <img class="img" :src="item.picUrl" alt="">
+            <img class="img" v-lazy="item.picUrl" alt="">
             <div class="play-count">
               <span class="iconfont iconbofangliang1"></span>{{_normalNum(item.playCount,1)}}
             </div>

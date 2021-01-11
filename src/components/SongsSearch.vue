@@ -82,7 +82,7 @@
     overflow: hidden;
     .search-input {
       display: flex;
-      padding: 58px 12px 12px 27px;
+      padding: 20px 12px 12px 27px;
       .iconxia {
         font-size: 28px;
         display: inline-block;

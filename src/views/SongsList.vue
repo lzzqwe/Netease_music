@@ -8,9 +8,16 @@
         <base-scroll @scrollToEnd="loadMore" :pullup="pullup" :data="songList" :key="index" class="song-list-wrap">
           <div class="song-list-content">
             <div class="song-swiper">
-              <van-swipe :stop-propagation="false" v-show="needOne(index)" class="my-swipe" :autoplay="3000" indicator-color="white">
+              <van-swipe
+                :stop-propagation="false"
+                v-show="needOne(index)"
+                class="my-swipe"
+                indicator-color="white">
                 <van-swipe-item @click="selectItem(item)" :key="index" v-for="(item,index) in songList.slice(0,3)">
-                  <img width="100%" height="100%" :src="item.coverImgUrl" alt="">
+                  <div class="songsItem">
+                    <img class="img" :src="item.coverImgUrl" alt="">
+                    <p class="desc">{{item.name}}</p>
+                  </div>
                 </van-swipe-item>
               </van-swipe>
             </div>
@@ -140,7 +147,21 @@
             font-size: 20px;
             height: 320px;
             text-align: center;
-            background-color: #39a9ed;
+            .songsItem {
+              width: 100%;
+              height: 100%;
+              color: var(--font-color);
+              .img {
+                height: 80%;
+                width: 100%;
+              }
+              .desc {
+                width: 100%;
+                margin-top: 15px;
+                text-align: center;
+                height: 20%;
+              }
+            }
           }
         }
       }

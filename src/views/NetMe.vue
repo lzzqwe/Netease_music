@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "NetMe"
+      name: "NetMe"
     }
 </script>
 

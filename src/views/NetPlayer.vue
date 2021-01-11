@@ -38,7 +38,7 @@
             <div class="bottom">
               <transition name="van-fade">
                 <div v-show="!isFlag" class="operator_1">
-                  <span class="iconfont iconshoucang"></span>
+                  <span :class="getFavoriteIcon(currentSong)" @click="_hanFavorite(currentSong)" class="iconfont"></span>
                   <span class="iconfont icondibar-xiazai"></span>
                   <span class="iconfont iconicon-test"></span>
                   <span @click.stop="selectComment" class="iconfont iconpinglun1">
@@ -79,7 +79,6 @@
          </div>
        </div>
      </transition>
-<!--     <net-comment :get-comment="getCommentPlaylist" :playlist="playlist" :id="id" v-if="isShow"></net-comment>-->
      <audio
        @error="error"
        @timeupdate="timeupdate"
@@ -91,6 +90,7 @@
 
 <script>
     import {mapGetters,mapMutations} from 'vuex'
+    import {saveFavorite,delFavorite,saveHistory} from '../common/js/cache'
     import ProgressBar from "../components/ProgressBar";
     import BaseScroll from "../components/BaseScroll";
     import {getlyric} from '../api/index'
@@ -121,7 +121,13 @@
         poleIcon() {
           return this.playing?'rateCls':'pase_rateCls'
         },
-        ...mapGetters(['currentSong','currentIndex','playList','playing','totalCount'])
+        ...mapGetters(['currentSong',
+          'currentIndex',
+          'playList',
+          'playing',
+          'favorite',
+          'totalCount'
+        ])
       },
       methods:{
         hidePlayer() {
@@ -136,6 +142,41 @@
         selectComment() {
           this.$router.push(`/comment?id=${this.currentSong.id}`)
         },
+        /*
+        * 收藏歌曲
+        * */
+        _hanFavorite(song) {
+          let favorite
+          if(this.isFavorite(song)) {
+            favorite = delFavorite(song)
+          } else {
+            favorite = saveFavorite(song)
+          }
+          this.save_favorite({favorite})
+        },
+        /*
+        * 判断歌曲有没有收藏
+        * */
+        isFavorite(song) {
+          const index = this.favorite.findIndex((item) => {
+            return item.id === song.id
+          })
+          if(index>-1) {
+            return true
+          } else {
+            return false
+          }
+        },
+        /*
+        * 获取歌曲的收藏图标
+        * */
+        getFavoriteIcon(song) {
+          if(this.isFavorite(song)) {
+            return 'iconcollection'
+          } else {
+            return 'iconshoucang3'
+          }
+        },
         onPercentChange(percent) {
           console.log(percent)
           this.$refs.audio.currentTime =percent*this.currentSong.duration
@@ -147,6 +188,11 @@
         end() {
           this.next()
         },
+        _play() {
+          this.$refs.audio.play()
+          const history = saveHistory(this.currentSong)
+          this.save_history({history})
+        },
         next() {
           let index = this.currentIndex+1
           if(index ===this.playList.length) {
@@ -155,7 +201,6 @@
             return
           }
           this.set_currentIndex(index)
-          console.log('next'+index)
         },
         prev() {
           let index = this.currentIndex-1
@@ -206,7 +251,13 @@
           this.currentLineNum =lineNum
           this.txt = txt
         },
-        ...mapMutations(['set_playing_status','set_fullscreen','set_currentIndex'])
+        ...mapMutations([
+          'set_playing_status',
+          'set_fullscreen',
+          'set_currentIndex',
+          'save_favorite',
+          'save_history'
+        ])
       },
       watch:{
         currentSong(newSong,oldSong) {
@@ -217,7 +268,7 @@
           * 一般是等dom的数据更新后 然后才会播放歌曲的
           * */
           setTimeout(() => {
-            this.$refs.audio.play()
+            this._play()
             this._getLyric(this.currentSong.id)
           },30)
 

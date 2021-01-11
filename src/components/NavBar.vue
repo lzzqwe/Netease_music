@@ -32,6 +32,7 @@
   }
   .bar-text {
     font-size: 24px;
+    line-height: 30px;
     width: 270px;
     display: inline-block;
     text-overflow: ellipsis;

@@ -286,8 +286,8 @@ export default {
               margin-right: 0;
             }
             .nav-icon {
-              width: 68px;
-              height: 68px;
+              width: 75px;
+              height: 75px;
               background-color:#8f342d;
               border-radius: 50%;
               margin-bottom: 10px;
@@ -301,6 +301,7 @@ export default {
             }
             .text {
               font-size: @font_size_small-s;
+              width: 75px;
             }
           }
         }

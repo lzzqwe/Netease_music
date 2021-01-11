@@ -8,7 +8,10 @@ import {SET_BANNERS,
   SET_PLAYING_STATUS,
   GET_COMMENT_NUM,
   SAVE_USER_INFO,
-  SET_OBJ
+  SET_OBJ,
+  SAVE_FAVORITE,
+  SAVE_HISTORY,
+  CLEAR_USER_INFO
 } from './mutation-types'
 export default {
   async set_banners({commit}) {
@@ -43,5 +46,14 @@ export default {
   },
   save_obj({commit},{obj}) {
     commit(SET_OBJ,{obj})
+  },
+  save_favorite({commit},{favorite}) {
+    commit(SAVE_FAVORITE,{favorite})
+  },
+  save_history({commit},{history}) {
+    commit(SAVE_HISTORY,{history})
+  },
+  clear_user_info({commit}) {
+    commit(CLEAR_USER_INFO)
   }
 }

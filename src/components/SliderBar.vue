@@ -67,6 +67,12 @@
                   </div>
                   <van-switch @change="change" v-model="checked" />
                 </li>
+                <li @click="logout" class="list-item">
+                  <div class="infomation">
+                    <span class="iconfont icontuichudenglu"></span>
+                    <span class="text">退出登录</span>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -78,10 +84,11 @@
 
 <script>
   import BaseScroll from "./BaseScroll";
+  import {delUserInfo} from '../common/js/cache'
   import storage from 'good-storage'
   import variables from "../common/themes/variables";
   import variablesBlack from '../common/themes/variables-black'
-  import {mapGetters} from 'vuex'
+  import {mapGetters,mapActions} from 'vuex'
   const themes = {
     white:'white',
     dark:'dark'
@@ -142,6 +149,15 @@
             document.documentElement.style.setProperty(key,value)
           })
         },
+        //退出登录
+        logout() {
+          this.$dialog.confirm({
+            message:'亲,确定要退出登录吗?'
+          }).then(() => {
+            delUserInfo()
+            this.clear_user_info()
+          })
+        },
         change(flag) {
           if(flag) {
             storage.set(CHECK_KEY,flag)
@@ -151,7 +167,8 @@
             this.changeThems(themes.white)
           }
 
-        }
+        },
+        ...mapActions(['clear_user_info'])
       }
     }
 </script>

@@ -113,6 +113,9 @@
           }
           this.comment = this.comment.concat(hotComments,res.comments)
           this.total = res.total
+          if(this.total<3) {
+            this.hasMore = false
+          }
         }
       },
       loadMore() {

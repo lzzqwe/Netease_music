@@ -43,12 +43,10 @@
       async onSubmit() {
           const res = await getLogin(this.username,this.password)
           if(res.code===200) {
-            /*
-            * 保存在localstorage
-            * */
-            saveUserInfo(res.profile)
+            //保存在localstorage
+            const userInfo = saveUserInfo(res.profile)
             //保存在vuex中
-            this.save_user_info({userInfo: res.profile})
+            this.save_user_info({userInfo})
             console.log(this.$route)
             if(this.$route.path==='/login') {
               this.$router.push('/')

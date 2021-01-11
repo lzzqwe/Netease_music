@@ -7,7 +7,10 @@ import {
   SET_PLAYING_STATUS,
   GET_COMMENT_NUM,
   SAVE_USER_INFO,
-  SET_OBJ
+  SET_OBJ,
+  SAVE_FAVORITE,
+  SAVE_HISTORY,
+  CLEAR_USER_INFO
 } from './mutation-types'
 export default {
   [SET_FULLSCREEN](state,fullscreen) {
@@ -36,5 +39,14 @@ export default {
   },
   [SET_OBJ](state,{obj}) {
     state.obj = obj
+  },
+  [SAVE_FAVORITE](state,{favorite}) {
+    state.favorite = favorite
+  },
+  [SAVE_HISTORY](state,{history}) {
+    state.playHistory = history
+  },
+  [CLEAR_USER_INFO](state) {
+    state.user = {}
   }
 }

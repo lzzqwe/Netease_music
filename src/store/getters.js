@@ -7,5 +7,7 @@ export default {
   banners:state => state.banners,
   totalCount:state => state.totalCount,
   playing:state => state.playing,
-  obj:state => state.obj
+  obj:state => state.obj,
+  favorite:state => state.favorite,
+  history:store => state.history
 }

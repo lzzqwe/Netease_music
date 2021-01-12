@@ -10,6 +10,7 @@ import PersonalFm from "../views/PersonalFm";
 import NetSearch from "../views/NetSearch";
 import NetMe from "../views/NetMe";
 import NetComment from "../views/NetComment";
+import NetMv from "../views/NetMv";
 Vue.use(VueRouter)
 const routes = [{
     path: '/',
@@ -64,6 +65,11 @@ const routes = [{
     path: '/comment',
     name:'NetComment',
     component: NetComment
+  },
+  {
+    path: '/mv',
+    name:'NetMv',
+    component: NetMv
   }
 ]
 

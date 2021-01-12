@@ -5,7 +5,9 @@ import './common/css/reset.css'
 import './common/font/iconfont.css'
 import router from './router'
 import store from './store'
-
+import 'vant/lib/dialog/style/less';
+import 'vant/lib/tabs/style/less'
+import 'vant/lib/search/style/less'
 import { Swipe,
   SwipeItem,
   Col,
@@ -21,7 +23,8 @@ import { Swipe,
   Toast,
   Cell,
   CellGroup,
-  Lazyload
+  Lazyload,
+  Search
 } from 'vant';
 
 Vue.use(Swipe)
@@ -42,6 +45,7 @@ Vue.use(Swipe)
   .use(Cell)
   .use(CellGroup)
   .use(Toast)
+  .use(Search)
   .use(Lazyload,{
     lazyComponent: true,
   })

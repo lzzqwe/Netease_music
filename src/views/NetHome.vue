@@ -20,8 +20,14 @@
           </div>
         </div>
         <base-scroll :scroll-x='scrollX' class="net-nav-wrap">
-          <ul class="nav-content">
-            <router-link :to="handleString(item.url)" tag="li" :key="item.id" v-for="(item) in navIcon" class="nav-item">
+          <ul ref='navCotent' class="nav-content">
+            <router-link
+              :to="handleString(item.url)"
+              tag="li"
+              :key="item.id" v-for="(item) in navIcon"
+              class="nav-item"
+              ref="navItem"
+            >
               <div class="nav-icon">
                 <img v-lazy="item.iconUrl" class="img"  alt="">
               </div>
@@ -278,12 +284,12 @@ export default {
         overflow: hidden;
         .nav-content {
           display: flex;
-          width: 754px;
+          width: 840px;
           .nav-item {
-            margin-right:30px;
+            padding-right:30px;
             text-align: center;
             &:last-child {
-              margin-right: 0;
+              padding-right: 0;
             }
             .nav-icon {
               width: 75px;

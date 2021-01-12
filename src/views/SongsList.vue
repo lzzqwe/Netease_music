@@ -196,19 +196,7 @@
     color: rgb(38,41,41);
     font-weight: 600;
   }
-  /deep/ .van-tabs__line {
-    height: 9px;
-    width: 50px;
-  }
 }
-/*.loader {*/
-/*  width: 60px;*/
-/*  height: 30px;*/
-/*  position: absolute;*/
-/*  top: 50%;*/
-/*  left: 50%;*/
-/*  transform: translate3d(-50%,-50%,0);*/
-/*}*/
 .loading-wrap {
   width: 100%;
   height: 30px;

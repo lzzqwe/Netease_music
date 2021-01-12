@@ -23,7 +23,7 @@
 
 <style lang="less" scoped>
 .nav-bar {
-  height: 82px;
+  height: 85px;
   display: flex;
   align-items: center;
   .iconxia {

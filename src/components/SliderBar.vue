@@ -152,7 +152,7 @@
         //退出登录
         logout() {
           this.$dialog.confirm({
-            message:'亲,确定要退出登录吗?'
+            message:'确定退出当前账号吗?'
           }).then(() => {
             delUserInfo()
             this.clear_user_info()

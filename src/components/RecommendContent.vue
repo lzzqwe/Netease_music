@@ -38,7 +38,7 @@
           <ul class="play-list">
             <li @click="playSong(index)" :key="item.id" class="play-item" v-for="(item,index) in list">
               <div class="Thumbnails">
-                <img class="icon-img" :src="item.picUrl" alt="">
+                <img class="icon-img" v-lazy="item.picUrl" alt="">
               </div>
               <div class="text">
                 <div class="content">

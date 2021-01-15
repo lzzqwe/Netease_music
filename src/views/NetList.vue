@@ -15,7 +15,7 @@
                 indicator-color="white">
                 <van-swipe-item @click="selectItem(item)" :key="index" v-for="(item,index) in songList.slice(0,3)">
                   <div class="songsItem">
-                    <img class="img" :src="item.coverImgUrl" alt="">
+                    <img class="img" v-lazy="item.coverImgUrl" alt="">
                     <p class="desc">{{item.name}}</p>
                   </div>
                 </van-swipe-item>
@@ -44,7 +44,7 @@
   import NetLoading from "../components/NetLoading";
   import {getSongsTags,getSongList} from '../api/index'
   export default {
-    name:'SongsList',
+    name:'NetList',
     data() {
       return {
         barTitle:'歌单广场',

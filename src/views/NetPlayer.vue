@@ -28,9 +28,9 @@
                 </div>
               </transition>
               <transition name="van-fade">
-                <base-scroll ref="lyric"  v-show="isFlag" :data="lines" v-if="lines" class="lyric">
+                <base-scroll  ref="lyric"  v-show="isFlag" :data="lines" v-if="lines" class="lyric">
                   <div>
-                    <p :class="{'current':currentLineNum===index}" ref="line" :key="index" @click="showLyric" v-for="(item,index) in lines">{{item.txt}}</p>
+                    <p @click="showLyric" :class="{'current':currentLineNum===index}" ref="line" :key="index"  v-for="(item,index) in lines">{{item.txt}}</p>
                   </div>
                 </base-scroll>
               </transition>
@@ -42,7 +42,7 @@
                   <span class="iconfont icondibar-xiazai"></span>
                   <span class="iconfont iconicon-test"></span>
                   <span @click.stop="selectComment" class="iconfont iconpinglun1">
-                  <span class="comment-count">{{totalCount}}</span>
+                  <span v-show="total" class="comment-count">{{total}}</span>
                 </span>
                   <span class="iconfont iconsandian"></span>
                 </div>
@@ -93,8 +93,9 @@
     import {saveFavorite,delFavorite,saveHistory} from '../common/js/cache'
     import ProgressBar from "../components/ProgressBar";
     import BaseScroll from "../components/BaseScroll";
-    import {getlyric} from '../api/index'
+    import {getlyric,getSongComment} from '../api/index'
     import Lyric from 'lyric-parser'
+    import {isDef} from "../common/js/common";
     export default {
       name: "NetPlayer",
       data() {
@@ -104,7 +105,9 @@
           lines:[],
           isFlag:false,
           currentLineNum:0,
-          txt:''
+          txt:'',
+          nolyric:false,
+          total:0
         }
       },
       components:{
@@ -125,8 +128,7 @@
           'currentIndex',
           'playList',
           'playing',
-          'favorite',
-          'totalCount'
+          'favorite'
         ])
       },
       methods:{
@@ -141,6 +143,13 @@
         },
         selectComment() {
           this.$router.push(`/comment?id=${this.currentSong.id}`)
+        },
+        async _getSongComment(id) {
+          const result = await getSongComment(id)
+          if(result.code===200) {
+            this.total = result.total
+          }
+          console.log(result)
         },
         /*
         * 收藏歌曲
@@ -201,6 +210,7 @@
             return
           }
           this.set_currentIndex(index)
+          this.set_playing_status(true)
         },
         prev() {
           let index = this.currentIndex-1
@@ -210,6 +220,7 @@
             return
           }
           this.set_currentIndex(index)
+          this.set_playing_status(true)
         },
         /*
         * 事件 error 会在因为一些错误（如网络连接错误）导致无法加载资源的时候触发。
@@ -224,22 +235,23 @@
         * 获取当前歌曲的歌词
         * */
         async _getLyric(id) {
-          const res =await getlyric(id)
-          if(res.code===200) {
-            if(res.lrc.lyric) {
-              let lyric = new Lyric(res.lrc.lyric, this.handler)
-              this.lines = lyric.lines
-              if(this.playing) {
-                /*
-                * 实例播放的时候执行handler函数 读取歌词到哪一行和那句歌词
-                * */
-                lyric.play()
-              } else {
-                lyric.pause()
-              }
-            }
+          const result =await getlyric(id)
+          this.nolyric = !isDef(result.lrc) || !result.lrc.lyric
+          if(!this.nolyric) {
+                let lyric = new Lyric(result.lrc.lyric, this.handler)
+                this.lines = lyric.lines
+                if(this.playing) {
+                  /*
+                  * 实例播放的时候执行handler函数 读取歌词到哪一行和那句歌词
+                  * */
+                  lyric.play()
+                } else {
+                  lyric.pause()
+                }
           } else {
-            console.log('dsdsds')
+            this.$toast('很抱歉,暂时没有歌词')
+            this.txt = ''
+            this.lines = []
           }
         },
         handler({lineNum,txt}) {
@@ -270,6 +282,7 @@
           setTimeout(() => {
             this._play()
             this._getLyric(this.currentSong.id)
+            this._getSongComment(this.currentSong.id)
           },30)
 
         },

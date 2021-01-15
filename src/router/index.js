@@ -1,16 +1,39 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/NetHome'
-import SongsList from "../views/SongsList";
-import SongListDetail from "../views/SongListDetail";
-import DailylRecommend from "../views/DailylRecommend";
-import NetLogin from "../views/NetLogin";
-import NetRank from "../views/NetRank";
-import PersonalFm from "../views/PersonalFm";
-import NetSearch from "../views/NetSearch";
-import NetMe from "../views/NetMe";
-import NetComment from "../views/NetComment";
-import NetMv from "../views/NetMv";
+const Home = (resolve) => {
+  import('../views/NetHome.vue').then((moudle) =>resolve(moudle))
+}
+const SongsList = (resolve) => {
+  import('../views/NetList.vue').then((module) =>resolve(module))
+}
+const SongListDetail = (resolve) => {
+  import('../views/SongListDetail.vue').then((module) =>resolve(module))
+}
+const DailylRecommend = (resolve) => {
+  import('../views/DailylRecommend').then((module) =>resolve(module))
+}
+const NetLogin = (resolve) => {
+  import('../views/NetLogin').then((module) =>resolve(module))
+}
+const NetRank = (resolve) => {
+  import('../views/NetRank').then((module) =>resolve(module))
+}
+const PersonalFm = (resolve) => {
+  import('../views/PersonalFm').then((module) =>resolve(module))
+}
+const NetSearch = (resolve) => {
+  import('../views/NetSearch').then((module) =>resolve(module))
+}
+const NetMe = (resolve) => {
+  import('../views/NetMe').then((module) =>resolve(module))
+}
+const NetComment = (resolve) => {
+  import('../views/NetComment').then((module) =>resolve(module))
+}
+const NetMv = (resolve) => {
+  import('../views/NetMv').then((module) =>resolve(module))
+}
+
 Vue.use(VueRouter)
 const routes = [{
     path: '/',

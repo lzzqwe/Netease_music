@@ -7,7 +7,7 @@
       <div>
         <div class="playlist-cover">
           <div class="cover">
-            <img  class="image-cover" :src="cover.picUrl" alt="">
+            <img  class="image-cover" v-lazy="cover.picUrl" alt="">
           </div>
           <div class="title">
             <div class="desc">
@@ -32,7 +32,7 @@
           <ul class="comment-list">
             <li :key="index" class="item" v-for="(item,index) in comment">
               <div class="avatar">
-                <img class="avatar-img" :src="item.user.avatarUrl" alt="">
+                <img class="avatar-img" v-lazy="item.user.avatarUrl" alt="">
               </div>
               <div class="comment-info van-hairline--bottom">
                 <div class="user">

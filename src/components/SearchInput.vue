@@ -37,52 +37,12 @@
             <div class="hot-in-list">
               <van-row  type="flex" class="hot-in-item">
                 <van-col @click="searchKeyword(item.searchWord)" :key="item.searchWord" v-for="(item,index) in searchDetail" class="item" span="12">
-                  <span class="number">{{index+1}}</span><span class="keyword">{{item.searchWord}}</span><img class="icon" v-show="item.iconUrl" :src="item.iconUrl" alt="">
+                  <span class="number">{{index+1}}</span><span class="keyword">{{item.searchWord}}</span>
                 </van-col>
                 <net-loading v-show="!searchDetail.length"></net-loading>
               </van-row>
             </div>
             <div class="Song-zone">
-              <van-row class="song-zone-item" gutter="12">
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-              </van-row>
-              <van-row class="song-zone-item" gutter="12">
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-              </van-row>
-              <van-row class="song-zone-item" gutter="12">
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-              </van-row>
-              <van-row class="song-zone-item" gutter="12">
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-              </van-row>
-              <van-row class="song-zone-item" gutter="12">
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-                <van-col span="12">
-                  <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
-                </van-col>
-              </van-row>
               <van-row class="song-zone-item" gutter="12">
                 <van-col span="12">
                   <img class="zone-image"  src="http://29e5534ea20a8.cdn.sohucs.com/c_zoom,h_213/c_cut,x_64,y_0,w_675,h_450/os/news/82a80033a6203bc81beaef33d250d398.jpg" alt="">
@@ -339,7 +299,8 @@
               .item {
                 font-size: 18px;
                 margin-bottom: 34px;
-                color: rgb(51,51,51);
+                display: flex;
+                justify-content: space-between;
                 &:nth-last-child(2) {
                   margin-bottom: 0;
                 }
@@ -352,6 +313,10 @@
                 }
                 .keyword {
                   margin-right: 10px;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  width: 230px;
                 }
                 .icon {
                   width: 39px;

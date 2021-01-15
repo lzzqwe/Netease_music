@@ -4,7 +4,7 @@
     <ul class="rank-list">
       <li @click="selectDetail(item.id)" :key="item.id" v-for="(item) in data" class="rank-item">
         <div class="song-cover">
-          <img class="song-cover-img" :src="item.coverImgUrl" alt="">
+          <img class="song-cover-img" v-lazy="item.coverImgUrl" alt="">
         </div>
         <p class="text">{{item.name}}</p>
       </li>

@@ -22,12 +22,12 @@
           <div class="song-detail-cover">
             <div class="detail-cover-content">
               <div class="cover-img">
-                <img class="icon-album" :src="playlist.coverImgUrl" alt="">
+                <img class="icon-album" v-lazy="playlist.coverImgUrl" alt="">
               </div>
               <div class="description">
                 <p class="song-list-title">{{playlist.name}}</p>
                 <div v-if="playlist.creator" class="attention">
-                  <img class="avatar" :src="playlist.creator.avatarUrl" alt="">
+                  <img class="avatar" v-lazy="playlist.creator.avatarUrl" alt="">
                   <span class="user-name">{{playlist.creator.nickname}}</span>
                   <div class="increase">
                     <span class="iconfont iconhao"></span>

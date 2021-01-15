@@ -133,3 +133,21 @@ export const getUserPlaylist = (uid) => {
 export const getTop = () => {
   return ajax(BASE+ '/toplist/detail')
 }
+/*
+* 22.获取Mv
+* */
+export const getMv = (area) => {
+  return ajax(BASE + '/mv/first',{area})
+}
+/*
+* 23.获取用户详情
+* */
+export const getUserDetail = (uid) => {
+  return ajax(BASE + '/user/detail',{uid})
+}
+/*
+* 24.获取用户的歌单
+* */
+export const getUserSonglist = (uid) => {
+  return ajax(BASE+ '/user/playlist',{uid})
+}

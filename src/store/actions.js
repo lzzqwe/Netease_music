@@ -23,8 +23,8 @@ export default {
     commit(SET_CURRENTINDEX,index)
     commit(SET_PLAYING_STATUS,true)
     commit(SET_FULLSCREEN,true)
-    const res = await getSongComment(getters.currentSong.id)
-    commit(GET_COMMENT_NUM,{totalCount:res.total})
+    // const res = await getSongComment(getters.currentSong.id)
+    // commit(GET_COMMENT_NUM,{totalCount:res.total})
   },
   async get_privateFm({dispatch,commit,state}) {
     const res = await getPrivateFm()

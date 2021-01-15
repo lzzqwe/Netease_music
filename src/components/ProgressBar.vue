@@ -1,13 +1,15 @@
 <template>
   <div class="progress">
     <span class="time">{{format(time)}}</span>
-    <div ref="progerssBar" class="progress-bar">
+    <div @click="jump" ref="progerssBar" class="progress-bar">
       <div ref="progressInnerBar" class="progress-inner-bar"></div>
       <div
         @touchstart.prevent="handleStart"
         @touchmove.prevent="handleMove"
         @touchend.prevent="handleEnd"
-        ref="progressCircle" class="progress-circle"></div>
+        ref="progressCircle" class="progress-circle-wrap">
+        <div class="progress-circle"></div>
+      </div>
     </div>
     <span class="time">{{format(currentSong.duration)}}</span>
   </div>
@@ -44,15 +46,30 @@
           if(!this.touch.initStatus) {
             return
           }
+          const progerssBarWidth =this.$refs.progerssBar.clientWidth
+          const progressCircleWidth = this.$refs.progressCircle.clientWidth/2
           const distance = e.touches[0].pageX-this.touch.startX
-          console.log(distance+this.touch.width)
-          this.$refs.progressInnerBar.style.width =`${distance+this.touch.width}px`
-          this.$refs.progressCircle.style.transform =`translateX(${distance}px)`
+          const minDistance = Math.min(progerssBarWidth-progressCircleWidth,Math.max(0,distance+this.touch.width))
+          this._offsetDistance(minDistance)
+        },
+        _triggerPercent() {
+          const percent =  this.$refs.progressInnerBar.clientWidth/ (this.$refs.progerssBar.clientWidth-16)
+          this.$emit('onPercentChange',percent)
         },
         handleEnd() {
           this.touch.initStatus =false
-          const percent =  this.$refs.progressInnerBar.clientWidth/ this.$refs.progerssBar.clientWidth
-          this.$emit('onPercentChange',percent)
+          this._triggerPercent()
+        },
+        jump(e) {
+          const rect = this.$refs.progerssBar.getBoundingClientRect()
+          const left =rect.left
+          const distance = e.pageX-left
+          this._offsetDistance(distance)
+          this._triggerPercent()
+        },
+        _offsetDistance(h) {
+          this.$refs.progressInnerBar.style.width =`${h}px`
+          this.$refs.progressCircle.style.transform =`translate3d(${h}px,0,0)`
         },
         format(time) {
           time = Math.floor(time)
@@ -71,9 +88,10 @@
       },
       watch:{
         percent(newPercent) {
-          let innnerProgressWidth = (this.$refs.progerssBar.clientWidth-13)*newPercent
-          this.$refs.progressInnerBar.style.width=`${innnerProgressWidth}px`
-          this.$refs.progressCircle.style.left =`${innnerProgressWidth}px`
+          const progerssBarWidth =this.$refs.progerssBar.clientWidth
+          const progressCircleWidth = this.$refs.progressCircle.clientWidth/2
+          const innnerProgressWidth = (progerssBarWidth-progressCircleWidth)*newPercent
+          this._offsetDistance(innnerProgressWidth)
         }
       },
     }
@@ -99,15 +117,21 @@
       margin: 0 17px;
       position: relative;
       font-size: 0;
-      .progress-circle {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background-color:rgb(254,254,254);
+      .progress-circle-wrap {
+        width: 30px;
+        height: 30px;
         position: absolute;
-        bottom: -4.5px;
+        bottom: -15px;
         left: 0;
         padding: 2px;
+        display: flex;
+        align-items: center;
+        .progress-circle {
+          border-radius: 50%;
+          background-color:rgb(254,254,254);
+          width: 16px;
+          height: 16px;
+        }
       }
       .progress-inner-bar {
         height: 3px;

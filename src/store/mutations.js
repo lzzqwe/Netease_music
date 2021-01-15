@@ -5,7 +5,6 @@ import {
   SET_FULLSCREEN,
   GET_PRIVATEFM,
   SET_PLAYING_STATUS,
-  GET_COMMENT_NUM,
   SAVE_USER_INFO,
   SET_OBJ,
   SAVE_FAVORITE,
@@ -30,9 +29,6 @@ export default {
   },
   [SET_PLAYING_STATUS](state,playing) {
     state.playing = playing
-  },
-  [GET_COMMENT_NUM](state,{totalCount}) {
-    state.totalCount = totalCount
   },
   [SAVE_USER_INFO](state,{userInfo}) {
     state.user = userInfo

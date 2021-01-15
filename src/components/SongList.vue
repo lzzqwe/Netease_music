@@ -1,7 +1,7 @@
 <template>
   <li @click="selectItem(songItem)" class="song-list-item">
     <div class="item-icon">
-      <img class="img" :src="songItem.coverImgUrl" alt="">
+      <img class="img" v-lazy="songItem.coverImgUrl" alt="">
       <div class="play-count">
         <span class="iconfont iconbofangliang1"></span>{{_normalNum(songItem.playCount,1)}}
       </div>

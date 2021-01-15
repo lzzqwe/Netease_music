@@ -5,8 +5,8 @@
           <span class="iconfont iconyoujiantou"></span>
         </div>
         <div class="input-content">
-          <input class="input" type="text">
-          <span v-show="keyword" class="iconfont iconiconjia"></span>
+          <input v-model="value" class="input" type="text">
+          <span @click="clear" v-show="keyword" class="iconfont iconiconjia"></span>
         </div>
       </div>
       <div class="tab-wrap">
@@ -14,192 +14,28 @@
           <van-tab title="综合">
             <base-scroll class="search-content-wrap">
               <div>
-                <div class="single-song">
-                  <div class="title">
-                    <h1 class="txt">单曲</h1>
-                    <van-button type="default">
-                      <span class="iconfont iconbofang4">播放</span>
-                    </van-button>
-                  </div>
+                <net-card :data="songs" :title="songTitle">
                   <ul class="single-song-list">
-                    <li class="item">
+                    <li :key="item.id" v-for="(item) in songs" class="item">
                       <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
+                        <p class="name">{{item.name}}</p>
+                        <div class="desc">{{item.name}}-{{item.singer}}</div>
                       </div>
                       <span class="iconfont iconsandian"></span>
                     </li>
                   </ul>
                   <div class="look-over-more">
-                    查看全部的53首单曲
+                    {{song.moreText}}
                   </div>
-                </div>
-                <div class="single-song">
-                  <div class="title">
-                    <h1 class="txt">单曲</h1>
-                    <van-button type="default">
-                      <span class="iconfont iconbofang4">播放</span>
-                    </van-button>
-                  </div>
+                </net-card>
+                <net-card :data="playLists" :title="title">
                   <ul class="single-song-list">
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
+                    <base-list :song="item" :key="item.id" v-for="(item) in playLists"></base-list>
                   </ul>
                   <div class="look-over-more">
-                    查看全部的53首单曲
+                    {{playList.moreText}}
                   </div>
-                </div>
-                <div class="single-song">
-                  <div class="title">
-                    <h1 class="txt">单曲</h1>
-                    <van-button type="default">
-                      <span class="iconfont iconbofang4">播放</span>
-                    </van-button>
-                  </div>
-                  <ul class="single-song-list">
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                    <li class="item">
-                      <div class="content">
-                        <p class="name">12岁</p>
-                        <div class="desc">刘德华演唱会</div>
-                      </div>
-                      <span class="iconfont iconsandian"></span>
-                    </li>
-                  </ul>
-                  <div class="look-over-more">
-                    查看全部的53首单曲
-                  </div>
-                </div>
+                </net-card>
               </div>
             </base-scroll>
           </van-tab>
@@ -213,27 +49,68 @@
 
 <script>
   import BaseScroll from "../components/BaseScroll";
+  import BaseList from "../components/BaseList";
+  import NetCard from "../components/NetCard";
+  import {getSearch} from '../api'
+  import {createSong} from "../common/js/song";
     export default {
       name: "NetSearch",
       props:{
         keyword:String
       },
       components:{
-        BaseScroll
+        BaseScroll,
+        BaseList,
+        NetCard
       },
       data() {
         return {
           list: [],
-          active:0
+          active:0,
+          result:{},
+          songTitle:"单曲",
+          title:"歌单",
+          songs:[],
+          song:{},
+          playList:{},
+          playLists:[],
+          value:''|| this.$route.query.keyword
         };
       },
       methods: {
         back() {
           this.$router.back()
+        },
+        clear() {
+          this.value=''
+        },
+        async _getSearch(keywords) {
+          const res = await getSearch(keywords)
+          if(res.code===200) {
+            this.song = res.result.song
+            this.playList = res.result.playList
+            this.playLists = res.result.playList.playLists
+            this.songs =this._createSong(res.result.song.songs)
+          }
+        },
+        _createSong(list) {
+          const songs = []
+          list.forEach((item) => {
+            songs.push(createSong({
+              id:item.id,
+              picUrl:item.picUrl,
+              duration:item.dt,
+              singer:item.ar[0].name,
+              name:item.name,
+              mvId:item.mv
+            }))
+          })
+          return songs
         }
       },
       created() {
         console.log(this.$route.query.keyword)
+        this._getSearch(this.$route.query.keyword)
       }
     }
 </script>
@@ -286,53 +163,44 @@
       left: 0;
       right: 0;
       overflow: hidden;
-      .single-song {
-        margin: 0 24px 24px 24px;
-        background-color: rgb(255,255,255);
-        padding: 0 24px;
-        .title {
+      .single-song-list {
+        .item {
+          height: 90px;
           display: flex;
-          padding-top: 34px;
+          align-items: center;
           justify-content: space-between;
-          padding-bottom: 12px;
-          border-bottom: 1px solid @font-deep-gray;
-          .txt {
-            font-size: @font_size_large;
-            font-weight: 600;
-            color: @font-black;
-          }
-        }
-        .single-song-list {
-          .item {
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid @font-light-gray;
-            .content {
-              .name {
-                font-size: @font_size_medium-l;
-                color:@font-black;
-                margin-bottom: 10px;
-              }
-              .desc {
-                font-size: @font_size_small;
-                color: @font-deep-gray;
-              }
+          border-bottom: 1px solid @font-light-gray;
+          .content {
+            flex: 0 0 410px;
+            width: 410px;
+            .name {
+              font-size: @font_size_medium-l;
+              color:@font-black;
+              margin-bottom: 10px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
-            .iconsandian {
-              font-size:@font_size_medium-l;
+            .desc {
+              font-size: @font_size_small;
               color: @font-deep-gray;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
           }
+          .iconsandian {
+            font-size:@font_size_medium-l;
+            color: @font-deep-gray;
+          }
         }
-        .look-over-more {
-          height: 60px;
-          font-size: @font_size_small;
-          color: @font-deep-gray;
-          text-align: center;
-          line-height: 60px;
-        }
+      }
+      .look-over-more {
+        height: 60px;
+        font-size: @font_size_small;
+        color: @font-deep-gray;
+        text-align: center;
+        line-height: 60px;
       }
     }
   }

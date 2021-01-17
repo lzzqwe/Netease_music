@@ -1,38 +1,39 @@
 <template>
-  <ul>
-    <li @click="playSong(index)" :key="item.id" v-for="(item,index) in songs" class="list-item">
-      <div class="item-index">{{index+1}}</div>
-      <div class="desc">
-        <div class="song-name-text">
-          <div class="song-name-content">
-            <h1 class="name">{{item.name}}</h1>
-            <div class="text">
-              <span class="iconfont icondujia"></span>
-              <span class="iconfont iconsq"></span>
-              <span>{{item.singer}}-{{item.name}}</span>
-            </div>
+  <li v-if="song"  @click="playSong" class="list-item">
+    <div class="item-index">{{index+1}}</div>
+    <div class="desc">
+      <div class="song-name-text">
+        <div class="song-name-content">
+          <h1 class="name">{{song.name}}</h1>
+          <div class="text">
+            <span class="iconfont icondujia"></span>
+            <span class="iconfont iconsq"></span>
+            <span>{{song.singer}}-{{song.name}}</span>
           </div>
-          <span v-show="item.mvId" class="iconfont iconbofang6"></span>
         </div>
-        <div class="play-icon">
-          <span class="iconfont iconsandian"></span>
-        </div>
+        <span v-show="song.mvId" class="iconfont iconbofang6"></span>
       </div>
-    </li>
-  </ul>
+      <div class="play-icon">
+        <span class="iconfont iconsandian"></span>
+      </div>
+    </div>
+  </li>
 </template>
 
 <script>
   export default {
     name: "BaseSongs",
     props:{
-      songs:{
-        type:Array
+      song:{
+        type:Object
+      },
+      index:{
+        type:Number
       }
     },
     methods:{
-      playSong(index) {
-        this.$emit('play',index)
+      playSong() {
+        this.$emit('play')
       }
     }
   }
@@ -71,6 +72,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            line-height: 24px;
           }
           .text {
             width: 100%;
@@ -79,6 +81,7 @@
             overflow: hidden;
             font-size: 12px;
             color: rgb(179,179,179);
+            line-height: 16px;
             .icondujia {
               margin-right: 5px;
               color: rgb(246,162,159);

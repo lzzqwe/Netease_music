@@ -10,7 +10,9 @@
       <div :style="{backgroundImage:`url(${picUrl})`}" class="search-background"></div>
     </div>
     <base-scroll :data="list" class="song-wrap">
-      <base-songs @play="play" :songs="list"></base-songs>
+      <div>
+        <base-songs @play="play" :songs="list"></base-songs>
+      </div>
     </base-scroll>
   </div>
 </template>

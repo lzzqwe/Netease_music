@@ -7,10 +7,7 @@
         class="bgc"
       ></div>
     </div>
-    <base-sticky :style="paddingStyle" v-show="showPlay"></base-sticky>
-<!--    <transition name="van-slide-up">-->
-<!--      <div v-show="showPlay" class="backgroud"></div>-->
-<!--    </transition>-->
+    <base-sticky @play="playAll" :style="paddingStyle" v-show="showPlay"></base-sticky>
     <base-scroll
       :bounce="bounce"
       :data="list"
@@ -34,7 +31,7 @@
           </div>
         </div>
         <div class="recommend-content">
-          <base-sticky></base-sticky>
+          <base-sticky @play="playAll"></base-sticky>
           <ul class="play-list">
             <li @click="playSong(index)" :key="item.id" class="play-item" v-for="(item,index) in list">
               <div class="Thumbnails">
@@ -109,6 +106,9 @@
       ...mapGetters(['banners','playList'])
     },
     methods:{
+      playAll() {
+        this.select_play({playlist:this.list,index:0})
+      },
       handlePlaylist(playList) {
         if(playList.length>0) {
           this.$refs.recommend.$el.classList.add('bottom')
@@ -166,6 +166,7 @@
 </script>
 
 <style lang="less" scoped>
+  @import '../common/less/mixin.less';
   .recommend-content-wrap {
     position: fixed;
     top:0;
@@ -296,10 +297,14 @@
                   font-size: 20px;
                   margin-top: 6px;
                   margin-bottom: 14px;
+                  width: 330px;
+                  .no-wrap();
                 }
                 .desc {
                   font-size: 16px;
                   color: rgb(128,128,128);
+                  width: 330px;
+                  .no-wrap();
                   .icondujia {
                     margin-right: 5px;
                     color: rgb(246,162,159);

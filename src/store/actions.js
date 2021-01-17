@@ -18,13 +18,11 @@ export default {
      const res = await getHomeSwiper()
      commit(SET_BANNERS,{banners:res.banners})
   },
-  async select_play({commit,getters},{playlist,index}) {
+  async select_play({commit},{playlist,index}) {
     commit(SET_PLAYLIST,playlist)
     commit(SET_CURRENTINDEX,index)
     commit(SET_PLAYING_STATUS,true)
     commit(SET_FULLSCREEN,true)
-    // const res = await getSongComment(getters.currentSong.id)
-    // commit(GET_COMMENT_NUM,{totalCount:res.total})
   },
   async get_privateFm({dispatch,commit,state}) {
     const res = await getPrivateFm()

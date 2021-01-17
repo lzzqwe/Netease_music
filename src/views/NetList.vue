@@ -8,18 +8,13 @@
         <base-scroll @scrollToEnd="loadMore" :pullup="pullup" :data="songList" :key="index" class="song-list-wrap">
           <div class="song-list-content">
             <div class="song-swiper">
-              <van-swipe
-                :stop-propagation="false"
-                v-show="needOne(index)"
-                class="my-swipe"
-                indicator-color="white">
-                <van-swipe-item @click="selectItem(item)" :key="index" v-for="(item,index) in songList.slice(0,3)">
-                  <div class="songsItem">
-                    <img class="img" v-lazy="item.coverImgUrl" alt="">
-                    <p class="desc">{{item.name}}</p>
+              <swiper v-show="needOne(index)" ref="mySwiper" :options="swiperOptions">
+                <swiper-slide :id="item.id" ref="slide" @click="selectItem(item.id)" :key="item.id" v-for="(item) in songList.slice(0,3)">
+                  <div class="slide-container">
+                    <img class="img" :src="item.coverImgUrl" alt="">
                   </div>
-                </van-swipe-item>
-              </van-swipe>
+                </swiper-slide>
+              </swiper>
             </div>
             <keep-alive>
               <div class="songs-wrap">
@@ -38,6 +33,7 @@
   </div>
 </template>
 <script>
+  let vm = null
   import NavBar from "../components/NavBar";
   import SongList from "../components/SongList";
   import BaseScroll from "../components/BaseScroll";
@@ -55,14 +51,48 @@
         limit:50,
         offset:0,
         loading:false,
-        hasMore:true
+        hasMore:true,
+        swiperOptions: {
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          autoplay: {
+            delay: 3000,
+            stopOnLastSlide: false,
+            disableOnInteraction: false
+          },
+          preventClicks : false,
+          initialSlide :1,
+          effect : 'coverflow',
+          slidesPerView: 3,
+          centeredSlides: true,
+          on:{
+            click:function () {
+              const realIndex = this.realIndex
+              vm.handleClick(realIndex)
+            }
+          },
+          coverflowEffect: {
+            rotate: 0,
+            stretch: 1,
+            depth: 10,
+            modifier: 10,
+            slideShadows : false
+          },
+          loop: true
+        }
       }
     },
     created() {
       this._getSongsTags()
       this._getSongList(this.cat,this.limit,this.offset)
+      vm = this
     },
     methods:{
+      handleClick(index) {
+        const id = this.$refs.slide[index].$el.id
+        this.$router.push(`/playlistCollection/${id}`)
+      },
       needOne(index) {
         if(index===0) {
           return true
@@ -140,28 +170,17 @@
     .song-list-content {
       .song-swiper {
         padding: 0 24px;
-        .my-swipe {
-          margin-bottom: 32px;
-          .van-swipe-item {
-            color: #fff;
-            font-size: 20px;
-            height: 320px;
-            text-align: center;
-            .songsItem {
-              width: 100%;
-              height: 100%;
-              color: var(--font-color);
-              .img {
-                height: 80%;
-                width: 100%;
-              }
-              .desc {
-                width: 100%;
-                margin-top: 15px;
-                text-align: center;
-                height: 20%;
-              }
-            }
+        .slide-container {
+          width: 240px;
+          height: 280px;
+          .img {
+            width: 240px;
+            height: 240px;
+          }
+          .dec {
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 26px;
           }
         }
       }

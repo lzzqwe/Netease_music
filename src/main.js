@@ -5,6 +5,11 @@ import './common/css/reset.css'
 import './common/font/iconfont.css'
 import router from './router'
 import store from './store'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+// import style (<= Swiper 5.x)
+import 'swiper/css/swiper.css'
+
 import 'vant/lib/dialog/style/less';
 import 'vant/lib/tabs/style/less'
 import 'vant/lib/search/style/less'
@@ -24,7 +29,8 @@ import { Swipe,
   Cell,
   CellGroup,
   Lazyload,
-  Search
+  Search,
+  Skeleton
 } from 'vant';
 
 Vue.use(Swipe)
@@ -46,9 +52,11 @@ Vue.use(Swipe)
   .use(CellGroup)
   .use(Toast)
   .use(Search)
+  .use(Skeleton)
   .use(Lazyload,{
     lazyComponent: true,
   })
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 
 Vue.config.productionTip = false
 

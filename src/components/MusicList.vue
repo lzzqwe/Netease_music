@@ -66,19 +66,28 @@
             </div>
           </div>
           <div class="play-all">
-            <div class="play">
-              <span class="iconfont iconbofang7"></span>
+            <div @click="playAll" class="play">
+              <span :class="getPlayIcon" class="iconfont"></span>
               <span class="all">播放全部</span>
-              <span class="num">(132)</span>
+              <span class="num">({{this.songs.length}})</span>
             </div>
             <div class="down-select">
               <span class="iconfont iconxiazai"></span><span class="iconfont iconquanxuan"></span>
             </div>
           </div>
           <div class="list">
-              <base-songs @play="playSong" :songs="songs"></base-songs>
+            <ul>
+              <base-songs
+                :index="index"
+                :key="item.id"
+                v-for="(item,index) in songs"
+                @play="playSong(index)"
+                :song="item"></base-songs>
+               <div v-show="!this.songs.length" class="net-loading-wrap">
+                 <net-loading></net-loading>
+               </div>
+            </ul>
           </div>
-          <net-loading v-show="!this.songs.length"></net-loading>
         </div>
       </base-scroll>
       <songs-search :songs="songs" @hide="hide" :pic-url="playlist.coverImgUrl" v-show="isShowSearch"></songs-search>
@@ -109,7 +118,10 @@
       this.handlePlaylist(this.playList)
     },
     computed:{
-      ...mapGetters(['playList'])
+      getPlayIcon() {
+        return this.playing?'iconbofang3':'iconbofang7'
+      },
+      ...mapGetters(['playing','playList'])
     },
     data() {
       return {
@@ -140,6 +152,9 @@
         } else {
           this.$refs.songs.$el.classList.remove('bottom')
         }
+      },
+      playAll() {
+        this.select_play({playlist:this.songs,index:0})
       },
       showSearch() {
         this.isShowSearch = true
@@ -398,6 +413,10 @@
         display: flex;
         align-items: center;
         .iconbofang7 {
+          font-size: 30px;
+          color: rgb(255,65,30);
+        }
+        .iconbofang3 {
           font-size: 30px;
           color: rgb(255,65,30);
         }

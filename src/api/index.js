@@ -151,3 +151,27 @@ export const getUserDetail = (uid) => {
 export const getUserSonglist = (uid) => {
   return ajax(BASE+ '/user/playlist',{uid})
 }
+/*
+* 25.mv地址
+* */
+export const getMvUrl = (id) => {
+  return ajax(BASE + '/mv/url',{id})
+}
+/*
+* 26.获取歌手详情
+* */
+export const getSingerDetail = (id) => {
+  return ajax(BASE+'/artist/detail',{id})
+}
+/*
+* 27.获取mv的数据
+* */
+export const getMvDetail = (mvid) => {
+  return ajax(BASE+'/mv/detail',{mvid})
+}
+/*
+* 28.获取 mv 点赞转发评论数数据
+* */
+export const getMvInfo = (mvid) => {
+  return ajax(BASE+'/mv/detail/info',{mvid})
+}

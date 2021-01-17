@@ -33,7 +33,12 @@ const NetComment = (resolve) => {
 const NetMv = (resolve) => {
   import('../views/NetMv').then((module) =>resolve(module))
 }
-
+const MvPlayer = (resolve) => {
+  import('../views/MvPlayer').then((module) =>resolve(module))
+}
+const NetTest = (resolve) => {
+  import('../views/NetTest').then((module) => resolve(module))
+}
 Vue.use(VueRouter)
 const routes = [{
     path: '/',
@@ -90,9 +95,20 @@ const routes = [{
     component: NetComment
   },
   {
+    path: '/test',
+    name:'NetTest',
+    component: NetTest
+  },
+  {
     path: '/mv',
     name:'NetMv',
-    component: NetMv
+    component: NetMv,
+    children: [
+      {
+        path: ':id',
+        component:MvPlayer
+      }
+    ]
   }
 ]
 

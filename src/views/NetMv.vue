@@ -14,37 +14,42 @@
                   input-align="center"
                 />
                 <ul class="mv-list">
-                  <li :key="item.id" v-for="(item) in mvList" class="item">
+                  <li @click="selctItem(item.id)" :key="item.id" v-for="(item) in mvList" class="item">
                     <div class="mv-album">
-                      <img class="image" v-lazy="item.cover" alt="">
+                      <div class="background">
+                        <img class="image" :src="item.cover" alt="">
+                      </div>
+                      <div class="album-img">
+                        <img class="img" v-lazy="item.cover" alt="">
+                      </div>
                     </div>
                     <div class="content">
                       <p class="title">{{item.name}}</p>
                       <div class="Numbers">
                         <span class="iconfont iconbofangliang1"><span class="count">{{_normalNum(item.playCount,1)}}</span></span>
                         <span class="iconfont icondianzan"><span class="count">3615</span></span>
-                        <span class="nickname">音乐安利</span>
                       </div>
                     </div>
                   </li>
-                  <div class="loading-wrap">
-                    <net-loading></net-loading>
-                  </div>
                 </ul>
+<!--                <div v-show="!this.mvList.length" class="loading-wrap">-->
+<!--                  <net-loading></net-loading>-->
+<!--                </div>-->
               </div>
             </base-scroll>
           </van-tab>
         </van-tabs>
       </div>
+      <router-view></router-view>
     </div>
 </template>
 
 <script>
-  import {getMv} from '../api'
+  import {getMv,getSingerDetail} from '../api'
   import NavBar from "../components/NavBar";
   import BaseScroll from "../components/BaseScroll";
   import Mv from '../common/js/mv'
-  import NetLoading from "../components/NetLoading";
+  // import NetLoading from "../components/NetLoading";
     export default {
       name: "NetMv",
       created() {
@@ -65,6 +70,9 @@
           if(res.code === 200) {
             this.mvList = res.data
           }
+        },
+        selctItem(id) {
+          this.$router.push(`/mv/${id}`)
         },
         _normalNum(num,point) {
           let numStr = num.toString();
@@ -88,8 +96,8 @@
       },
       components:{
         NavBar,
-        BaseScroll,
-        NetLoading
+        BaseScroll
+        // NetLoading
       }
     }
 </script>
@@ -128,16 +136,40 @@
         font-size: 0;
         .item {
           width: 234px;
-          padding: 0 6px;
+          margin: 0 6px;
           margin-bottom: 24px;
           .mv-album {
             width: 100%;
             height: 294px;
             font-size: 0;
-            .image {
-              width: 100%;
-              height: 100%;
-              border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .album-img {
+              width: 215px;
+              height: 128px;
+              .img {
+                width: 100%;
+                height: 100%;
+                border-radius: 15px;
+              }
+            }
+            .background {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              z-index: -1;
+              opacity: 0.5;
+              filter: blur(30px);
+              .image {
+                width: 100%;
+                height: 100%;
+                transform: scale(3);
+              }
             }
           }
           .content {
@@ -156,6 +188,7 @@
               overflow: hidden;
               white-space: wrap;
               line-height: 25px;
+              color: @font-black;
             }
             .Numbers {
               display: flex;
@@ -165,9 +198,7 @@
               height: 45px;
               .iconbofangliang1 {
                 font-size: 12px;
-                .count {
-
-                }
+                color: @font-deep-gray;
               }
               .icondianzan {
                 .count {

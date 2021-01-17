@@ -44,8 +44,8 @@
               <span class="iconfont iconrefresh"></span>歌声里藏着故事
             </div>
           </div>
-          <div class="play-muisc">
-            <span class="iconfont iconbofang4"></span>播放
+          <div @click="playAll" class="play-muisc">
+            <span :class="_getIcon" class="iconfont"></span>播放
           </div>
           <div class="private-song-wrap">
             <div class="private-song-content">
@@ -113,7 +113,10 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['banners','fullscreen','playList'])
+    _getIcon() {
+      return this.playing?'iconzanting':'iconbofang4'
+    },
+    ...mapGetters(['banners','fullscreen','playList','playing'])
   },
   methods:{
     handlePlaylist(playList) {
@@ -123,6 +126,9 @@ export default {
         this.$refs.netHome.$el.classList.remove('bottom')
       }
         this.$refs.netHome.refresh()
+    },
+    playAll() {
+      this.select_play({playlist:this.privateMusic,index:0})
     },
     async _getRecommedList() {
       const res =await getRecommendList()
@@ -344,6 +350,9 @@ export default {
           align-items: center;
           font-size: @font_size_medium-s;
           .iconbofang4 {
+            margin-right: 5px;
+          }
+          .iconzanting {
             margin-right: 5px;
           }
         }

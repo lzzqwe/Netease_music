@@ -74,6 +74,9 @@
         selctItem(id) {
           this.$router.push(`/mv/${id}`)
         },
+        showComment() {
+
+        },
         _normalNum(num,point) {
           let numStr = num.toString();
           if(numStr.length<6) {

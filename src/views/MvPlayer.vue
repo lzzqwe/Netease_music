@@ -10,7 +10,7 @@
             <span class="iconfont icondianzan1"></span>
             <span class="num">{{likedCount}}</span>
           </li>
-          <li class="operator_item">
+          <li @click="showComment" class="operator_item">
             <span class="iconfont iconicon_fapinglun-mian"></span>
             <span class="num">{{commentCount}}</span>
           </li>
@@ -35,6 +35,9 @@
           <span class="iconfont iconsq">热点情报局</span><span class="number">{{userInfo.playCount}}次观看</span>
         </div>
       </div>
+      <van-action-sheet @close="close" :overlay="overlay" v-model="show" title="标题">
+        <div class="content">内容</div>
+      </van-action-sheet>
     </div>
 </template>
 
@@ -56,7 +59,9 @@
           shareCount:0,
           commentCount:0,
           liked:false,
-          userInfo:{}
+          userInfo:{},
+          show:false,
+          overlay:false
         }
       },
       components:{
@@ -72,6 +77,13 @@
            this.url = res.data.url
          }
        },
+        showComment() {
+         this.show=true
+         this.$refs.mvPlayer.style.transform = 'translateY(-100px)'
+        },
+        close() {
+          this.$refs.mvPlayer.style.transform = 'translateY(0)'
+        },
         async _getMvDetail(mvid) {
          const res = await getMvDetail(mvid)
           if(res.code===200) {
@@ -144,6 +156,7 @@
     right: 0;
     width: 100%;
     height: 100%;
+    transition: all 0.5s;
   }
   .nav-bar-container {
     padding: 0 24px;
@@ -222,6 +235,10 @@
         background-color: red;
       }
     }
+  }
+  .content {
+    padding: 0 24px 0 24px;
+    height: 400px;
   }
 }
 </style>

@@ -21,8 +21,8 @@
         <div ref="dayRecommend" :style="{backgroundImage:`url(${banners[0].pic})`,opacity:1-opacity}"  class="day-recommend">
           <div class="date">
             <div class="title">
-              <span class="large">22</span>/
-              <span class="small">12</span>
+              <span class="large">{{day}}</span>/
+              <span class="small">{{month}}</span>
             </div>
             <div class="history-recommend">
               <span>历史日推</span>
@@ -62,6 +62,7 @@
 
 <script>
   import {getDayRecommend} from '../api/index.js'
+  import moment from 'moment'
   import {createSong} from '../common/js/song'
   import BaseScroll from "./BaseScroll";
   import BaseSticky from "./BaseSticky";
@@ -93,11 +94,14 @@
           padding:'22px 24px 22px 24px'
         },
         scrollY:0,
-        opacity:0
+        opacity:0,
+        day:0,
+        month:0
       }
     },
     created() {
       this._getDayRecommend()
+      this.getNowtime()
     },
     mounted() {
       this.handlePlaylist(this.playList)
@@ -108,6 +112,12 @@
     methods:{
       playAll() {
         this.select_play({playlist:this.list,index:0})
+      },
+      getNowtime() {
+        const seconds = Date.now()
+        const date = new Date(seconds)
+        this.day = date.getDate()
+        this.month = date.getMonth()+1
       },
       handlePlaylist(playList) {
         if(playList.length>0) {

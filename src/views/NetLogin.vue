@@ -45,6 +45,7 @@
           if(res.code===200) {
             //保存在localstorage
             const userInfo = saveUserInfo(res.profile)
+            console.log(userInfo)
             //保存在vuex中
             this.save_user_info({userInfo})
             console.log(this.$route)

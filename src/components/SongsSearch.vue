@@ -11,7 +11,7 @@
     </div>
     <base-scroll :data="list" class="song-wrap">
       <div>
-        <base-songs @play="play" :songs="list"></base-songs>
+        <base-songs :key="index" :index="index" v-for="(item,index) in list" @play="play" :song="item"></base-songs>
       </div>
     </base-scroll>
   </div>

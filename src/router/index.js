@@ -1,49 +1,63 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-const Home = (resolve) => {
-  import('../views/NetHome.vue').then((moudle) =>resolve(moudle))
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import axios from 'axios'
+// import NetHome from "../views/NetHome";
+// import SongList from "../components/SongList";
+// import SongListDetail from "../views/SongListDetail";
+// import DailylRecommend from "../views/DailylRecommend";
+// import NetLogin from "../views/NetLogin";
+// import NetRank from "../views/NetRank";
+// import PersonalFm from "../views/PersonalFm";
+// import NetSearch from "../views/NetSearch";
+// import NetMe from "../views/NetMe";
+// import NetComment from "../views/NetComment";
+// import NetMv from "../views/NetMv";
+// import NetTest from "../views/NetTest";
+// import MvPlayer from "../views/MvPlayer";
+const NetHome = (resolve) => {
+  import('../views/NetHome.vue').then((moudle) =>resolve(moudle));
 }
 const SongsList = (resolve) => {
-  import('../views/NetList.vue').then((module) =>resolve(module))
+  import('../views/NetList.vue').then((module) =>resolve(module));
 }
 const SongListDetail = (resolve) => {
-  import('../views/SongListDetail.vue').then((module) =>resolve(module))
+  import('../views/SongListDetail.vue').then((module) =>resolve(module));
 }
 const DailylRecommend = (resolve) => {
-  import('../views/DailylRecommend').then((module) =>resolve(module))
+  import('../views/DailylRecommend').then((module) =>resolve(module));
 }
 const NetLogin = (resolve) => {
-  import('../views/NetLogin').then((module) =>resolve(module))
+  import('../views/NetLogin').then((module) =>resolve(module));
 }
 const NetRank = (resolve) => {
-  import('../views/NetRank').then((module) =>resolve(module))
+  import('../views/NetRank').then((module) =>resolve(module));
 }
 const PersonalFm = (resolve) => {
-  import('../views/PersonalFm').then((module) =>resolve(module))
+  import('../views/PersonalFm').then((module) =>resolve(module));
 }
 const NetSearch = (resolve) => {
-  import('../views/NetSearch').then((module) =>resolve(module))
+  import('../views/NetSearch').then((module) =>resolve(module));
 }
 const NetMe = (resolve) => {
-  import('../views/NetMe').then((module) =>resolve(module))
+  import('../views/NetMe').then((module) =>resolve(module));
 }
 const NetComment = (resolve) => {
-  import('../views/NetComment').then((module) =>resolve(module))
+  import('../views/NetComment').then((module) =>resolve(module));
 }
 const NetMv = (resolve) => {
-  import('../views/NetMv').then((module) =>resolve(module))
+  import('../views/NetMv').then((module) =>resolve(module));
 }
 const MvPlayer = (resolve) => {
-  import('../views/MvPlayer').then((module) =>resolve(module))
+  import('../views/MvPlayer').then((module) =>resolve(module));
 }
 const NetTest = (resolve) => {
-  import('../views/NetTest').then((module) => resolve(module))
+  import('../views/NetTest').then((module) => resolve(module));
 }
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 const routes = [{
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'NetHome',
+    component: NetHome
 },{
   path:'/rank',
   name:'NetRank',
@@ -116,7 +130,7 @@ const routes = [{
 
 const VueRouterPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (to) {
-  return VueRouterPush.call(this, to).catch(err => err)
+  return VueRouterPush.call(this, to).catch(err => err);
 }
 const router = new VueRouter({
     routes
@@ -131,5 +145,15 @@ const router = new VueRouter({
 //     isLogin ? next() : next('/login')
 //   }
 // })
+
+axios.interceptors.request.use(config => {
+  if (/get/i.test(config.method)) { //判断get请求
+    config.params  =  config.params || {};
+    config.params.t = Date.parse(new Date())/1000; //添加时间戳
+  }
+  return config;
+}, error => {
+  return Promise.reject(error);
+})
 
 export default router

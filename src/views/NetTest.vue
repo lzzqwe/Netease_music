@@ -1,64 +1,72 @@
 <template>
-    <div class="test">
-      <swiper ref="mySwiper" :options="swiperOptions">
-        <swiper-slide :key="item.id" v-for="(item) in banners.slice(0,3)">
-          <img class="img" :src="item.pic" alt="">
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
-      <div @click="handle" ref="one" id="a" class="one">dsadasd</div>
-    </div>
+<!--    <Scroll-->
+<!--      ref="scroll"-->
+<!--      :autoUpdate="true"-->
+<!--      @pullingDown="loadRefresh"-->
+<!--      class="test">-->
+<!--      <ul>-->
+<!--        <li :key="index" v-for="(item,index) in list">{{item}}</li>-->
+<!--      </ul>-->
+<!--    </Scroll>-->
+  <div class="test">
+    <van-uploader :after-read="afterRead" />
+  </div>
 </template>
 
 <script>
-  import {mapActions,mapGetters} from 'vuex'
+  // import moment from 'moment'
+  // import Scroll from 'vue-slim-better-scroll'
+  import axios from 'axios'
+  // import {updateAvatar} from '../api'
     export default {
       name: "NetTest",
-      created() {
-        this.set_banners()
+      components:{
+        // Scroll
       },
       data() {
         return {
-          swiperOptions: {
-            pagination: {
-              el: '.swiper-pagination'
-            },
-            // Some Swiper option/callback...
-            // autoplay: {
-            //
-            //   delay: 1500,
-            //
-            //   stopOnLastSlide: false,
-            //
-            //   disableOnInteraction: false
-            //
-            // },
-            initialSlide :1,
-            effect : 'coverflow',
-            slidesPerView: 3,
-            centeredSlides: true,
-            coverflowEffect: {
-              rotate: 0,
-              stretch: 1,
-              depth: 10,
-              modifier: 10,
-              slideShadows : false
-            },
-            loop: true
-          }
-        }
-      },
-      computed:{
-        ...mapGetters(['banners'])
-      },
-      methods:{
-        ...mapActions(['set_banners']),
-        handle() {
-          console.log(this.$refs.one.id)
+          list:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
+          url:''
         }
       },
       mounted() {
-        console.log('Current Swiper instance object', this.swiper)
+        this.getDate()
+      },
+      methods:{
+        loadRefresh() {
+          console.log('sadasd')
+          setTimeout(() => {
+            this.$refs.scroll.update(true)
+          },3000)
+        },
+        uploadAvatar(file) {
+          //new 一个FormData格式的参数
+          let params = new FormData()
+          params.append('imgFile', file)
+          let config = {
+            headers: { //添加请求头
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          //把 uploadUrl 换成自己的 上传路径
+          axios.post('http://127.0.0.1:3000/avatar/upload', params, config).then(res => {
+           res = res.data.data
+            if(res.code===200) {
+              this.url = res.url
+            }
+            console.log(res)
+          }).catch(err => {
+            console.log(err)
+          });
+        },
+        afterRead(file) {
+          // 此时可以自行将文件上传至服务器
+          this.uploadAvatar(file.file)
+        },
+        getDate() {
+          let date = new Date(1610959896617)
+          console.log(date.getFullYear())
+        }
       }
     }
 </script>
@@ -68,21 +76,8 @@
   width: 100%;
   height: 100%;
   font-size: 30px;
-  background-color: #55a532;
+  line-height: 50px;
   padding: 0 24px;
   box-sizing: border-box;
-  /*/deep/ .swiper-container {*/
-  /*  padding: 0 24px;*/
-  /*  overflow: hidden;*/
-  /*}*/
-  /deep/ .swiper-slide {
-    background-color: red;
-    /*width: 240px !important;*/
-    .img {
-      height: 320px;
-      width: 240px;
-    }
   }
-
-}
 </style>

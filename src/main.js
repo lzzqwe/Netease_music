@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-import 'amfe-flexible';
+// import 'amfe-flexible';
 import './common/css/reset.css'
 import './common/font/iconfont.css'
 import router from './router'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import Scroll from 'vue-slim-better-scroll'
 
 // import style (<= Swiper 5.x)
 import 'swiper/css/swiper.css'
@@ -18,6 +19,7 @@ import { Swipe,
   Col,
   Row,Tab,
   Tabs,
+  Uploader,
   Image as VanImage,
   Form,Field,
   Button,Dialog,
@@ -30,12 +32,15 @@ import { Swipe,
   CellGroup,
   Lazyload,
   Search,
-  Skeleton
+  Skeleton,
+  Overlay,
+  ActionSheet
 } from 'vant';
 
 Vue.use(Swipe)
   .use(SwipeItem)
   .use(Tab)
+  .use(Uploader)
   .use(Tabs)
   .use(VanImage)
   .use(Col)
@@ -53,10 +58,13 @@ Vue.use(Swipe)
   .use(Toast)
   .use(Search)
   .use(Skeleton)
+  .use(Overlay)
+  .use(ActionSheet)
   .use(Lazyload,{
     lazyComponent: true,
   })
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+Vue.use(Scroll)
 
 Vue.config.productionTip = false
 

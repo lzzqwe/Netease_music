@@ -9,7 +9,9 @@
             <img class="image" v-lazy="profile.backgroundUrl" alt="">
             <div class="user-info">
               <div class="avatar">
-                <img class="image" v-lazy="profile.avatarUrl" alt="">
+                <van-uploader :after-read="afterRead">
+                  <img class="image" v-lazy="profile.avatarUrl" alt="">
+                </van-uploader>
               </div>
               <div class="desc">
                 <h1 class="name">{{profile.nickname}}</h1>
@@ -79,6 +81,7 @@
   import BaseScroll from "../components/BaseScroll";
   import NetLoading from "../components/NetLoading";
   import BaseList from "../components/BaseList";
+  import axios from "axios";
     export default {
       name: "NetMe",
       computed:{
@@ -110,7 +113,8 @@
         return {
           active:0,
           profile:{},
-          songlist:[]
+          songlist:[],
+          url:''
         }
       },
       methods:{
@@ -139,7 +143,32 @@
         },
         selctItem(id) {
           this.$router.push(`/playlistCollection/${id}`)
-        }
+        },
+        uploadAvatar(file) {
+          //new 一个FormData格式的参数
+          let params = new FormData()
+          params.append('imgFile', file)
+          let config = {
+            headers: { //添加请求头
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          //把 uploadUrl 换成自己的 上传路径
+          axios.post('http://127.0.0.1:3000/avatar/upload', params, config).then(res => {
+            res = res.data.data
+            if(res.code===200) {
+              this.url = res.url
+              this._getUserDetail(this.user.userId)
+            }
+            console.log(res)
+          }).catch(err => {
+            console.log(err)
+          });
+        },
+        afterRead(file) {
+          // 此时可以自行将文件上传至服务器
+          this.uploadAvatar(file.file)
+        },
       },
       components:{
         NavBar,

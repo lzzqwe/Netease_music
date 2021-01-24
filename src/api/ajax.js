@@ -1,4 +1,11 @@
 import axios from 'axios'
+// const service = axios.create({
+//   // ...
+//   headers: {
+//     'Cache-Control': 'no-cache'
+//   }
+// });
+// axios.defaults.headers['Cache-Control'] = 'no-cache'
 axios.defaults.withCredentials = true
 export default (url,data={},type='GET') => {
   return new Promise((resolve, reject) => {

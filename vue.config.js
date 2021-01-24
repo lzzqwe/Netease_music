@@ -1,6 +1,7 @@
 const path = require('path')
-    const autoprefixer = require('autoprefixer');
-    const pxtorem = require('postcss-pxtorem');
+const autoprefixer = require('autoprefixer');
+// const pxtorem = require('postcss-pxtorem');
+const pxtoviewport = require('postcss-px-to-viewport');
 
 function resolve(dir) {
     return path.join(__dirname, dir)
@@ -20,9 +21,12 @@ module.exports = {
           postcss: {
             plugins: [
               autoprefixer(),
-              pxtorem({
-                rootValue: 54,
-                propList: ['*']
+              // pxtorem({
+              //   rootValue: 54,
+              //   propList: ['*']
+              // })
+              pxtoviewport({
+                viewportWidth: 540
               })
             ]
           },

@@ -8,7 +8,11 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <base-scroll :delay-time="delayTime" ref="netHome" :data="privateMusic" class="net-home">
+    <Scroll
+      ref="netHome"
+      :update-data="[privateMusic]"
+      @pullingDown="loadRefresh"
+      class="net-home">
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
@@ -66,7 +70,10 @@
           </div>
         </div>
       </div>
-    </base-scroll>
+    </Scroll>
+    <div v-show="!result.length" class="loading-wrap">
+      <net-loading></net-loading>
+    </div>
     <slider-bar @toggle="toggleSetting" :isShowSetting="isShowSetting"></slider-bar>
     <search-input @close="close" :is-show-search="isShowSearch"></search-input>
   </div>
@@ -74,14 +81,15 @@
 
 <script>
 // @ is an alias to /src
-import BaseScroll from '../components/BaseScroll'
+import BaseScroll from '../components/BaseScroll';
+import NetLoading from "../components/NetLoading";
 import BaseSection from "../components/BaseSection";
 import BaseDivder from "../components/BaseDivder";
 import SearchInput from "../components/SearchInput";
 import SliderBar from "../components/SliderBar";
-import {getRecommendList,getPrivateMusic,getHomeCircleIcon} from '../api/index.js'
-import {createSong} from '../common/js/song'
-import {mapActions,mapGetters} from 'vuex'
+import {getRecommendList,getPrivateMusic,getHomeCircleIcon} from '../api/index.js';
+import {createSong} from '../common/js/song';
+import {mapActions,mapGetters} from 'vuex';
 export default {
   name: 'NetHome',
   components:{
@@ -89,16 +97,16 @@ export default {
     BaseSection,
     BaseDivder,
     SearchInput,
-    SliderBar
+    SliderBar,
+    NetLoading
   },
   created() {
-    this.set_banners()
-    this._getRecommedList()
-    this._getPrivateMusic()
-    this._getHomeCircleIcon()
+    this.set_banners();
+    this._getHomeCircleIcon();
+    this.getHomeData()
   },
   mounted() {
-    this.handlePlaylist(this.playList)
+    this.handlePlaylist(this.playList);
   },
   data() {
     return {
@@ -109,7 +117,8 @@ export default {
       privateMusic:[],
       navIcon:[],
       bacUrl:'',
-      delayTime:30
+      delayTime:30,
+      result:[]
     }
   },
   computed:{
@@ -119,25 +128,35 @@ export default {
     ...mapGetters(['banners','fullscreen','playList','playing'])
   },
   methods:{
+    loadRefresh() {
+      setTimeout(() => {
+        this.getHomeData();
+        this.$refs.netHome.refresh();
+      },3000)
+    },
+    async getHomeData() {
+      const res_1 = await getRecommendList()
+      const res_2 = await getPrivateMusic()
+      const res_3 = await getHomeCircleIcon()
+      Promise.all([res_1,res_2,res_3]).then((res) => {
+        this.result = res
+        this.recommednList =  this.result[0].result;
+        this.privateMusic = this._createSong(this.result[1].result);
+      })
+    },
     handlePlaylist(playList) {
       if(playList.length>0) {
-        this.$refs.netHome.$el.classList.add('bottom')
+        this.$refs.netHome.$el.classList.add('bottom');
       } else {
-        this.$refs.netHome.$el.classList.remove('bottom')
+        this.$refs.netHome.$el.classList.remove('bottom');
       }
-        this.$refs.netHome.refresh()
+        this.$refs.netHome.refresh();
     },
     playAll() {
-      this.select_play({playlist:this.privateMusic,index:0})
-    },
-    async _getRecommedList() {
-      const res =await getRecommendList()
-      if(res.code===200) {
-        this.recommednList = res.result
-      }
+      this.select_play({playlist:this.privateMusic,index:0});
     },
     _createSong(res) {
-      let result = []
+      let result = [];
       res.forEach((item) => {
         result.push(createSong({
           id:item.id,
@@ -147,48 +166,42 @@ export default {
           name:item.name,
           mvId:item.mv
         }))
-      })
-      return result
-    },
-    async _getPrivateMusic() {
-      const res = await getPrivateMusic()
-      if(res.code===200) {
-        this.privateMusic = this._createSong(res.result)
-      }
+      });
+      return result;
     },
     selectItem(index) {
-      this.select_play({playlist:this.privateMusic,index})
+      this.select_play({playlist:this.privateMusic,index});
     },
     async _getHomeCircleIcon() {
-      const res = await getHomeCircleIcon()
+      const res = await getHomeCircleIcon();
       if(res.code===200) {
-        const nav = res.data
-        nav[4].name='mv'
-        nav[4].url='orpheus://mv'
-        nav[3].url='orpheus://rank'
-        this.navIcon = nav
+        const nav = res.data;
+        nav[4].name='mv';
+        nav[4].url='orpheus://mv';
+        nav[3].url='orpheus://rank';
+        this.navIcon = nav;
       }
     },
     handleString(str) {
-      return str.slice(9)
+      return str.slice(9);
     },
     toggleSetting() {
-      this.isShowSetting = !this.isShowSetting
+      this.isShowSetting = !this.isShowSetting;
     },
     showSearch() {
-      this.isShowSearch = true
+      this.isShowSearch = true;
     },
     close() {
-      this.isShowSearch = false
+      this.isShowSearch = false;
     },
     ...mapActions(['set_banners','select_play'])
   },
   watch:{
     fullscreen() {
-      this.$refs.netHome.refresh()
+      this.$refs.netHome.refresh();
     },
     playList(newValue) {
-      this.handlePlaylist(newValue)
+      this.handlePlaylist(newValue);
     }
   }
 }
@@ -235,10 +248,17 @@ export default {
       font-size: 28px;
     }
   }
+  .loading-wrap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0);
+    width: 300px;
+  }
   .net-home {
     overflow: hidden;
     position: fixed;
-    top: 0;
+    top: 97px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -249,7 +269,6 @@ export default {
       .swiper-container {
         background-color: var(--body-bgcolor);
         color: var(--font-color);
-        padding-top: 97px;
         position: relative;
         &:after {
           position: absolute;

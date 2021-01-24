@@ -11,14 +11,15 @@ import {SET_BANNERS,
   SET_OBJ,
   SAVE_FAVORITE,
   SAVE_HISTORY,
-  CLEAR_USER_INFO
+  CLEAR_USER_INFO,
+  CLAER_PLAYLIST
 } from './mutation-types'
 export default {
   async set_banners({commit}) {
      const res = await getHomeSwiper()
      commit(SET_BANNERS,{banners:res.banners})
   },
-  async select_play({commit},{playlist,index}) {
+  select_play({commit},{playlist,index}) {
     commit(SET_PLAYLIST,playlist)
     commit(SET_CURRENTINDEX,index)
     commit(SET_PLAYING_STATUS,true)
@@ -53,5 +54,10 @@ export default {
   },
   clear_user_info({commit}) {
     commit(CLEAR_USER_INFO)
+  },
+  clear_playlist({commit}) {
+    commit(CLAER_PLAYLIST)
+    commit(SET_CURRENTINDEX,-1)
+    commit(SET_PLAYING_STATUS,false)
   }
 }

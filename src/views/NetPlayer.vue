@@ -58,7 +58,7 @@
                 <span @click="prev" class="iconfont iconshangyiqu3"></span>
                 <span @click="togglePlaying" :class="playIcon"></span>
                 <span @click="next" class="iconfont iconxiayiqu1"></span>
-                <span class="iconfont iconbofangliebiao"></span>
+                <span @click.stop="showPlaylist" class="iconfont iconbofangliebiao"></span>
               </div>
             </div>
           </div>
@@ -85,13 +85,15 @@
        ref="audio"
        @ended="end"
        :src="currentSong.url"></audio>
+     <play-list @select="select"  @show="hidePlaylist" :show="show" :list="playList"></play-list>
    </div>
 </template>
 
 <script>
-    import {mapGetters,mapMutations} from 'vuex'
+    import {mapGetters,mapMutations,mapActions} from 'vuex'
     import {saveFavorite,delFavorite,saveHistory} from '../common/js/cache'
     import ProgressBar from "../components/ProgressBar";
+    import PlayList from "../components/PlayList";
     import BaseScroll from "../components/BaseScroll";
     import {getlyric,getSongComment} from '../api/index'
     import Lyric from 'lyric-parser'
@@ -107,12 +109,14 @@
           currentLineNum:0,
           txt:'',
           nolyric:false,
-          total:0
+          total:0,
+          show:false
         }
       },
       components:{
         ProgressBar,
-        BaseScroll
+        BaseScroll,
+        PlayList
       },
       computed:{
         playIcon() {
@@ -134,6 +138,19 @@
       methods:{
         hidePlayer() {
           this.set_fullscreen(false)
+        },
+        select(index) {
+          this.set_currentIndex(index)
+          this.set_playing_status(true)
+        },
+        hidePlaylist() {
+          this.show = false
+        },
+        showPlaylist() {
+          this.show = true
+        },
+        onselectSong() {
+          console.log('asdsd')
         },
         showLyric() {
           this.isFlag = !this.isFlag
@@ -255,11 +272,14 @@
           }
         },
         handler({lineNum,txt}) {
-          if(lineNum >5) {
-            this.$refs.lyric.scrollToElement(this.$refs.line[lineNum-5],1000)
-          } else {
-            this.$refs.lyric.scrollTo(0,0,1000)
+          if(this.playList) {
+            if(lineNum >5) {
+              this.$refs.lyric.scrollToElement(this.$refs.line[lineNum-5],1000)
+            } else {
+              this.$refs.lyric.scrollTo(0,0,1000)
+            }
           }
+
           this.currentLineNum =lineNum
           this.txt = txt
         },
@@ -269,7 +289,8 @@
           'set_currentIndex',
           'save_favorite',
           'save_history'
-        ])
+        ]),
+        ...mapActions(['select_play'])
       },
       watch:{
         currentSong(newSong,oldSong) {

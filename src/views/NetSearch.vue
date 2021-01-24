@@ -12,7 +12,10 @@
       <div class="tab-wrap">
         <van-tabs @click="onClick" v-model="active">
           <van-tab title="综合">
-            <base-scroll :data="result" class="search-content-wrap">
+            <scroll
+              :update-data="[songs]"
+              @pullingDown="loadRefresh"
+              class="search-content-wrap">
               <div>
                 <net-card :data="songs" :title="songTitle">
                   <ul class="single-song-list">
@@ -58,7 +61,7 @@
                   <net-loading></net-loading>
                 </div>
               </div>
-            </base-scroll>
+            </scroll>
           </van-tab>
           <van-tab title="单曲">
             <base-scroll :data="songs_1" class="song-list">
@@ -154,6 +157,9 @@
       methods: {
         back() {
           this.$router.back()
+        },
+        loadRefresh() {
+          this._getSearch(this.$route.query.keyword,1018)
         },
         selectItem(id) {
           this.$router.push(`/playlistCollection/${id}`)

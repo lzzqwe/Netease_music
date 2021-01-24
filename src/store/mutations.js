@@ -9,7 +9,8 @@ import {
   SET_OBJ,
   SAVE_FAVORITE,
   SAVE_HISTORY,
-  CLEAR_USER_INFO
+  CLEAR_USER_INFO,
+  CLAER_PLAYLIST
 } from './mutation-types'
 export default {
   [SET_FULLSCREEN](state,fullscreen) {
@@ -44,5 +45,8 @@ export default {
   },
   [CLEAR_USER_INFO](state) {
     state.user = {}
+  },
+  [CLAER_PLAYLIST](state) {
+    state.playList = []
   }
 }

@@ -175,3 +175,9 @@ export const getMvDetail = (mvid) => {
 export const getMvInfo = (mvid) => {
   return ajax(BASE+'/mv/detail/info',{mvid})
 }
+/*
+* 29.更新头像
+* */
+export const updateAvatar = (imgFile) => {
+  return ajax(BASE+'/avatar/upload',{imgFile},'POST')
+}

@@ -38,7 +38,7 @@
                 <div class="user">
                   <div class="name">
                     <span class="nickname">{{item.user.nickname}}</span>
-                    <span class="time">15:25</span>
+                    <span class="time">{{parseTime(item.time)}}</span>
                   </div>
                   <div class="count">
                     <span>{{item.likedCount}}</span>
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+  import moment from 'moment'
   import {getCommentPlaylist,getSongComment} from '../api/index.js'
   import {mapGetters} from 'vuex'
   import BaseDivder from "../components/BaseDivder";
@@ -116,6 +117,15 @@
           if(this.total<3) {
             this.hasMore = false
           }
+        }
+      },
+      parseTime(value) {
+        const date = new Date(value)
+        const year = date.getFullYear()
+        if(year>=2021) {
+          return moment(value).format('MM-DD')
+        } else {
+          return moment(value).format('YYYY-MM-DD')
         }
       },
       loadMore() {

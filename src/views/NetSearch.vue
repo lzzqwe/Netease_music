@@ -12,14 +12,13 @@
       <div class="tab-wrap">
         <van-tabs @click="onClick" v-model="active">
           <van-tab title="综合">
-            <scroll
-              :update-data="[songs]"
-              @pullingDown="loadRefresh"
+            <base-scroll
+              :data="dataList"
               class="search-content-wrap">
               <div>
                 <net-card :data="songs" :title="songTitle">
                   <ul class="single-song-list">
-                    <li :key="item.id" v-for="(item) in songs" class="item">
+                    <li @click="playSong(index,item)" :key="item.id" v-for="(item,index) in songs" class="item">
                       <div class="content">
                         <p class="name">{{item.name}}</p>
                         <div class="desc">{{item.name}}-{{item.singer}}</div>
@@ -27,7 +26,7 @@
                       <span class="iconfont iconsandian"></span>
                     </li>
                   </ul>
-                  <div @click="getMore" class="look-over-more">
+                  <div @click="getMore(1,1)" class="look-over-more">
                     {{song.moreText}}
                   </div>
                 </net-card>
@@ -35,13 +34,13 @@
                   <ul class="single-song-list">
                     <base-list @select="selectItem(item.id)" :song="item" :key="item.id" v-for="(item) in playLists"></base-list>
                   </ul>
-                  <div class="look-over-more">
+                  <div @click="getMore(1000,2)"  class="look-over-more">
                     {{playList.moreText}}
                   </div>
                 </net-card>
-                <net-card :data="videos" :title="videoTitle">
+                <net-card :data="this.result.video" :title="videoTitle">
                   <ul class="video-list">
-                    <li  @click="selectVideo(item.id)" :key="item.id" v-for="(item) in videos" class="item">
+                    <li  @click="selectVideo(item.id)" :key="item.id" v-for="(item) in this.videos" class="item">
                       <div class="video-album-cover">
                         <img class="image" :src="item.coverUrl" alt="">
                       </div>
@@ -53,15 +52,15 @@
                       </div>
                     </li>
                   </ul>
-                  <div class="look-over-more">
-                    {{video.moreText}}
+                  <div v-if="this.result.video" @click="getMore(1014,3)" class="look-over-more">
+                    {{this.result.video.moreText}}
                   </div>
                 </net-card>
-                <div v-show="!this.videos.length" class="net-loading-wrap">
+                <div v-show="!this.dataList.length" class="net-loading-wrap">
                   <net-loading></net-loading>
                 </div>
               </div>
-            </scroll>
+            </base-scroll>
           </van-tab>
           <van-tab title="单曲">
             <base-scroll :data="songs_1" class="song-list">
@@ -112,7 +111,6 @@
       </div>
     </div>
 </template>
-
 <script>
   import BaseScroll from "../components/BaseScroll";
   import BaseList from "../components/BaseList";
@@ -136,7 +134,6 @@
       },
       data() {
         return {
-          list: [],
           active:0,
           result:{},
           songTitle:"单曲",
@@ -149,10 +146,21 @@
           playLists:[],
           playLists_1:[],
           video:{},
-          videos:[],
           videos_1:[],
           value:''|| this.$route.query.keyword
         };
+      },
+      computed:{
+        videos() {
+          let res = []
+          if(this.result.video) {
+            res = this.result.video.videos
+          }
+          return res 
+        },
+        dataList() {
+          return Object.values(this.result)
+        }
       },
       methods: {
         back() {
@@ -164,12 +172,14 @@
         selectItem(id) {
           this.$router.push(`/playlistCollection/${id}`)
         },
+
         selectVideo(id) {
           console.log(id)
           this.$router.push(`/mv/${id}`)
         },
-        playSong(index) {
+        playSong(index,item) {
           this.select_play({playlist:this.songs,index})
+          this.save_searches(this.keyword)
         },
         clear() {
           this.value=''
@@ -189,9 +199,9 @@
             this.active=name
           }
         },
-        getMore() {
-          this._getSearch(this.$route.query.keyword,1)
-          this.active=1
+        getMore(num,name) {
+          this._getSearch(this.$route.query.keyword,num)
+          this.active=name
         },
         async _getSearch(keywords,type) {
           const res = await getSearch(keywords,type)
@@ -200,9 +210,8 @@
               this.result = res.result
               this.playList = res.result.playList
               this.playLists = res.result.playList.playLists
-              this.video = res.result.video
-              this.videos = res.result.video.videos
               this.song = res.result.song
+              console.log(res.result.song);
               this.songs =this._createSong(res.result.song.songs)
             }
           } else if(type===1) {
@@ -247,7 +256,7 @@
           })
           return songs
         },
-        ...mapActions(['select_play'])
+        ...mapActions(['select_play','save_searches'])
       },
       created() {
         console.log(this.$route.query.keyword)
@@ -305,6 +314,22 @@
       left: 0;
       right: 0;
       overflow: hidden;
+       .net-card {
+         margin: 0 24px 24px 24px;
+         background-color: rgb(255,255,255);
+         padding: 0 24px;
+         .title {
+           display: flex;
+           padding-top: 34px;
+           justify-content: space-between;
+           padding-bottom: 12px;
+           .txt {
+             font-size: @font_size_large;
+             font-weight: 600;
+             color: @font-black;
+           }
+         }
+       }
       .single-song-list {
         .item {
           height: 90px;

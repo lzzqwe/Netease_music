@@ -2,17 +2,17 @@
   <transition name="van-slide-left">
     <div @click.self="toggle" v-show="isShowSetting" class="setting-wrap">
       <div class="setting">
-        <div v-if="user.userId" class="avatar">
+        <div v-if="profile.userId" class="avatar">
             <div @click="goToMe" class="avatar-image">
               <van-image
                 fit="cover"
                 round
-                :src="user.avatarUrl"
+                :src="profile.avatarUrl"
               ></van-image>
             </div>
             <div @click="goToMe" class="user-name">
               <div class="name">
-                <span>{{user.nickname}}</span>
+                <span>{{profile.nickname}}</span>
                 <span class="iconfont icongengduo1"></span>
               </div>
               <div class="scan-code">
@@ -22,11 +22,7 @@
           </div>
         <div v-else class="avatar">
           <div class="avatar-image">
-            <van-image
-              fit="cover"
-              round
-              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F01%2F69%2F80%2F595f67c2aff1e_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612273689&t=46717d3dee2e757e5f1c0f7794bd112e"
-            ></van-image>
+            <img class="image" src="./default.jpg" alt="">
           </div>
           <div class="user-name">
             <router-link to="/login" tag="div" class="name">
@@ -84,6 +80,7 @@
 
 <script>
   import BaseScroll from "./BaseScroll";
+  import {getuserInfo} from '../api/index'
   import {delUserInfo} from '../common/js/cache'
   import storage from 'good-storage'
   import variables from "../common/themes/variables";
@@ -120,10 +117,12 @@
           }
         }
         this.initTheme()
+        this._getUserInfo(this.user.userId)
       },
       data() {
         return {
-          checked:false || storage.get(CHECK_KEY)
+          checked:false || storage.get(CHECK_KEY),
+          profile:{}
         }
       },
       methods:{
@@ -133,6 +132,14 @@
         goToMe() {
           this.toggle()
           this.$router.push('/me')
+        },
+        async _getUserInfo(uid) {
+          if(uid) {
+            const res = await getuserInfo(uid)
+            if(res.code===200) {
+              this.profile = res.profile
+            }
+          }  
         },
         initTheme() {
           if(!storage.get(THEME_KEY)) {
@@ -156,6 +163,7 @@
           }).then(() => {
             delUserInfo()
             this.clear_user_info()
+            this.$router.push('/login')
           })
         },
         change(flag) {
@@ -286,6 +294,11 @@
           width: 42px;
           height: 42px;
           flex: 0 0 42px;
+          .image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+          }
         }
         .user-name {
           flex: 1;

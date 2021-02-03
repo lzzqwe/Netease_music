@@ -13,19 +13,14 @@
           <div class="advertising">
             <img class="advertising-image" src="http://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/3402298.jpg" alt="">
           </div>
-          <div class="search-history">
+          <div v-if='searches.length>0' class="search-history">
             <h1 class="title">历史</h1>
-            <base-scroll :scroll-x="scrollX" class="history-list-wrap">
-              <ul class="search-history-list">
-                <li class="search-history-item">他只是经过</li>
-                <li class="search-history-item">他只是经过</li>
-                <li class="search-history-item">他只是经过</li>
-                <li class="search-history-item">他只是经过</li>
-                <li class="search-history-item">他只是经过</li>
-                <li class="search-history-item">他只是经过</li>
+            <base-scroll :data="searches" :scroll-x="scrollX" class="history-list-wrap">
+              <ul ref="searchHistoryList" class="search-history-list">
+                <li ref="historyItem" :key="index" v-for="(item,index) in searches" class="search-history-item">{{item}}</li>
               </ul>
             </base-scroll>
-            <span class="iconfont iconlajitong"></span>
+            <span @click="clearAllHistory" class="iconfont iconlajitong"></span>
           </div>
           <div class="hot-search">
             <div class="hot-in-search">
@@ -60,7 +55,12 @@
           <div class="search-suggest-content">
             <h1 class="keyword">搜索{{keyword}}</h1>
             <ul>
-              <li @click="_searchContent(item.keyword)" class="suggest-item" :key="index" v-for="(item,index) in allMatch">
+              <li 
+              @click="_searchContent(item.keyword)" 
+              class="suggest-item" 
+              :key="index" 
+              v-for="(item,index) in allMatch"
+              >
                 <span class="iconfont iconsousuo"></span>{{item.keyword}}
               </li>
             </ul>
@@ -73,7 +73,7 @@
 <script>
   import BaseScroll from "./BaseScroll";
   import NetLoading from "./NetLoading";
-  import {mapGetters} from 'vuex'
+  import {mapGetters,mapActions} from 'vuex'
   import {getHotSearchDetail,getSearchSuggest} from '../api/index.js'
     export default {
       name: "SearchInput",
@@ -93,7 +93,7 @@
         }
       },
       computed:{
-        ...mapGetters(['playList'])
+        ...mapGetters(['playList','searches'])
       },
       mounted() {
         this.handlePlaylist(this.playList)
@@ -103,6 +103,15 @@
           const bottom = playList.length>0? '82px':0
           this.$refs.search.$el.style.bottom = bottom
           this.$refs.search.refresh()
+        },
+        calculateHeight() {
+          this.$nextTick(() => {
+             let width = 0
+           this.$refs.historyItem.forEach((item) => {
+           width+= item.offsetWidth
+        })
+         this.$refs.searchHistoryList.style.width=width+'px'
+          })
         },
         isClose() {
           this.$emit('close')
@@ -127,9 +136,25 @@
         async _getSearchSuggest(keyword,type) {
           const res = await getSearchSuggest(keyword,type)
           if(res.code===200) {
-            this.allMatch = res.result.allMatch
+            /*
+            * 如何判断一个对象是否为空   可以用JSON.stringify(res.result)!=="{}" 判断对象是否为空
+            */
+            if(JSON.stringify(res.result)!=="{}") {
+               this.allMatch = res.result.allMatch
+            } else {
+              this.$toast("目前还没有这类的搜索")
+            }
           }
-        }
+        },
+        clearAllHistory() {
+          this.$dialog.confirm({
+            message:'确定要删除历史记录吗?'
+          }).then(() => {
+              this.clear_all_searches()
+          })
+         
+        },
+        ...mapActions(['clear_all_searches'])
       },
       components:{
         BaseScroll,
@@ -142,13 +167,13 @@
             this.$nextTick(() => {
               this.$refs.keyword.focus()
             })
-
           }
-
         },
         keyword(newValue,oldValue) {
-          if(newValue) {
-            this._getSearchSuggest(this.keyword,'mobile')
+          if(newValue===oldValue) {
+            return
+          } else {
+             this._getSearchSuggest(this.keyword,'mobile')
           }
         }
       }
@@ -246,6 +271,7 @@
             overflow: hidden;
             .search-history-list {
               display: flex;
+              flex-wrap: nowrap;
               width: 1200px;
               .search-history-item {
                 padding: 14px 18px;

@@ -15,122 +15,131 @@ import axios from 'axios'
 // import NetTest from "../views/NetTest";
 // import MvPlayer from "../views/MvPlayer";
 const NetHome = (resolve) => {
-  import('../views/NetHome.vue').then((moudle) =>resolve(moudle));
+    import ('../views/NetHome.vue').then((moudle) => resolve(moudle));
 }
 const SongsList = (resolve) => {
-  import('../views/NetList.vue').then((module) =>resolve(module));
+    import ('../views/NetList.vue').then((module) => resolve(module));
 }
 const SongListDetail = (resolve) => {
-  import('../views/SongListDetail.vue').then((module) =>resolve(module));
+    import ('../views/SongListDetail.vue').then((module) => resolve(module));
 }
 const DailylRecommend = (resolve) => {
-  import('../views/DailylRecommend').then((module) =>resolve(module));
+    import ('../views/DailylRecommend').then((module) => resolve(module));
 }
 const NetLogin = (resolve) => {
-  import('../views/NetLogin').then((module) =>resolve(module));
+    import ('../views/NetLogin').then((module) => resolve(module));
 }
 const NetRank = (resolve) => {
-  import('../views/NetRank').then((module) =>resolve(module));
+    import ('../views/NetRank').then((module) => resolve(module));
 }
 const PersonalFm = (resolve) => {
-  import('../views/PersonalFm').then((module) =>resolve(module));
+    import ('../views/PersonalFm').then((module) => resolve(module));
 }
 const NetSearch = (resolve) => {
-  import('../views/NetSearch').then((module) =>resolve(module));
+    import ('../views/NetSearch').then((module) => resolve(module));
 }
 const NetMe = (resolve) => {
-  import('../views/NetMe').then((module) =>resolve(module));
+    import ('../views/NetMe').then((module) => resolve(module));
 }
 const NetComment = (resolve) => {
-  import('../views/NetComment').then((module) =>resolve(module));
+    import ('../views/NetComment').then((module) => resolve(module));
 }
 const NetMv = (resolve) => {
-  import('../views/NetMv').then((module) =>resolve(module));
+    import ('../views/NetMv').then((module) => resolve(module));
 }
 const MvPlayer = (resolve) => {
-  import('../views/MvPlayer').then((module) =>resolve(module));
+    import ('../views/MvPlayer').then((module) => resolve(module));
 }
 const NetTest = (resolve) => {
-  import('../views/NetTest').then((module) => resolve(module));
+    import ('../views/NetTest').then((module) => resolve(module));
 }
 Vue.use(VueRouter);
 const routes = [{
-    path: '/',
-    name: 'NetHome',
-    component: NetHome
-},{
-  path:'/rank',
-  name:'NetRank',
-  component: NetRank,
-  children: [
+        path: '/',
+        name: 'NetHome',
+        component: NetHome,
+        meta:{keepAlive:false}
+    }, {
+        path: '/rank',
+        name: 'NetRank',
+        component: NetRank,
+        meta:{keepAlive:false},
+        children: [{
+            path: ':id',
+            component: SongListDetail,
+            meta:{keepAlive:false}
+        }]
+    },
     {
-      path:':id',
-      component: SongListDetail
-    }
-  ]
-},
-  {
-  path:'/playlistCollection',
-  name:'SongsList',
-  component: SongsList,
-  children:[
+        path: '/playlistCollection',
+        name: 'SongsList',
+        component: SongsList,
+        meta:{keepAlive:false},
+        children: [{
+            path: ':id',
+            component: SongListDetail,
+            meta:{keepAlive:false},
+        }]
+    }, {
+        path: '/songrcmd',
+        name: 'DailylRecommend',
+        component: DailylRecommend,
+        meta:{keepAlive:false},
+    }, {
+        path: '/login',
+        name: 'NetLogin',
+        component: NetLogin,
+        meta:{keepAlive:false}
+    }, {
+        path: '/privatefm',
+        name: 'PersonalFm',
+        component: PersonalFm,
+        meta:{keepAlive:false},
+    },
     {
-      path:':id',
-      component: SongListDetail
+        path: '/search',
+        name: 'NetSearch',
+        component: NetSearch,
+        props: (route) => ({ keyword: route.query.keyword }),
+        meta:{keepAlive:false},
+    },
+    {
+        path: '/me',
+        name: 'NetMe',
+        component: NetMe,
+        meta:{keepAlive:false},
+    },
+    {
+        path: '/comment',
+        name: 'NetComment',
+        component: NetComment,
+        meta:{keepAlive:false},
+    },
+    {
+        path: '/test',
+        name: 'NetTest',
+        component: NetTest,
+        meta:[1,2,3,4,5]
+    },
+    {
+        path: '/mv',
+        name: 'NetMv',
+        component: NetMv,
+        meta:{keepAlive:false},
+        children: [{
+            path: ':id',
+            name: "MvPlayer",
+            component: MvPlayer,
+            meta:{keepAlive:false}
+        }]
     }
-  ]
-},{
-  path:'/songrcmd',
-  name:'DailylRecommend',
-  component: DailylRecommend
-},{
-  path:'/login',
-  name:'NetLogin',
-  component:NetLogin
-},{
-    path:'/privatefm',
-    name:'PersonalFm',
-    component: PersonalFm
-  },
-  {
-    path: '/search',
-    name:'NetSearch',
-    component: NetSearch,
-    props:(route) => ({keyword:route.query.keyword})
-  },
-  {
-    path: '/me',
-    name:'NetMe',
-    component: NetMe
-  },
-  {
-    path: '/comment',
-    name:'NetComment',
-    component: NetComment
-  },
-  {
-    path: '/test',
-    name:'NetTest',
-    component: NetTest
-  },
-  {
-    path: '/mv',
-    name:'NetMv',
-    component: NetMv,
-    children: [
-      {
-        path: ':id',
-        component:MvPlayer
-      }
-    ]
-  }
 ]
 
 
 
 const VueRouterPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (to) {
-  return VueRouterPush.call(this, to).catch(err => err);
+VueRouter.prototype.push = function push(to) {
+    return VueRouterPush.call(this, to).catch(err => err);
 }
 const router = new VueRouter({
     routes
@@ -147,13 +156,13 @@ const router = new VueRouter({
 // })
 
 axios.interceptors.request.use(config => {
-  if (/get/i.test(config.method)) { //判断get请求
-    config.params  =  config.params || {};
-    config.params.t = Date.parse(new Date())/1000; //添加时间戳
-  }
-  return config;
+    if (/get/i.test(config.method)) { //判断get请求
+        config.params = config.params || {};
+        config.params.t = Date.parse(new Date()) / 1000; //添加时间戳
+    }
+    return config;
 }, error => {
-  return Promise.reject(error);
+    return Promise.reject(error);
 })
 
 export default router

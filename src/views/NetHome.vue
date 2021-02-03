@@ -8,10 +8,9 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <Scroll
+    <base-scroll
       ref="netHome"
-      :update-data="[privateMusic]"
-      @pullingDown="loadRefresh"
+     :data='result'
       class="net-home">
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
@@ -70,7 +69,7 @@
           </div>
         </div>
       </div>
-    </Scroll>
+    </base-scroll>
     <div v-show="!result.length" class="loading-wrap">
       <net-loading></net-loading>
     </div>

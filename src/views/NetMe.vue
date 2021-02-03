@@ -1,12 +1,17 @@
 <template>
     <div class="net-me">
-      <div class="nav-bar-container">
-        <nav-bar></nav-bar>
+      <div :style="{background:color}" ref="nav" class="nav-bar-container">
+        <nav-bar :bar-title="barTitle"></nav-bar>
       </div>
-      <base-scroll :data="songlist" class="me-container">
+      <base-scroll 
+      :data="songlist"
+      :probe-type="scrollAttribute.probeType"
+      :listenScroll='scrollAttribute.listenScroll' 
+      @onscroll='scroll'
+      class="me-container">
         <div>
-          <div class="me-background">
-            <img class="image" v-lazy="profile.backgroundUrl" alt="">
+          <div ref="meBackground" class="me-background">
+            <img :style="{opacity:opacity}" class="image" v-lazy="profile.backgroundUrl" alt="">
             <div class="user-info">
               <div class="avatar">
                 <van-uploader :after-read="afterRead">
@@ -75,6 +80,13 @@
 </template>
 
 <script>
+let BASE
+const env = process.env.NODE_ENV
+if (env === 'development') {
+    BASE = 'http://127.0.0.1:3000'
+} else if (env === 'production') {
+    BASE = ''
+}
   import NavBar from "../components/NavBar";
   import {mapGetters} from 'vuex'
   import {getUserDetail,getUserSonglist} from '../api'
@@ -109,12 +121,30 @@
         this._getUserDetail(this.user.userId)
         this._getUserSonglist(this.user.userId)
       },
+      watch:{
+       scrollY(newValue) {
+        const bgcHeight = this.$refs.meBackground.clientHeight;
+        const navHeight = this.$refs.nav.clientHeight;
+        const percent = newValue/(bgcHeight-navHeight);
+        this.opacity = Math.abs(1-percent)>1?1:Math.abs(1-percent);
+        this.color = newValue > bgcHeight-navHeight ? "#ffffff" : ""
+        this.barTitle =  newValue > bgcHeight-navHeight ? this.user.nickname : ""
+       }
+      },
       data() {
         return {
           active:0,
           profile:{},
           songlist:[],
-          url:''
+          url:'',
+          barTitle:"",
+          opacity:1,
+          scrollY:0,
+          color:'',
+          scrollAttribute:{
+            probeType:3,
+            listenScroll:true
+          }
         }
       },
       methods:{
@@ -129,6 +159,9 @@
           if(res.code === 200) {
             this.songlist = res.playlist
           }
+        },
+        scroll(pos) {
+          this.scrollY = Math.ceil(Math.abs(pos.y))
         },
         _normalNum(num,point) {
           let numStr = num.toString();
@@ -154,13 +187,12 @@
             }
           }
           //把 uploadUrl 换成自己的 上传路径
-          axios.post('http://127.0.0.1:3000/avatar/upload', params, config).then(res => {
+          axios.post(BASE+'/avatar/upload', params, config).then(res => {
             res = res.data.data
             if(res.code===200) {
               this.url = res.url
               this._getUserDetail(this.user.userId)
             }
-            console.log(res)
           }).catch(err => {
             console.log(err)
           });

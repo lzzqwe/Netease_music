@@ -9,7 +9,24 @@
 <!--      </ul>-->
 <!--    </Scroll>-->
   <div class="test">
-    <van-uploader :after-read="afterRead" />
+    <!-- <van-uploader :after-read="afterRead" /> -->
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+    <div id="example-4">
+  <input type="radio" id="one" value="One" v-model="picked">
+  <label for="one">One</label>
+  <br>
+  <input type="radio" id="two" value="Two" v-model="picked">
+  <label for="two">Two</label>
+  <br>
+  <span>Picked: {{ picked }}</span>
+</div>
   </div>
 </template>
 
@@ -26,11 +43,15 @@
       data() {
         return {
           list:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
-          url:''
+          url:'',
+          checkedNames: [],
+          picked: ''
         }
       },
       mounted() {
         this.getDate()
+        const meta = this.$route.matched
+        console.log(meta);
       },
       methods:{
         loadRefresh() {

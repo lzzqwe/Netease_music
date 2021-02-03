@@ -1,5 +1,5 @@
 <template>
-    <div v-if="data.length>0" class="net-card">
+    <div v-if=" Object.values(this.data).length>0" class="net-card">
       <div class="title">
         <h1 class="txt">{{title}}</h1>
         <van-button type="default">
@@ -17,8 +17,11 @@
         title:{
           type:String
         },
+        monted() {
+         console.log('dsds');
+        },
         data:{
-          type:Array,
+          type: [Array, Object],
           default:() => ([])
         }
       }

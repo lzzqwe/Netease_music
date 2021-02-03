@@ -35,16 +35,34 @@
           <span class="iconfont iconsq">热点情报局</span><span class="number">{{userInfo.playCount}}次观看</span>
         </div>
       </div>
-      <van-action-sheet @close="close" :overlay="overlay" v-model="show" title="标题">
-        <div class="content">内容</div>
+      <van-action-sheet @close="close" :overlay="overlay" v-model="show" title="评论区">
+        <div 
+        class="content-wrap"
+        >
+        <base-scroll 
+        ref='comment' 
+        @scrollToEnd='loadMore' 
+        :pullup='pullup' 
+        :data='comment' 
+        class="content">
+          <ul class="comment-list">
+              <base-comment :key="index" :item="item" v-for="(item,index) in comment"></base-comment>
+            <net-loading v-show="hasMore"></net-loading>
+            <div class="no-result" v-show="!hasMore">已经没有了更多了</div>
+          </ul>
+        </base-scroll>
+        </div>
       </van-action-sheet>
     </div>
 </template>
 
 <script>
-  import {getMvUrl,getMvDetail,getMvInfo} from '../api'
+  import {getMvUrl,getMvDetail,getMvInfo,getMvComment} from '../api'
   import Player from 'xgplayer'
   import NavBar from "../components/NavBar";
+  import BaseComment from "../components/BaseComment"
+  import NetLoading from '../components/NetLoading'
+  import BaseScroll from '../components/BaseScroll'
     export default {
       name: "MvPlayer",
       created() {
@@ -61,11 +79,20 @@
           liked:false,
           userInfo:{},
           show:false,
-          overlay:false
+          overlay:false,
+          offset:0,
+          limit:20,
+          comment:[],
+          total:0,
+          hasMore:true,
+          pullup:true
         }
       },
       components:{
-        NavBar
+        NavBar,
+        BaseComment,
+        NetLoading,
+        BaseScroll
       },
       mounted() {
         this._initPlayer()
@@ -77,9 +104,39 @@
            this.url = res.data.url
          }
        },
+       loadMore() {
+         this.offset ++
+        if(this.comment.length<this.commentCount) {
+           this._getMvComment()
+        } else {
+          this.hasMore = false
+        }
+       },
+       async _getMvComment() {
+         const id=this.$route.params.id
+         const res = await getMvComment(id,this.offset,this.limit)
+         if(res.code === 200) {
+          let hotComments = []
+          if(res.hotComments) {
+            hotComments=res.hotComments.slice(0,5)
+          }
+          this.comment = this.comment.concat(hotComments,res.comments)
+          this.total = res.total
+          this.$nextTick(() => {
+            this.$refs.comment.refresh()
+          })
+          if(this.total<3) {
+            this.hasMore = false
+          }
+        }
+       },
         showComment() {
          this.show=true
          this.$refs.mvPlayer.style.transform = 'translateY(-100px)'
+         clearTimeout(this.timeId)
+         this.timeId=setTimeout(() => {
+          this._getMvComment()
+         },100)
         },
         close() {
           this.$refs.mvPlayer.style.transform = 'translateY(0)'
@@ -209,9 +266,6 @@
         margin-top: 10px;
       }
     }
-    .user {
-
-    }
     .desc {
       margin-top: 10px;
     }
@@ -236,9 +290,24 @@
       }
     }
   }
-  .content {
+  .content-wrap {
     padding: 0 24px 0 24px;
     height: 400px;
+    position: relative;
+    .content {
+      height: 100%;
+      overflow: auto;
+      .comment-list {
+          padding: 0 24px;
+          .no-result {
+            width: 100%;
+            line-height: 40px;
+            font-size: 20px;
+            padding-bottom: 30px;
+            text-align: center;
+          }
+        }
+    }
   }
 }
 </style>

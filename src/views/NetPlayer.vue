@@ -1,7 +1,7 @@
 <template>
-   <div v-if="$store.state.playList.length>0" class="net-player">
+   <div v-show="playList.length>0" class="net-player">
      <transition name="van-slide-up">
-       <div v-show="$store.state.fullscreen" class="normal-player">
+       <div v-show="fullscreen" class="normal-player">
             <div :style="{backgroundImage:`url(${currentSong.picUrl})`}" class="background">
             </div>
             <div class="top">
@@ -64,7 +64,7 @@
           </div>
      </transition>
      <transition name="van-slide-up">
-       <div @click="showPlayer" v-show="!$store.state.fullscreen" class="mini-player">
+       <div @click="showPlayer" v-show="!fullscreen" class="mini-player">
          <div :class="albumIcon" class="mini-icon">
            <img class="image" :src="currentSong.picUrl" alt="">
          </div>
@@ -120,7 +120,7 @@
       },
       computed:{
         playIcon() {
-          return this.playing? 'iconfont iconbofang3 ':'iconfont iconbofang2 rotate_pause'
+          return this.playing? 'iconfont iconbofang3 ':'iconfont iconbofang9 rotate_pause'
         },
         albumIcon() {
           return this.playing? 'rotate':'rotate rotate_pause'
@@ -132,7 +132,8 @@
           'currentIndex',
           'playList',
           'playing',
-          'favorite'
+          'favorite',
+          'fullscreen'
         ])
       },
       methods:{

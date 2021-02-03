@@ -3,7 +3,13 @@
     <div class="nav-bar-wrap">
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
-    <base-scroll :pullup="pullup" @scrollToEnd="loadMore" ref="comment" :data="comment" class="comment-content">
+    <base-scroll 
+    :pullup="pullup" 
+    @scrollToEnd="loadMore" 
+    ref="comment" 
+    :data="comment" 
+    class="comment-content"
+    >
       <div>
         <div class="playlist-cover">
           <div class="cover">
@@ -30,25 +36,7 @@
         </div>
         <div class="comment-list-wrap">
           <ul class="comment-list">
-            <li :key="index" class="item" v-for="(item,index) in comment">
-              <div class="avatar">
-                <img class="avatar-img" v-lazy="item.user.avatarUrl" alt="">
-              </div>
-              <div class="comment-info van-hairline--bottom">
-                <div class="user">
-                  <div class="name">
-                    <span class="nickname">{{item.user.nickname}}</span>
-                    <span class="time">{{parseTime(item.time)}}</span>
-                  </div>
-                  <div class="count">
-                    <span>{{item.likedCount}}</span>
-                    <span class="iconfont icondianzan"></span>
-                  </div>
-
-                </div>
-                <p class="text">{{item.content}}</p>
-              </div>
-            </li>
+            <base-comment :key="index" :item="item" v-for="(item,index) in comment"></base-comment>
             <net-loading v-show="hasMore"></net-loading>
             <div class="no-result" v-show="!hasMore">已经没有了更多了</div>
           </ul>
@@ -59,13 +47,13 @@
 </template>
 
 <script>
-  import moment from 'moment'
   import {getCommentPlaylist,getSongComment} from '../api/index.js'
   import {mapGetters} from 'vuex'
   import BaseDivder from "../components/BaseDivder";
   import NavBar from "../components/NavBar";
   import BaseScroll from "../components/BaseScroll";
   import NetLoading from "../components/NetLoading";
+  import BaseComment from '../components/BaseComment'
   export default {
     name: "NetComment",
     data() {
@@ -89,7 +77,8 @@
       NavBar,
       BaseDivder,
       BaseScroll,
-      NetLoading
+      NetLoading,
+      BaseComment
     },
     created() {
       this._getCommentPlaylist()
@@ -117,15 +106,6 @@
           if(this.total<3) {
             this.hasMore = false
           }
-        }
-      },
-      parseTime(value) {
-        const date = new Date(value)
-        const year = date.getFullYear()
-        if(year>=2021) {
-          return moment(value).format('MM-DD')
-        } else {
-          return moment(value).format('YYYY-MM-DD')
         }
       },
       loadMore() {
@@ -238,57 +218,6 @@
         margin-top: 16px;
         .comment-list {
           padding: 0 24px;
-          .item {
-            display: flex;
-            margin-bottom: 15px;
-            .avatar {
-              width: 55px;
-              flex: 0 0 55px;
-              font-size: 0;
-              .avatar-img {
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-              }
-            }
-            .comment-info {
-              margin-left: 15px;
-              flex: 1;
-              padding-bottom: 25px;
-              .user {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 8px;
-                .name {
-                  display: flex;
-                  flex-direction: column;
-                  .nickname {
-                    font-size: 16px;
-                    color: rgb(102,102,102);
-                  }
-                  .time {
-                    font-size: 12px;
-                    color: rgb(175,175,175);
-                    margin-top: 12px;
-                  }
-                }
-                .count {
-                  font-size: 14px;
-                  color: rgb(153,153,153);
-                  .icondianzan {
-                    font-size: 22px;
-                    margin-left: 8px;
-                  }
-                }
-              }
-              .text {
-                font-size: 18px;
-                margin-top: 23px;
-                line-height: 32px;
-              }
-            }
-          }
           .no-result {
             width: 100%;
             line-height: 40px;

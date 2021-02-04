@@ -35,10 +35,15 @@
           <span class="iconfont iconsq">热点情报局</span><span class="number">{{userInfo.playCount}}次观看</span>
         </div>
       </div>
-      <van-action-sheet @close="close" :overlay="overlay" v-model="show" title="评论区">
+      <transition name='van-slide-up'>
         <div 
         class="content-wrap"
+        v-show="show"
         >
+        <div class="title">
+          <h1>评论区({{comment.length}})</h1>
+          <span @click="closeComment" class="iconfont iconiconjia"></span>
+        </div>
         <base-scroll 
         ref='comment' 
         @scrollToEnd='loadMore' 
@@ -51,8 +56,8 @@
             <div class="no-result" v-show="!hasMore">已经没有了更多了</div>
           </ul>
         </base-scroll>
-        </div>
-      </van-action-sheet>
+      </div>
+      </transition>  
     </div>
 </template>
 
@@ -137,6 +142,10 @@
          this.timeId=setTimeout(() => {
           this._getMvComment()
          },100)
+        },
+        closeComment() {
+          this.show=false
+          this.$refs.mvPlayer.style.transform = 'translateY(0)'
         },
         close() {
           this.$refs.mvPlayer.style.transform = 'translateY(0)'
@@ -293,7 +302,21 @@
   .content-wrap {
     padding: 0 24px 0 24px;
     height: 400px;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    .title {
+      height: 50px;
+      line-height: 50px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      .iconiconjia {
+        font-size: 16px;
+      }
+    }
     .content {
       height: 100%;
       overflow: auto;

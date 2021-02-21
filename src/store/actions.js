@@ -43,8 +43,8 @@ export default {
         commit(GET_PRIVATEFM, { privateFm: result })
         await dispatch('select_play', { playlist: state.privateFm, index: 0 })
     },
-    save_user_info({ commit }, { userInfo }) {
-        commit(SAVE_USER_INFO, { userInfo })
+    save_user_info({ commit }, userInfo) {
+        commit(SAVE_USER_INFO, userInfo)
     },
     save_obj({ commit }, { obj }) {
         commit(SET_OBJ, { obj })

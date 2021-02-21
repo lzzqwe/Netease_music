@@ -8,37 +8,43 @@
       </div>
       <span class="iconfont icontinggeshiqu40x40"></span>
     </div>
-    <base-scroll
-      ref="netHome"
-     :data='result'
-      class="net-home">
+    <base-scroll ref="netHome" :data="result" class="net-home">
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
-            <van-swipe  class="my-swipe" indicator-color="white">
-              <van-swipe-item :key="item.bannerId" v-for="(item) in banners">
-                <img class="swip-item-img" width="100%" v-lazy="item.pic" alt="">
+            <van-swipe class="my-swipe" indicator-color="white">
+              <van-swipe-item :key="item.bannerId" v-for="item in banners">
+                <img
+                  class="swip-item-img"
+                  width="100%"
+                  v-lazy="item.pic"
+                  alt=""
+                />
               </van-swipe-item>
             </van-swipe>
           </div>
         </div>
-        <base-scroll :scroll-x='scrollX' class="net-nav-wrap">
-          <ul ref='navCotent' class="nav-content">
+        <base-scroll :scroll-x="scrollX" class="net-nav-wrap">
+          <ul ref="navCotent" class="nav-content">
             <router-link
               :to="handleString(item.url)"
               tag="li"
-              :key="item.id" v-for="(item) in navIcon"
+              :key="item.id"
+              v-for="item in navIcon"
               class="nav-item"
               ref="navItem"
             >
               <div class="nav-icon">
-                <img v-lazy="item.iconUrl" class="img"  alt="">
+                <img v-lazy="item.iconUrl" class="img" alt="" />
               </div>
-              <p class="text">{{item.name}}</p>
+              <p class="text">{{ item.name }}</p>
             </router-link>
           </ul>
         </base-scroll>
-        <base-section :recommend-list="recommednList" title="推荐歌单"></base-section>
+        <base-section
+          :recommend-list="recommednList"
+          title="推荐歌单"
+        ></base-section>
         <base-divder></base-divder>
         <div class="private-custom-made">
           <div class="custom-made-title">
@@ -53,14 +59,20 @@
           <div class="private-song-wrap">
             <div class="private-song-content">
               <ul class="private-song-list">
-                <li @click="selectItem(index)" :key="item.id" v-for="(item,index) in privateMusic" class="item">
+                <li
+                  @click="selectItem(index)"
+                  :key="item.id"
+                  v-for="(item, index) in privateMusic"
+                  class="item"
+                >
                   <div class="cover">
-                    <img v-lazy="item.picUrl" class="cover-imgage" alt="">
+                    <img v-lazy="item.picUrl" class="cover-imgage" alt="" />
                     <span class="iconfont iconbofangliang1"></span>
                   </div>
                   <div class="desc">
                     <div class="name">
-                      <span class="text">{{item.name}}</span><span class="horizontal">-</span>{{item.singer}}
+                      <span class="text">{{ item.name }}</span
+                      ><span class="horizontal">-</span>{{ item.singer }}
                     </div>
                   </div>
                 </li>
@@ -73,112 +85,138 @@
     <div v-show="!result.length" class="loading-wrap">
       <net-loading></net-loading>
     </div>
-    <slider-bar @toggle="toggleSetting" :isShowSetting="isShowSetting"></slider-bar>
+    <slider-bar
+      @toggle="toggleSetting"
+      :isShowSetting="isShowSetting"
+    ></slider-bar>
     <search-input @close="close" :is-show-search="isShowSearch"></search-input>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import BaseScroll from '../components/BaseScroll';
+import BaseScroll from "../components/BaseScroll";
 import NetLoading from "../components/NetLoading";
 import BaseSection from "../components/BaseSection";
 import BaseDivder from "../components/BaseDivder";
 import SearchInput from "../components/SearchInput";
 import SliderBar from "../components/SliderBar";
-import {getRecommendList,getPrivateMusic,getHomeCircleIcon} from '../api/index.js';
-import {createSong} from '../common/js/song';
-import {mapActions,mapGetters} from 'vuex';
+import {
+  getRecommendList,
+  getPrivateMusic,
+  getHomeCircleIcon,
+} from "../api/index.js";
+import { createSong } from "../common/js/song";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'NetHome',
-  components:{
+  name: "NetHome",
+  components: {
     BaseScroll,
     BaseSection,
     BaseDivder,
     SearchInput,
     SliderBar,
-    NetLoading
+    NetLoading,
   },
   created() {
     this.set_banners();
     this._getHomeCircleIcon();
-    this.getHomeData()
+    this.getHomeData();
   },
   mounted() {
     this.handlePlaylist(this.playList);
   },
   data() {
     return {
-      scrollX:true,
-      isShowSetting:false,
-      isShowSearch:false,
-      recommednList:[],
-      privateMusic:[],
-      navIcon:[],
-      bacUrl:'',
-      delayTime:30,
-      result:[]
-    }
+      scrollX: true,
+      isShowSetting: false,
+      isShowSearch: false,
+      recommednList: [],
+      privateMusic: [],
+      navIcon: [],
+      bacUrl: "",
+      delayTime: 30,
+      result: [],
+    };
   },
-  computed:{
+  computed: {
     _getIcon() {
-      return this.playing?'iconzanting':'iconbofang4'
+      return this.playing ? "iconzanting" : "iconbofang4";
     },
-    ...mapGetters(['banners','fullscreen','playList','playing'])
+    ...mapGetters(["banners", "fullscreen", "playList", "playing"]),
   },
-  methods:{
+  methods: {
     loadRefresh() {
       setTimeout(() => {
         this.getHomeData();
         this.$refs.netHome.refresh();
-      },3000)
+      }, 3000);
     },
     async getHomeData() {
-      const res_1 = await getRecommendList()
-      const res_2 = await getPrivateMusic()
-      const res_3 = await getHomeCircleIcon()
-      Promise.all([res_1,res_2,res_3]).then((res) => {
-        this.result = res
-        this.recommednList =  this.result[0].result;
-        this.privateMusic = this._createSong(this.result[1].result);
-      })
+      try {
+        const res_1 = await getRecommendList();
+        const res_2 = await getPrivateMusic();
+        Promise.all([res_1, res_2])
+          .then((res) => {
+            this.result = res;
+            this.recommednList = this.result[0].result;
+            this.privateMusic = this._createSong(this.result[1].result);
+          })
+          .catch((err) => {
+            throw new Error(err);
+          });
+      } catch (error) {
+        this.$notify({
+          message: "获取数据失败",
+          color: "#FFFFFF",
+          background: "#00A2E8",
+        });
+      }
     },
     handlePlaylist(playList) {
-      if(playList.length>0) {
-        this.$refs.netHome.$el.classList.add('bottom');
+      if (playList.length > 0) {
+        this.$refs.netHome.$el.classList.add("bottom");
       } else {
-        this.$refs.netHome.$el.classList.remove('bottom');
+        this.$refs.netHome.$el.classList.remove("bottom");
       }
-        this.$refs.netHome.refresh();
+      this.$refs.netHome.refresh();
     },
     playAll() {
-      this.select_play({playlist:this.privateMusic,index:0});
+      this.select_play({ playlist: this.privateMusic, index: 0 });
     },
     _createSong(res) {
-      let result = [];
-      res.forEach((item) => {
-        result.push(createSong({
-          id:item.id,
-          picUrl:item.picUrl,
-          duration:item.song.duration,
-          singer:item.song.artists[0].name,
-          name:item.name,
-          mvId:item.mv
-        }))
-      });
-      return result;
+      if (res instanceof Array) {
+        return res.map((item) => {
+          return createSong({
+            id: item.id,
+            picUrl: item.picUrl,
+            duration: item.song.duration,
+            singer: item.song.artists[0].name,
+            name: item.name,
+            mvId: item.mv,
+          });
+        });
+      }
     },
     selectItem(index) {
-      this.select_play({playlist:this.privateMusic,index});
+      this.select_play({ playlist: this.privateMusic, index });
     },
     async _getHomeCircleIcon() {
-      const res = await getHomeCircleIcon();
-      if(res.code===200) {
-        const nav = res.data;
-        nav[4].name='mv';
-        nav[4].url='orpheus://mv';
-        nav[3].url='orpheus://rank';
-        this.navIcon = nav;
+      try {
+        const res = await getHomeCircleIcon();
+        if (res.code === 200) {
+          const nav = res.data;
+          nav[4].name = "mv";
+          nav[4].url = "orpheus://mv";
+          nav[3].url = "orpheus://rank";
+          this.navIcon = nav;
+        }
+      } catch (error) {
+        this.$notify({
+          message: "获取数据失败",
+          color: "#FFFFFF",
+          background: "#00A2E8",
+        });
       }
     },
     handleString(str) {
@@ -193,20 +231,20 @@ export default {
     close() {
       this.isShowSearch = false;
     },
-    ...mapActions(['set_banners','select_play'])
+    ...mapActions(["set_banners", "select_play"]),
   },
-  watch:{
+  watch: {
     fullscreen() {
       this.$refs.netHome.refresh();
     },
     playList(newValue) {
       this.handlePlaylist(newValue);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
-@import '~../common/less/variable.less';
+@import "~../common/less/variable.less";
 .net-home-wrap {
   width: 100%;
   height: 100%;
@@ -236,7 +274,7 @@ export default {
       display: flex;
       align-items: center;
       padding-left: 23px;
-      font-size:@font_size_small-s;
+      font-size: @font_size_small-s;
       color: #989898;
       .iconsousuo {
         font-size: 30px;
@@ -251,7 +289,7 @@ export default {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%, -50%, 0);
     width: 300px;
   }
   .net-home {
@@ -310,7 +348,7 @@ export default {
           display: flex;
           width: 840px;
           .nav-item {
-            padding-right:30px;
+            padding-right: 30px;
             text-align: center;
             &:last-child {
               padding-right: 0;
@@ -318,7 +356,7 @@ export default {
             .nav-icon {
               width: 75px;
               height: 75px;
-              background-color:#8f342d;
+              background-color: #8f342d;
               border-radius: 50%;
               margin-bottom: 10px;
               display: flex;
@@ -344,7 +382,7 @@ export default {
           .title {
             font-size: @font_size_small;
             margin-bottom: 10px;
-            color: rgb(179,179,179);
+            color: rgb(179, 179, 179);
           }
           .refresh {
             font-size: 26px;
@@ -401,13 +439,13 @@ export default {
                     position: absolute;
                     left: 50%;
                     top: 50%;
-                    transform: translate3d(-50%,-50%,0);
-                    color: rgb(255,255,255);
+                    transform: translate3d(-50%, -50%, 0);
+                    color: rgb(255, 255, 255);
                   }
                 }
                 .desc {
                   flex: 1;
-                  border-bottom: 1px solid rgb(230,230,230);
+                  border-bottom: 1px solid rgb(230, 230, 230);
                   &:last-child {
                     border-bottom: 0;
                   }
@@ -415,12 +453,12 @@ export default {
                     font-size: @font_size_small;
                     display: flex;
                     align-items: center;
-                    color: rgb(153,153,153);
+                    color: rgb(153, 153, 153);
                     margin-top: 15px;
                     margin-bottom: 15px;
                     .text {
                       font-size: @font_size_medium-l;
-                      color: rgb(51,51,51);
+                      color: rgb(51, 51, 51);
                     }
                     .horizontal {
                       margin: 0 5px;
@@ -440,18 +478,12 @@ export default {
   }
 }
 
-
-
 .net-home {
   /deep/ .van-swipe__indicator {
     width: 12px;
     height: 3px;
-    border-radius:1px;
+    border-radius: 1px;
   }
 }
-
-
-
-
 </style>
 

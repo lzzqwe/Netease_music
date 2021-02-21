@@ -52,6 +52,7 @@
         this.getDate()
         const meta = this.$route.matched
         console.log(meta);
+        Cookies.set('foo', 'bar')
       },
       methods:{
         loadRefresh() {

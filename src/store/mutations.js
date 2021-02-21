@@ -33,7 +33,7 @@ export default {
     [SET_PLAYING_STATUS](state, playing) {
         state.playing = playing
     },
-    [SAVE_USER_INFO](state, { userInfo }) {
+    [SAVE_USER_INFO](state, userInfo) {
         state.user = userInfo
     },
     [SET_OBJ](state, { obj }) {
@@ -56,8 +56,5 @@ export default {
     },
     [CLEAR_ALL_SEARCHES](state) {
         state.searches = []
-    },
-    setList() {
-
     }
 }

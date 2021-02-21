@@ -4,21 +4,46 @@
       <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
     <van-tabs @click="changeTag">
-      <van-tab :key="item.name" v-for="(item,index) in tags" :title="item.name">
-        <base-scroll @scrollToEnd="loadMore" :pullup="pullup" :data="songList" :key="index" class="song-list-wrap">
+      <van-tab
+        :key="item.name"
+        v-for="(item, index) in tags"
+        :title="item.name"
+      >
+        <base-scroll
+          @scrollToEnd="loadMore"
+          :pullup="pullup"
+          :data="songList"
+          :key="index"
+          class="song-list-wrap"
+        >
           <div class="song-list-content">
             <div class="song-swiper">
-              <swiper v-show="needOne(index)" ref="mySwiper" :options="swiperOptions">
-                <swiper-slide :id="item.id" ref="slide" @click="selectItem(item.id)" :key="item.id" v-for="(item) in songList.slice(0,3)">
+              <swiper
+                v-show="needOne(index)"
+                ref="mySwiper"
+                :options="swiperOptions"
+              >
+                <swiper-slide
+                  :id="item.id"
+                  ref="slide"
+                  @click="selectItem(item.id)"
+                  :key="item.id"
+                  v-for="item in songList.slice(0, 3)"
+                >
                   <div class="slide-container">
-                    <img class="img" :src="item.coverImgUrl" alt="">
+                    <img class="img" :src="item.coverImgUrl" alt="" />
                   </div>
                 </swiper-slide>
               </swiper>
             </div>
             <keep-alive>
               <div class="songs-wrap">
-                <song-list @select="selectItem(item)" :song-item="item" :key="index" v-for="(item,index) in songList.slice(3)"></song-list>
+                <song-list
+                  @select="selectItem(item)"
+                  :song-item="item"
+                  :key="index"
+                  v-for="(item, index) in songList.slice(3)"
+                ></song-list>
                 <net-loading v-show="hasMore"></net-loading>
                 <div class="no-result" v-show="!hasMore">已经没有了</div>
               </div>
@@ -33,123 +58,138 @@
   </div>
 </template>
 <script>
-  let vm = null
-  import NavBar from "../components/NavBar";
-  import SongList from "../components/SongList";
-  import BaseScroll from "../components/BaseScroll";
-  import NetLoading from "../components/NetLoading";
-  import {getSongsTags,getSongList} from '../api/index'
-  export default {
-    name:'NetList',
-    data() {
-      return {
-        barTitle:'歌单广场',
-        tags:[],
-        cat:'全部',
-        songList:[],
-        pullup:true,
-        limit:50,
-        offset:0,
-        loading:false,
-        hasMore:true,
-        swiperOptions: {
-          pagination: {
-            el: '.swiper-pagination'
+let vm = null;
+import NavBar from "../components/NavBar";
+import SongList from "../components/SongList";
+import BaseScroll from "../components/BaseScroll";
+import NetLoading from "../components/NetLoading";
+import { getSongsTags, getSongList } from "../api/index";
+export default {
+  name: "NetList",
+  data() {
+    return {
+      barTitle: "歌单广场",
+      tags: [],
+      cat: "全部",
+      songList: [],
+      pullup: true,
+      limit: 50,
+      offset: 0,
+      loading: false,
+      hasMore: true,
+      swiperOptions: {
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false,
+        },
+        preventClicks: false,
+        initialSlide: 1,
+        effect: "coverflow",
+        slidesPerView: 3,
+        centeredSlides: true,
+        on: {
+          click: function () {
+            const realIndex = this.realIndex;
+            vm.handleClick(realIndex);
           },
-          autoplay: {
-            delay: 3000,
-            stopOnLastSlide: false,
-            disableOnInteraction: false
-          },
-          preventClicks : false,
-          initialSlide :1,
-          effect : 'coverflow',
-          slidesPerView: 3,
-          centeredSlides: true,
-          on:{
-            click:function () {
-              const realIndex = this.realIndex
-              vm.handleClick(realIndex)
-            }
-          },
-          coverflowEffect: {
-            rotate: 0,
-            stretch: 1,
-            depth: 10,
-            modifier: 10,
-            slideShadows : false
-          },
-          loop: true
-        }
+        },
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 1,
+          depth: 10,
+          modifier: 10,
+          slideShadows: false,
+        },
+        loop: true,
+      },
+    };
+  },
+  created() {
+    this._getSongsTags();
+    this._getSongList(this.cat, this.limit, this.offset);
+    vm = this;
+  },
+  methods: {
+    handleClick(index) {
+      const id = this.$refs.slide[index].$el.id;
+      this.$router.push(`/playlistCollection/${id}`);
+    },
+    needOne(index) {
+      if (index === 0) {
+        return true;
+      } else {
+        return false;
       }
     },
-    created() {
-      this._getSongsTags()
-      this._getSongList(this.cat,this.limit,this.offset)
-      vm = this
+    selectItem(item) {
+      this.$router.push(`/playlistCollection/${item.id}`);
     },
-    methods:{
-      handleClick(index) {
-        const id = this.$refs.slide[index].$el.id
-        this.$router.push(`/playlistCollection/${id}`)
-      },
-      needOne(index) {
-        if(index===0) {
-          return true
-        } else {
-          return false
+    loadMore() {
+      this.loading = true;
+      this.offset++;
+      this._getSongList(this.cat, this.limit, this.offset);
+    },
+    changeTag(name, title) {
+      console.log(name, title);
+      this.cat = title;
+    },
+    async _getSongsTags() {
+      try {
+        const res = await getSongsTags();
+        if (res.code === 200) {
+          res.sub.unshift(res.all);
+          this.tags = res.sub;
         }
-      },
-      selectItem(item) {
-        this.$router.push(`/playlistCollection/${item.id}`)
-      },
-       loadMore() {
-        this.loading = true
-        this.offset++
-         this._getSongList(this.cat,this.limit,this.offset)
-      },
-      changeTag(name,title) {
-        console.log(name,title)
-        this.cat = title
-      },
-      async _getSongsTags() {
-        const res = await getSongsTags()
-        if(res.code===200) {
-           res.sub.unshift(res.all)
-           this.tags = res.sub
-        }
-      },
-      async _getSongList(cat,limit,offset) {
-        const res = await getSongList(cat,limit,offset)
-        if(res.code === 200) {
-          this.songList = this.songList.concat(res.playlists)
-          this._checkMore(res.playlists)
-        }
-      },
-      _checkMore(list) {
-        if(!list.length) {
-          this.hasMore = false
-        }
+      } catch (error) {
+        this.$notify({
+          message: "获取数据失败",
+          color: "#FFFFFF",
+          background: "#00A2E8",
+        });
       }
     },
-    watch:{
-      cat:function (newvalue,oldValue) {
-        if(newvalue!==oldValue) {
-          console.log(newvalue)
-          this.songList=[]
-          this.offset=0
-          this._getSongList(newvalue,this.limit,this.offset)
+    async _getSongList(cat, limit, offset) {
+      try {
+        const res = await getSongList(cat, limit, offset);
+        if (res.code === 200) {
+          this.songList = this.songList.concat(res.playlists);
+          this._checkMore(res.playlists);
         }
+      } catch (error) {
+        this.$notify({
+          message: "获取数据失败",
+          color: "#FFFFFF",
+          background: "#00A2E8",
+        });
       }
     },
-    components:{
-      NavBar,
-      SongList,
-      BaseScroll,
-      NetLoading
-    }
-  }
-
+    _checkMore(list) {
+      if (!list.length) {
+        this.hasMore = false;
+      }
+    },
+  },
+  watch: {
+    cat: function (newvalue, oldValue) {
+      if (newvalue !== oldValue) {
+        console.log(newvalue);
+        this.songList = [];
+        this.offset = 0;
+        this._getSongList(newvalue, this.limit, this.offset);
+      }
+    },
+  },
+  components: {
+    NavBar,
+    SongList,
+    BaseScroll,
+    NetLoading,
+  },
+};
 </script>
 <style lang="less" scoped>
 .song-piazza {
@@ -164,7 +204,7 @@
     position: fixed;
     top: 178px;
     bottom: 0;
-    left:0;
+    left: 0;
     right: 0;
     overflow: hidden;
     .song-list-content {
@@ -195,24 +235,23 @@
         }
       }
     }
-
   }
 }
 .song-piazza {
   /deep/ .van-tabs__wrap {
     height: 60px;
-    border-bottom: 1px solid rgb(181,186,187);
-    background-color: rgb(193,197,201);
+    border-bottom: 1px solid rgb(181, 186, 187);
+    background-color: rgb(193, 197, 201);
   }
   /deep/ .van-tab {
     font-size: 20px;
-    color: rgb(81,84,84);
+    color: rgb(81, 84, 84);
   }
   /deep/ .van-tabs__nav--complete {
     padding: 0 12px;
   }
   /deep/ .van-tab--active {
-    color: rgb(38,41,41);
+    color: rgb(38, 41, 41);
     font-weight: 600;
   }
 }
@@ -225,5 +264,4 @@
     margin: 0 auto;
   }
 }
-
 </style>

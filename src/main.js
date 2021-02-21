@@ -14,15 +14,16 @@ import 'swiper/css/swiper.css'
 import 'vant/lib/dialog/style/less';
 import 'vant/lib/tabs/style/less'
 import 'vant/lib/search/style/less'
-import { Swipe,
+import {
+  Swipe,
   SwipeItem,
   Col,
-  Row,Tab,
+  Row, Tab,
   Tabs,
   Uploader,
   Image as VanImage,
-  Form,Field,
-  Button,Dialog,
+  Form, Field,
+  Button, Dialog,
   NoticeBar,
   Switch,
   PullRefresh,
@@ -34,7 +35,8 @@ import { Swipe,
   Search,
   Skeleton,
   Overlay,
-  ActionSheet
+  ActionSheet,
+  Notify
 } from 'vant';
 
 Vue.use(Swipe)
@@ -59,8 +61,9 @@ Vue.use(Swipe)
   .use(Search)
   .use(Skeleton)
   .use(Overlay)
+  .use(Notify)
   .use(ActionSheet)
-  .use(Lazyload,{
+  .use(Lazyload, {
     lazyComponent: true,
   })
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
@@ -69,7 +72,7 @@ Vue.use(Scroll)
 Vue.config.productionTip = false
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')

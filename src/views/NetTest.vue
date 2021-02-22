@@ -53,6 +53,8 @@
         const meta = this.$route.matched
         console.log(meta);
         Cookies.set('foo', 'bar')
+        let {a,b,c} = {'c':1,'a':2,'b':3}
+        console.log(a,b,c);
       },
       methods:{
         loadRefresh() {

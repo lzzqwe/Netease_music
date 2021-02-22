@@ -26,7 +26,7 @@
                     <div class="content">
                       <p class="title">{{item.name}}</p>
                       <div class="Numbers">
-                        <span class="iconfont iconbofangliang1"><span class="count">{{_normalNum(item.playCount,1)}}</span></span>
+                        <span class="iconfont iconbofangliang1"><span class="count">{{item.playCount | parseNum(item.playCount,1)}}</span></span>
                         <span class="iconfont icondianzan"><span class="count">3615</span></span>
                       </div>
                     </div>
@@ -76,17 +76,6 @@
         },
         showComment() {
 
-        },
-        _normalNum(num,point) {
-          let numStr = num.toString();
-          if(numStr.length<6) {
-            return numStr
-          } else if(6<=numStr.length && numStr.length<=8) {
-            return parseInt(num/10000)+"万"
-          } else if(numStr.length>8) {//(1,3)
-            let decimal = numStr.substring(numStr.length-8,numStr.length-8+point)
-            return parseFloat(parseInt(num/100000000)+"."+decimal)+"亿"
-          }
         },
         onClick(name,title) {
           this.mvList = []

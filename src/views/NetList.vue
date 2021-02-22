@@ -91,19 +91,6 @@ export default {
         effect: "coverflow",
         slidesPerView: 3,
         centeredSlides: true,
-        on: {
-          click: function () {
-            const realIndex = this.realIndex;
-            vm.handleClick(realIndex);
-          },
-        },
-        coverflowEffect: {
-          rotate: 0,
-          stretch: 1,
-          depth: 10,
-          modifier: 10,
-          slideShadows: false,
-        },
         loop: true,
       },
     };
@@ -111,7 +98,6 @@ export default {
   created() {
     this._getSongsTags();
     this._getSongList(this.cat, this.limit, this.offset);
-    vm = this;
   },
   methods: {
     handleClick(index) {

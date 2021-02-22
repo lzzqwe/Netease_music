@@ -1,93 +1,92 @@
 <template>
-    <div class="song-list-detail">
-      <music-list
-        :songs="songs"
-        :playlist="playlist"
-        @comment="isShowComment"
-        :bar-title="barTitle"
-        ></music-list>
-    </div>
+  <div class="song-list-detail">
+    <music-list
+      :songs="songs"
+      :playlist="playlist"
+      @comment="isShowComment"
+      :bar-title="barTitle"
+    ></music-list>
+  </div>
 </template>
 
 <script>
-   import MusicList from "../components/MusicList";
-   import {getSongListDetail,getAllSongs} from '../api/index'
-   import {createSong} from '../common/js/song'
-   import {mapActions} from 'vuex'
-   export default {
-     name: "SongListDetail",
-     components:{
-       MusicList
-     },
-     created() {
-       this._getSongListDetail(this.id)
-     },
-     data() {
-       return {
-         barTitle:'歌单',
-         playlist:{},
-         songs:[],
-         id:parseInt(this.$route.params.id),
-         bounce:{
-           top: false,
-           bottom: true,
-           left: true,
-           right: true
-         },
-         list:[],
-       }
-     },
-     methods:{
-       isShowComment() {
-         this.$router.push(`/comment?songListId=${this.id}`)
-       },
-       async _getSongListDetail(id) {
-         const res = await getSongListDetail(id)
-         try {
-           if(res.code === 200) {
-             this.playlist = res.playlist
-             const obj =createSong({
-               picUrl:this.playlist.coverImgUrl,
-               name:this.playlist.name,
-               singer:this.playlist.creator.nickname
-             })
-             this.save_obj({obj})
-           }
-           this._normalizeSongs(res.playlist)
-         } catch (e) {
-           console.log(e)
-         }
-
-       },
-       async _normalizeSongs(list) {
-         const tracksId= []
-         list.trackIds.forEach((item) => {
-           if(item.id) {
-             tracksId.push(item.id)
-           }
-         })
-         const res = await getAllSongs(tracksId)
-         if(res.code === 200) {
-           this.songs = this._createSong(res.songs)
-         }
-       },
-       _createSong(list) {
-         const songs = []
-         list.forEach((item) => {
-           songs.push(createSong({
-             id:item.id,
-             picUrl:item.al.picUrl,
-             duration:item.dt,
-             singer:item.ar[0].name,
-             name:item.name,
-             mvId:item.mv
-           }))
-         })
-         return songs
-       },
-       ...mapActions(['select_play','save_obj'])
-     }
-   }
+import MusicList from "../components/MusicList";
+import { getSongListDetail, getAllSongs } from "../api/index";
+import { createSong } from "../common/js/song";
+import { mapActions } from "vuex";
+export default {
+  name: "SongListDetail",
+  components: {
+    MusicList,
+  },
+  created() {
+    this._getSongListDetail(this.id);
+  },
+  data() {
+    return {
+      barTitle: "歌单",
+      playlist: {},
+      songs: [],
+      id: parseInt(this.$route.params.id),
+      bounce: {
+        top: false,
+        bottom: true,
+        left: true,
+        right: true,
+      },
+      list: [],
+    };
+  },
+  methods: {
+    isShowComment() {
+      this.$router.push(`/comment?songListId=${this.id}`);
+    },
+    async _getSongListDetail(id) {
+      try {
+        const res = await getSongListDetail(id);
+        if (res.code === 200) {
+          this.playlist = res.playlist;
+          const obj = createSong({
+            picUrl: this.playlist.coverImgUrl,
+            name: this.playlist.name,
+            singer: this.playlist.creator.nickname,
+          });
+          this.save_obj({ obj });
+        }
+        this._normalizeSongs(res.playlist);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async _normalizeSongs(list) {
+      const tracksId = [];
+      list.trackIds.forEach((item) => {
+        if (item.id) {
+          tracksId.push(item.id);
+        }
+      });
+      const res = await getAllSongs(tracksId);
+      if (res.code === 200) {
+        this.songs = this._createSong(res.songs);
+      }
+    },
+    _createSong(list) {
+      if (list instanceof Array) {
+        return list.map((item) => {
+          return createSong({
+            id: item.id,
+            picUrl: item.al.picUrl,
+            duration: item.dt,
+            singer: item.ar[0].name,
+            name: item.name,
+            mvId: item.mv,
+          });
+        });
+      }
+    },
+    ...mapActions(["select_play", "save_obj"]),
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -129,13 +128,13 @@
         transform: scale(3);
         background-position: 50%;
         &:after {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           bottom: 0;
           left: 0;
           right: 0;
-          background-color: rgba(0,0,0,0.25);
+          background-color: rgba(0, 0, 0, 0.25);
           z-index: 1;
         }
       }
@@ -163,7 +162,7 @@
           .song-list-title {
             font-size: 20px;
             line-height: 36px;
-            color: rgba(255,255,255);
+            color: rgba(255, 255, 255);
           }
           .attention {
             display: flex;
@@ -177,15 +176,15 @@
             }
             .user-name {
               margin: 0 4px 0 12px;
-              color: rgb(182,175,178);
+              color: rgb(182, 175, 178);
               font-weight: 600;
             }
             .increase {
               padding: 8px 16px;
-              background-color: rgb(161,151,155);
+              background-color: rgb(161, 151, 155);
               border-radius: 13px;
               .iconhao {
-                color: rgb(216,213,214);
+                color: rgb(216, 213, 214);
               }
             }
           }
@@ -193,7 +192,7 @@
             display: flex;
             font-size: 16px;
             justify-content: space-between;
-            color: rgb(182,175,178);
+            color: rgb(182, 175, 178);
             .icongengduo1 {
               font-size: 16px;
             }
@@ -217,7 +216,7 @@
       right: 75px;
       border-radius: 30px;
       padding: 0 41px;
-      box-shadow: 0 15px 30px  rgba(0, 0, 0, .4);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       color: var(--font-color);
       .operation-list {
         display: flex;
@@ -256,7 +255,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 15px;
-      border: 1px solid rgb(233,233,233);
+      border: 1px solid rgb(233, 233, 233);
       border-radius: 12px;
       .vip-song {
         font-size: 20px;
@@ -267,7 +266,7 @@
       }
       .price {
         font-size: 18px;
-        color: rgb(154,154,154);
+        color: rgb(154, 154, 154);
         .icongengduo1 {
           font-size: 18px;
           margin-left: 12px;
@@ -286,11 +285,11 @@
         align-items: center;
         .iconbofang7 {
           font-size: 30px;
-          color: rgb(255,65,30);
+          color: rgb(255, 65, 30);
         }
         .num {
           font-size: 18px;
-          color: rgb(153,153,153);
+          color: rgb(153, 153, 153);
         }
         .all {
           font-size: 23px;
@@ -319,7 +318,7 @@
             flex: 0 0 7px;
             width: 7px;
             font-size: 16px;
-            color: rgb(153,153,153);
+            color: rgb(153, 153, 153);
             font-weight: 600;
           }
           .desc {
@@ -346,13 +345,13 @@
                 }
                 .text {
                   font-size: 12px;
-                  color: rgb(179,179,179);
+                  color: rgb(179, 179, 179);
                   .icondujia {
                     margin-right: 5px;
-                    color: rgb(246,162,159);
+                    color: rgb(246, 162, 159);
                   }
                   .iconsq {
-                    color: rgb(225,113,71);
+                    color: rgb(225, 113, 71);
                     margin-right: 5px;
                   }
                 }
@@ -360,7 +359,7 @@
               .iconbofang6 {
                 font-size: 22px;
                 margin-left: 34px;
-                color: rgb(179,179,179);
+                color: rgb(179, 179, 179);
               }
             }
             .play-icon {
@@ -368,7 +367,7 @@
               width: 22px;
               .iconsandian {
                 font-size: 22px;
-                color: rgb(179,179,179);
+                color: rgb(179, 179, 179);
               }
             }
           }

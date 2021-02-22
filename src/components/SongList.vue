@@ -3,7 +3,7 @@
     <div class="item-icon">
       <img class="img" v-lazy="songItem.coverImgUrl" alt="">
       <div class="play-count">
-        <span class="iconfont iconbofangliang1"></span>{{_normalNum(songItem.playCount,1)}}
+        <span class="iconfont iconbofangliang1"></span>{{songItem.playCount | parseNum(songItem.playCount,1)}}
       </div>
     </div>
     <p class="text">
@@ -18,17 +18,6 @@
       methods:{
         selectItem(item) {
           this.$emit('select',item)
-        },
-        _normalNum(num,point) {
-          let numStr = num.toString();
-          if(numStr.length<6) {
-            return numStr
-          } else if(6<=numStr.length && numStr.length<=8) {
-            return parseInt(num/10000)+"万"
-          } else if(numStr.length>8) {//(1,3)
-            let decimal = numStr.substring(numStr.length-8,numStr.length-8+point)
-            return parseFloat(parseInt(num/100000000)+"."+decimal)+"亿"
-          }
         }
       },
       props:{

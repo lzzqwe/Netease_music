@@ -12,7 +12,7 @@
           <div class="item-icon">
             <img class="img" v-lazy="item.picUrl" alt="">
             <div class="play-count">
-              <span class="iconfont iconbofangliang1"></span>{{_normalNum(item.playCount,1)}}
+              <span class="iconfont iconbofangliang1"></span>{{item.playCount | parseNum(item.playCount,1)}}
             </div>
           </div>
           <p class="text">
@@ -43,17 +43,6 @@ export default {
   methods:{
     skip(item) {
       this.$router.push(`/playlistCollection/${item.id}`)
-    },
-    _normalNum(num,point) {
-      let numStr = num.toString();
-      if(numStr.length<6) {
-        return numStr
-      } else if(6<=numStr.length && numStr.length<=8) {
-        return parseInt(num/10000)+"万"
-      } else if(numStr.length>8) {//(1,3)
-        let decimal = numStr.substring(numStr.length-8,numStr.length-8+point)
-        return parseFloat(parseInt(num/100000000)+"."+decimal)+"亿"
-      }
     }
   },
   components:{

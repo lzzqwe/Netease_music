@@ -80,12 +80,14 @@
 </template>
 
 <script>
+import {prefixStyle} from '../common/js/dom'
 import { getMvUrl, getMvDetail, getMvInfo, getMvComment } from "../api";
 import Player from "xgplayer";
 import NavBar from "../components/NavBar";
 import BaseComment from "../components/BaseComment";
 import NetLoading from "../components/NetLoading";
 import BaseScroll from "../components/BaseScroll";
+const transform = prefixStyle('transform')
 export default {
   name: "MvPlayer",
   created() {
@@ -171,7 +173,7 @@ export default {
     },
     showComment() {
       this.show = true;
-      this.$refs.mvPlayer.style.transform = "translateY(-100px)";
+      this.$refs.mvPlayer.style[transform] = "translateY(-100px)";
       clearTimeout(this.timeId);
       this.timeId = setTimeout(() => {
         this._getMvComment();
@@ -179,10 +181,10 @@ export default {
     },
     closeComment() {
       this.show = false;
-      this.$refs.mvPlayer.style.transform = "translateY(0)";
+      this.$refs.mvPlayer.style[transform]= "translateY(0)";
     },
     close() {
-      this.$refs.mvPlayer.style.transform = "translateY(0)";
+      this.$refs.mvPlayer.style[transform]= "translateY(0)";
     },
     async _getMvDetail(mvid) {
       try {

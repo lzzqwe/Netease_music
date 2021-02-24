@@ -55,10 +55,10 @@
           <div class="search-suggest-content">
             <h1 class="keyword">搜索{{keyword}}</h1>
             <ul>
-              <li 
-              @click="_searchContent(item.keyword)" 
-              class="suggest-item" 
-              :key="index" 
+              <li
+              @click="_searchContent(item.keyword)"
+              class="suggest-item"
+              :key="index"
               v-for="(item,index) in allMatch"
               >
                 <span class="iconfont iconsousuo"></span>{{item.keyword}}
@@ -104,15 +104,6 @@
           this.$refs.search.$el.style.bottom = bottom
           this.$refs.search.refresh()
         },
-        calculateHeight() {
-          this.$nextTick(() => {
-             let width = 0
-           this.$refs.historyItem.forEach((item) => {
-           width+= item.offsetWidth
-        })
-         this.$refs.searchHistoryList.style.width=width+'px'
-          })
-        },
         isClose() {
           this.$emit('close')
           this.keyword = ''
@@ -152,7 +143,7 @@
           }).then(() => {
               this.clear_all_searches()
           })
-         
+
         },
         ...mapActions(['clear_all_searches'])
       },

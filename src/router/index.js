@@ -118,7 +118,7 @@ const routes = [{
     {
         path: '/test',
         name: 'NetTest',
-        component: NetTest,
+        component: () => import ('../views/NetTest.vue'),
         meta:[1,2,3,4,5]
     },
     {

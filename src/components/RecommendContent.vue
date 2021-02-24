@@ -62,7 +62,6 @@
 
 <script>
   import {getDayRecommend} from '../api/index.js'
-  import moment from 'moment'
   import {createSong} from '../common/js/song'
   import BaseScroll from "./BaseScroll";
   import BaseSticky from "./BaseSticky";
@@ -138,17 +137,17 @@
       },
       ...mapActions(['select_play']),
       _createSong (list) {
-        const result= []
-        list.forEach((item) => {
-          result.push(createSong({id:item.id,
-            picUrl:item.al.picUrl,
-            duration:item.dt,
-            singer:item.ar[0].name,
-            name:item.name,
-            mvId:item.mv
-          }))
-        })
-        return result
+        if(list instanceof Array) {
+          return list.map((item) => {
+            return createSong({id:item.id,
+              picUrl:item.al.picUrl,
+              duration:item.dt,
+              singer:item.ar[0].name,
+              name:item.name,
+              mvId:item.mv
+            })
+          })
+        }
       },
       scroll(pos) {
         this.scrollY = Math.abs(pos.y)

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueMeta from 'vue-meta'
 import {_parseNum} from './filter/index.js'
 import './common/css/reset.css'
 import './common/font/iconfont.css'
@@ -68,6 +69,7 @@ Vue.use(Swipe)
   })
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 Vue.use(Scroll)
+Vue.use(VueMeta)
 Vue.filter('parseNum',_parseNum)
 Vue.config.productionTip = false
 

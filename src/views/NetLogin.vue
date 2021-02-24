@@ -30,15 +30,21 @@
 
 <script>
 import { getLogin } from "../api/index.js";
+import { getToken } from "../common/js/auth";
 import { saveUserInfo } from "../common/js/cache";
 import { mapActions } from "vuex";
 export default {
+  metaInfo() {
+    return {
+      title: "登录",
+    };
+  },
   name: "NetLogin",
   data() {
     return {
       username: "",
       password: "",
-      cookie:""
+      cookie: "",
     };
   },
   methods: {
@@ -48,8 +54,10 @@ export default {
         if (res.code === 200) {
           //保存在localstorage
           const userInfo = saveUserInfo(res.profile);
+          console.log(getToken());
           //保存在vuex中
           this.save_user_info(userInfo);
+          this.save_token(getToken());
           console.log(this.$route);
           if (this.$route.path === "/login") {
             this.$router.push("/");
@@ -63,7 +71,7 @@ export default {
         });
       }
     },
-    ...mapActions(["save_user_info"]),
+    ...mapActions(["save_user_info", "save_token"]),
   },
 };
 </script>

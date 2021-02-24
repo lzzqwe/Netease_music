@@ -105,6 +105,11 @@ import NetLoading from "../components/NetLoading";
 import BaseList from "../components/BaseList";
 import axios from "axios";
 export default {
+  metaInfo() {
+      return {
+        title:"我的"
+      }
+    },
   name: "NetMe",
   computed: {
     ...mapGetters(["user"]),

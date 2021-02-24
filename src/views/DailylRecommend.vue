@@ -1,5 +1,5 @@
 <template>
-  <div v-if="_getToken()" class="daily-recommend">
+  <div v-if="token" class="daily-recommend">
     <recommend-content></recommend-content>
   </div>
   <div v-else>
@@ -8,36 +8,30 @@
 </template>
 
 <script>
-import { getToken } from "../common/js/auth";
 import NetLogin from "./NetLogin";
 import RecommendContent from "../components/RecommendContent";
 import { mapGetters } from "vuex";
 export default {
+   metaInfo() {
+      return {
+        title:"每日推荐"
+      }
+    },
   name: "DailyRecommend",
   data() {
     return {
       dailySongs: [],
     };
   },
-  methods: {
-    _getToken() {
-      const token = getToken();
-      if (token) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
   components: {
     NetLogin,
     RecommendContent,
   },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["user","token"]),
   },
-  mounted() {
-    const token = getToken();
+  created() {
+    const token = this.token;
     if (!token) {
       this.$dialog.alert({
         message: "必须要登录后才可以获取每日推荐内容",

@@ -9,5 +9,6 @@ export default {
     obj: state => state.obj,
     favorite: state => state.favorite,
     history: state => state.playHistory,
-    searches: state => state.searches
+    searches: state => state.searches,
+    token: state => state.token
 }

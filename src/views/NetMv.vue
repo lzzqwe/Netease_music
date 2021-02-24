@@ -1,105 +1,119 @@
 <template>
-    <div class="net-mv">
-      <div class="nav-bar-container">
-        <nav-bar :bar-title="barTitle"></nav-bar>
-      </div>
-      <div class="tabs-wrap">
-        <van-tabs @click="onClick" v-model="active">
-          <van-tab :key="item.name" v-for="(item) in area" :title="item.name">
-            <base-scroll :data="mvList" class="mv-content-wrap">
-              <div>
-                <van-search
-                  v-model="value"
-                  placeholder="请输入搜索关键词"
-                  input-align="center"
-                />
-                <ul class="mv-list">
-                  <li @click="selctItem(item.id)" :key="item.id" v-for="(item) in mvList" class="item">
-                    <div class="mv-album">
-                      <div class="background">
-                        <img class="image" :src="item.cover" alt="">
-                      </div>
-                      <div class="album-img">
-                        <img class="img" v-lazy="item.cover" alt="">
-                      </div>
-                    </div>
-                    <div class="content">
-                      <p class="title">{{item.name}}</p>
-                      <div class="Numbers">
-                        <span class="iconfont iconbofangliang1"><span class="count">{{item.playCount | parseNum(item.playCount,1)}}</span></span>
-                        <span class="iconfont icondianzan"><span class="count">3615</span></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-<!--                <div v-show="!this.mvList.length" class="loading-wrap">-->
-<!--                  <net-loading></net-loading>-->
-<!--                </div>-->
-              </div>
-            </base-scroll>
-          </van-tab>
-        </van-tabs>
-      </div>
-      <router-view></router-view>
+  <div class="net-mv">
+    <div class="nav-bar-container">
+      <nav-bar :bar-title="barTitle"></nav-bar>
     </div>
+    <div class="tabs-wrap">
+      <van-tabs @click="onClick" v-model="active">
+        <van-tab :key="item.name" v-for="item in area" :title="item.name">
+          <base-scroll :data="mvList" class="mv-content-wrap">
+            <div>
+              <van-search
+                v-model="value"
+                placeholder="请输入搜索关键词"
+                input-align="center"
+              />
+              <ul class="mv-list">
+                <li
+                  @click="selctItem(item.id)"
+                  :key="item.id"
+                  v-for="item in mvList"
+                  class="item"
+                >
+                  <div class="mv-album">
+                    <div class="background">
+                      <img class="image" :src="item.cover" alt="" />
+                    </div>
+                    <div class="album-img">
+                      <img class="img" v-lazy="item.cover" alt="" />
+                    </div>
+                  </div>
+                  <div class="content">
+                    <p class="title">{{ item.name }}</p>
+                    <div class="Numbers">
+                      <span class="iconfont iconbofangliang1"
+                        ><span class="count">{{
+                          item.playCount | parseNum(item.playCount, 1)
+                        }}</span></span
+                      >
+                      <span class="iconfont icondianzan"
+                        ><span class="count">3615</span></span
+                      >
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <!--                <div v-show="!this.mvList.length" class="loading-wrap">-->
+              <!--                  <net-loading></net-loading>-->
+              <!--                </div>-->
+            </div>
+          </base-scroll>
+        </van-tab>
+      </van-tabs>
+    </div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-  import {getMv,getSingerDetail} from '../api'
-  import NavBar from "../components/NavBar";
-  import BaseScroll from "../components/BaseScroll";
-  import Mv from '../common/js/mv'
-  // import NetLoading from "../components/NetLoading";
-    export default {
-      name: "NetMv",
-      created() {
-        this.area =Mv.area
-        this._getMv()
-      },
-      data() {
-        return {
-          barTitle:'mv',
-          active:0,
-          value:'',
-          mvList:[]
-        }
-      },
-      methods:{
-        async _getMv(area) {
-         const res = await getMv(area)
-          if(res.code === 200) {
-            this.mvList = res.data
-          }
-        },
-        selctItem(id) {
-          this.$router.push(`/mv/${id}`)
-        },
-        showComment() {
-
-        },
-        onClick(name,title) {
-          this.mvList = []
-          if(title ==='全部') {
-            this._getMv()
-          } else {
-            this._getMv(title)
-          }
-        }
-      },
-      components:{
-        NavBar,
-        BaseScroll
-        // NetLoading
+import { getMv, getSingerDetail } from "../api";
+import NavBar from "../components/NavBar";
+import BaseScroll from "../components/BaseScroll";
+import Mv from "../common/js/mv";
+// import NetLoading from "../components/NetLoading";
+export default {
+  metaInfo() {
+    return {
+      title: "mv",
+    };
+  },
+  name: "NetMv",
+  created() {
+    this.area = Mv.area;
+    this._getMv();
+  },
+  data() {
+    return {
+      barTitle: "mv",
+      active: 0,
+      value: "",
+      mvList: [],
+    };
+  },
+  methods: {
+    async _getMv(area) {
+      const res = await getMv(area);
+      if (res.code === 200) {
+        this.mvList = res.data;
       }
-    }
+    },
+    selctItem(id) {
+      this.$router.push(`/mv/${id}`);
+    },
+    showComment() {},
+    onClick(name, title) {
+      this.mvList = [];
+      if (title === "全部") {
+        this._getMv();
+      } else {
+        this._getMv(title);
+      }
+    },
+  },
+  components: {
+    NavBar,
+    BaseScroll,
+    // NetLoading
+  },
+};
 </script>
 
 <style lang="less" scoped>
-@import '~../common/less/variable';
+@import "~../common/less/variable";
 .net-mv {
   width: 100%;
   height: 100%;
-  background-color: rgb(245,245,245);
+  background-color: rgb(245, 245, 245);
   /deep/ .van-field__control {
     height: 52px;
     font-size: 20px;
@@ -168,13 +182,13 @@
             width: 100%;
             padding-top: 16px;
             font-size: 0;
-            background-color: rgb(255,255,255);
+            background-color: rgb(255, 255, 255);
             border-radius: 0 0 15px 15px;
             .title {
               font-size: @font_size_medium-s;
               display: -webkit-box;
               -webkit-box-orient: vertical;
-              -webkit-line-clamp:2;
+              -webkit-line-clamp: 2;
               padding: 0 14px;
               text-overflow: ellipsis;
               overflow: hidden;
@@ -194,7 +208,6 @@
               }
               .icondianzan {
                 .count {
-
                 }
               }
               .nickname {

@@ -61,6 +61,11 @@ import BaseScroll from "../components/BaseScroll";
 import NetLoading from "../components/NetLoading";
 import BaseComment from "../components/BaseComment";
 export default {
+  metaInfo() {
+      return {
+        title:"评论"
+      }
+    },
   name: "NetComment",
   data() {
     return {

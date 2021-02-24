@@ -151,6 +151,11 @@ import { getSearch } from "../api";
 import { createSong } from "../common/js/song";
 import { mapActions } from "vuex";
 export default {
+  metaInfo() {
+    return {
+      title: "搜索",
+    };
+  },
   name: "NetSearch",
   props: {
     keyword: String,

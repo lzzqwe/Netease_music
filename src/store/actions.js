@@ -15,7 +15,8 @@ import {
     CLEAR_USER_INFO,
     CLAER_PLAYLIST,
     SET_SEARCHES,
-    CLEAR_ALL_SEARCHES
+    CLEAR_ALL_SEARCHES,
+    SET_TOKEN
 } from './mutation-types'
 export default {
     async set_banners({ commit }) {
@@ -69,5 +70,8 @@ export default {
         commit(CLAER_PLAYLIST)
         commit(SET_CURRENTINDEX, -1)
         commit(SET_PLAYING_STATUS, false)
+    },
+    save_token({commit},token) {
+       commit(SET_TOKEN,token)
     }
 }

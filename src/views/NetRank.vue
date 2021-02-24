@@ -6,16 +6,25 @@
     <base-scroll :data="top" ref="netRank" class="net-rank-wrap">
       <div class="net-rank-content">
         <div class="rank-official">
-          <h1 v-if="top.length>0" class="rank-title">官方榜</h1>
+          <h1 v-if="top.length > 0" class="rank-title">官方榜</h1>
           <ul class="rank-official-list">
-            <li @click="selectDetail(item.id)" :key="item.id" class="rank-official-item" v-for="(item) in top.slice(0,4)">
+            <li
+              @click="selectDetail(item.id)"
+              :key="item.id"
+              class="rank-official-item"
+              v-for="item in top.slice(0, 4)"
+            >
               <div class="song-cover">
-                <img class="song-cover-img" :src="item.coverImgUrl" alt="">
+                <img class="song-cover-img" :src="item.coverImgUrl" alt="" />
               </div>
               <ul class="tracks-list" v-if="item.tracks">
-                <li :key="index" v-for="(song,index) in item.tracks" class="tracks-item">
-                  <span class="index">{{index+1}}.</span>
-                  <span class="name">{{song.first}}-{{song.second}}</span>
+                <li
+                  :key="index"
+                  v-for="(song, index) in item.tracks"
+                  class="tracks-item"
+                >
+                  <span class="index">{{ index + 1 }}.</span>
+                  <span class="name">{{ song.first }}-{{ song.second }}</span>
                 </li>
               </ul>
             </li>
@@ -28,60 +37,64 @@
     <transition name="van-slide-right">
       <router-view></router-view>
     </transition>
-
   </div>
 </template>
 
 <script>
-  import {getTop} from '../api'
-  import NavBar from "../components/NavBar";
-  import RankList from "../components/RankList";
-  import BaseScroll from "../components/BaseScroll";
-  import NetLoading from "../components/NetLoading";
-  import {mapActions,mapGetters} from 'vuex'
-  export default {
-    name: "NetRank",
-    components:{
-      NavBar,
-      RankList,
-      BaseScroll,
-      NetLoading
-    },
-    created() {
-      this._getTop()
-    },
-    mounted() {
-      this.handlePlaylist(this.playList)
-    },
-    computed: {
-      ...mapGetters(['playList'])
-    },
-    methods:{
-      async _getTop() {
-        const res = await getTop()
-        if(res.code===200) {
-          this.top = res.list
-        }
-      },
-      selectDetail(id) {
-        this.$router.push(`/rank/${id}`)
-      },
-      handlePlaylist(playList) {
-        if(playList.length>0) {
-          this.$refs.netRank.$el.classList.add('bottom')
-        } else {
-          this.$refs.netRank.$el.classList.remove('bottom')
-        }
-        this.$refs.netRank.refresh()
+import { getTop } from "../api";
+import NavBar from "../components/NavBar";
+import RankList from "../components/RankList";
+import BaseScroll from "../components/BaseScroll";
+import NetLoading from "../components/NetLoading";
+import { mapActions, mapGetters } from "vuex";
+export default {
+  metaInfo() {
+    return {
+      title: "排行榜",
+    };
+  },
+  name: "NetRank",
+  components: {
+    NavBar,
+    RankList,
+    BaseScroll,
+    NetLoading,
+  },
+  created() {
+    this._getTop();
+  },
+  mounted() {
+    this.handlePlaylist(this.playList);
+  },
+  computed: {
+    ...mapGetters(["playList"]),
+  },
+  methods: {
+    async _getTop() {
+      const res = await getTop();
+      if (res.code === 200) {
+        this.top = res.list;
       }
     },
-    data() {
-      return {
-        barTitle:'排行榜',
-        top:[]
+    selectDetail(id) {
+      this.$router.push(`/rank/${id}`);
+    },
+    handlePlaylist(playList) {
+      if (playList.length > 0) {
+        this.$refs.netRank.$el.classList.add("bottom");
+      } else {
+        this.$refs.netRank.$el.classList.remove("bottom");
       }
-    }
-  }
+      this.$refs.netRank.refresh();
+    },
+  },
+  data() {
+    return {
+      barTitle: "排行榜",
+      top: [],
+    };
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -113,7 +126,7 @@
         padding: 0 24px;
         margin-top: 66px;
         .rank-title {
-          font-size:24px ;
+          font-size: 24px;
           font-weight: 600;
         }
         .rank-official-list {
@@ -137,7 +150,7 @@
             .tracks-list {
               flex: 1;
               font-size: 16px;
-              color: rgb(102,102,102);
+              color: rgb(102, 102, 102);
               margin-top: 21px;
               .tracks-item {
                 margin-left: 16px;
@@ -146,10 +159,8 @@
                   margin-bottom: 0;
                 }
                 .index {
-
                 }
                 .name {
-
                 }
               }
             }
@@ -163,7 +174,7 @@
     .rank-title {
       font-size: 24px;
       font-weight: 600;
-      color: rgb(51,51,51);
+      color: rgb(51, 51, 51);
       margin-left: 7.5px;
       margin-bottom: 18px;
     }

@@ -10,6 +10,11 @@
 <script>
   import NetPlayer from "./views/NetPlayer";
   export default {
+    metaInfo() {
+      return {
+        title:"欢迎来的net-music"
+      }
+    },
     name:'App',
     components:{
       NetPlayer

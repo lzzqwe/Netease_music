@@ -15,6 +15,11 @@ import { getSongListDetail, getAllSongs } from "../api/index";
 import { createSong } from "../common/js/song";
 import { mapActions } from "vuex";
 export default {
+  metaInfo() {
+      return {
+        title:"歌单详情"
+      }
+    },
   name: "SongListDetail",
   components: {
     MusicList,

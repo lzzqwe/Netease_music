@@ -47,7 +47,7 @@
       },
       methods:{
         loadRefresh() {
-          console.log('sadasd')
+          console.log('sadasddsasadsdsdsd')
           setTimeout(() => {
             this.$refs.scroll.update(true)
           },3000)

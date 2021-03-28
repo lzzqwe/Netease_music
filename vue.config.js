@@ -3,7 +3,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { HashedModuleIdsPlugin } = require('webpack');
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production';
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const autoprefixer = require('autoprefixer');
 // const pxtorem = require('postcss-pxtorem');
 const pxtoviewport = require('postcss-px-to-viewport');

@@ -33,13 +33,14 @@ const cdn = {
       'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
       'https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js',
       'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
-      'https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js'
+      'https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js',
+      'https://cdn.bootcdn.net/ajax/libs/better-scroll/2.2.1/better-scroll.min.js'
     ]
   }
 }
 module.exports = {
   productionSourceMap: false,
-  publicPath: './', 
+  publicPath: './',
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', resolve('src'))
@@ -48,16 +49,20 @@ module.exports = {
       .set('common', resolve('src/common'))
       .set('base', resolve('src/base'))
     // 压缩图片
-    config.module
-      .rule('images')
-      .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-      .use('image-webpack-loader')
-      .loader('image-webpack-loader')
-      .options({ bypassOnDebug: true })
+    if (isProduction) {
+      config.module
+        .rule('images')
+        .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+        .use('image-webpack-loader')
+        .loader('image-webpack-loader')
+        .options({ bypassOnDebug: true })
 
-    // webpack 会默认给commonChunk打进chunk-vendors，所以需要对webpack的配置进行delete
-    config.optimization.delete('splitChunks')
-
+      // webpack 会默认给commonChunk打进chunk-vendors，所以需要对webpack的配置进行delete
+      config.optimization.delete('splitChunks')
+      config
+        .plugin('webpack-bundle-analyzer')
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
     config.plugin('html').tap(args => {
       if (process.env.NODE_ENV === 'production') {
         args[0].cdn = cdn.build
@@ -68,9 +73,7 @@ module.exports = {
       return args
     })
 
-    config
-      .plugin('webpack-bundle-analyzer')
-      .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+
   },
   configureWebpack: config => {
     const plugins = [];

@@ -66,10 +66,10 @@ import NetLoading from "../components/NetLoading";
 import { getSongsTags, getSongList } from "../api/index";
 export default {
   metaInfo() {
-      return {
-        title:"歌单广场"
-      }
-    },
+    return {
+      title: "歌单广场",
+    };
+  },
   name: "NetList",
   data() {
     return {

@@ -50,9 +50,6 @@ const NetMv = (resolve) => {
 const MvPlayer = (resolve) => {
     import('../views/MvPlayer').then((module) => resolve(module));
 }
-const NetTest = (resolve) => {
-    import('../views/NetTest').then((module) => resolve(module));
-}
 Vue.use(VueRouter);
 const routes = [{
     path: '/',
@@ -114,12 +111,6 @@ const routes = [{
     name: 'NetComment',
     component: NetComment,
     meta: { keepAlive: false },
-},
-{
-    path: '/test',
-    name: 'NetTest',
-    component: () => import('../views/NetTest.vue'),
-    meta: [1, 2, 3, 4, 5]
 },
 {
     path: '/mv',

@@ -7,8 +7,6 @@ import './common/font/iconfont.css'
 import router from './router'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import Scroll from 'vue-slim-better-scroll'
-
 // import style (<= Swiper 5.x)
 import 'swiper/css/swiper.css'
 
@@ -68,7 +66,6 @@ Vue.use(Swipe)
     lazyComponent: true,
   })
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
-Vue.use(Scroll)
 Vue.use(VueMeta)
 Vue.filter('parseNum',_parseNum)
 Vue.config.productionTip = false

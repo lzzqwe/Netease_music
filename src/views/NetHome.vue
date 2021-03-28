@@ -118,13 +118,33 @@ export default {
     SliderBar,
     NetLoading,
   },
+  beforeCreate() {
+    console.log('beforeCreated')
+  },
   created() {
+    console.log('created')
     this.set_banners();
     this._getHomeCircleIcon();
     this.getHomeData();
   },
+  beforeMount() {
+    console.log('beforeMount')
+  },
   mounted() {
+    console.log('mounted')
     this.handlePlaylist(this.playList);
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate')
+  },
+  updated() {
+    console.log('updated')
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy')
+  },
+  destroyed() {
+    console.log('destroyed')
   },
   data() {
     return {
@@ -239,7 +259,7 @@ export default {
     },
     playList(newValue) {
       this.handlePlaylist(newValue);
-    },
+    }
   },
 };
 </script>

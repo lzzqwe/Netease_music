@@ -1,195 +1,227 @@
 <template>
-    <div class="music-list">
-      <div ref="navWrap" class="nav-bar-wrap">
-        <nav-bar :bar-title="barTitle"></nav-bar>
-        <div
-          :style="{backgroundImage:`url(${playlist.coverImgUrl})`,opacity:opacity}"
-          class="background"></div>
-        <span @click="showSearch" class="iconfont iconsousuo"></span>
-      </div>
-      <base-scroll
-        :listen-scroll="listenScroll"
-        ref="songs"
-        @onscroll="scroll"
-        :bounce="bounce"
-        :probe-type="probeType"
-        :data="songs"
-        class="song-list-wrap">
-        <div>
-          <div ref="cover" class="background-wrap">
-            <div :style="{backgroundImage:`url(${playlist.coverImgUrl})`}" class="song-list-background"> </div>
-          </div>
-          <div class="song-detail-cover">
-            <div class="detail-cover-content">
-              <div class="cover-img">
-                <img class="icon-album" v-lazy="playlist.coverImgUrl" alt="">
-              </div>
-              <div class="description">
-                <p class="song-list-title">{{playlist.name}}</p>
-                <div v-if="playlist.creator" class="attention">
-                  <img class="avatar" v-lazy="playlist.creator.avatarUrl" alt="">
-                  <span class="user-name">{{playlist.creator.nickname}}</span>
-                  <div class="increase">
-                    <span class="iconfont iconhao"></span>
-                  </div>
+  <div class="music-list">
+    <div ref="navWrap" class="nav-bar-wrap">
+      <nav-bar :bar-title="barTitle"></nav-bar>
+      <div
+        :style="{
+          backgroundImage: `url(${playlist.coverImgUrl})`,
+          opacity: opacity,
+        }"
+        class="background"
+      ></div>
+      <span @click="showSearch" class="iconfont iconsousuo"></span>
+    </div>
+    <base-scroll
+      :listen-scroll="listenScroll"
+      ref="songs"
+      @onscroll="scroll"
+      :bounce="bounce"
+      :probe-type="probeType"
+      :data="songs"
+      class="song-list-wrap"
+    >
+      <div>
+        <div ref="cover" class="background-wrap">
+          <div
+            :style="{ backgroundImage: `url(${playlist.coverImgUrl})` }"
+            class="song-list-background"
+          ></div>
+        </div>
+        <div class="song-detail-cover">
+          <div class="detail-cover-content">
+            <div class="cover-img">
+              <img class="icon-album" v-lazy="playlist.coverImgUrl" alt="" />
+            </div>
+            <div class="description">
+              <p class="song-list-title">{{ playlist.name }}</p>
+              <div v-if="playlist.creator" class="attention">
+                <img
+                  class="avatar"
+                  v-lazy="playlist.creator.avatarUrl"
+                  alt=""
+                />
+                <span class="user-name">{{ playlist.creator.nickname }}</span>
+                <div class="increase">
+                  <span class="iconfont iconhao"></span>
                 </div>
-                <div class="song-list-content">
-                  <p class="text">{{playlist.description}}</p>
-                  <span class="iconfont icongengduo1"></span>
-                </div>
+              </div>
+              <div class="song-list-content">
+                <p class="text">{{ playlist.description }}</p>
+                <span class="iconfont icongengduo1"></span>
               </div>
             </div>
-          </div>
-          <div class="song-detail-operation">
-            <ul class="operation-list">
-              <li @click="$toast('待开发')" class="operator-item" v-if="playlist.subscribedCount">
-                <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span><span>{{playlist.subscribedCount | parseNum(playlist.subscribedCount,1)}}</span>
-              </li>
-              <li @click="isShowComment" class="operator-item">
-                <span class="iconfont iconpinglun1"></span>
-                <span v-if="playlist.commentCount">{{playlist.commentCount | parseNum(playlist.commentCount,1)}}</span>
-                <span v-else>评论</span>
-              </li>
-              <li class="operator-item" v-if="playlist.shareCount">
-                <span class="iconfont iconfenxiang1"></span><span>{{playlist.shareCount | parseNum(playlist.shareCount,1)}}</span>
-              </li>
-            </ul>
-          </div>
-          <div class="open-vip">
-            <div class="vip-song">
-              <span class="iconfont iconVIP-"></span>
-              <span>含有14首VIP专享歌曲</span>
-            </div>
-            <div class="price">
-              <span>首开vip仅仅5元</span>
-              <span class="iconfont icongengduo1"></span>
-            </div>
-          </div>
-          <div class="play-all">
-            <div @click="playAll" class="play">
-              <span :class="getPlayIcon" class="iconfont"></span>
-              <span class="all">播放全部</span>
-              <span class="num">({{this.songs.length}})</span>
-            </div>
-            <div class="down-select">
-              <span class="iconfont iconxiazai"></span><span class="iconfont iconquanxuan"></span>
-            </div>
-          </div>
-          <div class="list">
-            <ul>
-              <base-songs
-                :index="index"
-                :key="item.id"
-                v-for="(item,index) in songs"
-                @play="playSong(index)"
-                :song="item"></base-songs>
-               <div v-show="!this.songs.length" class="net-loading-wrap">
-                 <net-loading></net-loading>
-               </div>
-            </ul>
           </div>
         </div>
-      </base-scroll>
-      <songs-search :songs="songs" @hide="hide" :pic-url="playlist.coverImgUrl" v-show="isShowSearch"></songs-search>
-    </div>
+        <div class="song-detail-operation">
+          <ul class="operation-list">
+            <li
+              @click="$toast('待开发')"
+              class="operator-item"
+              v-if="playlist.subscribedCount"
+            >
+              <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span
+              ><span>{{
+                playlist.subscribedCount | parseNum(playlist.subscribedCount, 1)
+              }}</span>
+            </li>
+            <li @click="isShowComment" class="operator-item">
+              <span class="iconfont iconpinglun1"></span>
+              <span v-if="playlist.commentCount">{{
+                playlist.commentCount | parseNum(playlist.commentCount, 1)
+              }}</span>
+              <span v-else>评论</span>
+            </li>
+            <li class="operator-item" v-if="playlist.shareCount">
+              <span class="iconfont iconfenxiang1"></span
+              ><span>{{
+                playlist.shareCount | parseNum(playlist.shareCount, 1)
+              }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="open-vip">
+          <div class="vip-song">
+            <span class="iconfont iconVIP-"></span>
+            <span>含有14首VIP专享歌曲</span>
+          </div>
+          <div class="price">
+            <span>首开vip仅仅5元</span>
+            <span class="iconfont icongengduo1"></span>
+          </div>
+        </div>
+        <div class="play-all">
+          <div @click="playAll" class="play">
+            <span :class="getPlayIcon" class="iconfont"></span>
+            <span class="all">播放全部</span>
+            <span class="num">({{ this.songs.length }})</span>
+          </div>
+          <div class="down-select">
+            <span class="iconfont iconxiazai"></span
+            ><span class="iconfont iconquanxuan"></span>
+          </div>
+        </div>
+        <div class="list">
+          <ul>
+            <base-songs
+              :index="index"
+              :key="item.id"
+              v-for="(item, index) in songs"
+              @play="playSong(index)"
+              :song="item"
+            ></base-songs>
+            <div v-show="!this.songs.length" class="net-loading-wrap">
+              <net-loading></net-loading>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </base-scroll>
+    <songs-search
+      :songs="songs"
+      @hide="hide"
+      :pic-url="playlist.coverImgUrl"
+      v-show="isShowSearch"
+    ></songs-search>
+  </div>
 </template>
 
 <script>
-  import NetLoading from "./NetLoading";
-  import SongsSearch from "./SongsSearch";
-  import NavBar from "./NavBar";
-  import BaseScroll from "./BaseScroll";
-  import BaseSongs from "./BaseSongs";
-  import {mapActions,mapGetters} from 'vuex'
-  export default {
-    name: "MusicList",
-    props:{
-      playlist:{
-        type:Object
+import NetLoading from "./NetLoading";
+import SongsSearch from "./SongsSearch";
+import NavBar from "./NavBar";
+import BaseScroll from "./BaseScroll";
+import BaseSongs from "./BaseSongs";
+import { mapActions, mapGetters } from "vuex";
+export default {
+  name: "MusicList",
+  props: {
+    playlist: {
+      type: Object,
+    },
+    songs: {
+      type: Array,
+    },
+    barTitle: {
+      type: String,
+    },
+  },
+  mounted() {
+    this.handlePlaylist(this.playList);
+  },
+  computed: {
+    getPlayIcon() {
+      return this.playing ? "iconbofang3" : "iconbofang7";
+    },
+    ...mapGetters(["playing", "playList"]),
+  },
+  data() {
+    return {
+      bounce: {
+        top: false,
+        bottom: true,
+        left: true,
+        right: true,
       },
-      songs:{
-        type:Array
-      },
-      barTitle:{
-        type:String
+      listenScroll: true,
+      scrollY: 0,
+      opacity: 0,
+      probeType: 3,
+      isShowSearch: false,
+    };
+  },
+  components: {
+    NetLoading,
+    BaseScroll,
+    BaseSongs,
+    NavBar,
+    SongsSearch,
+  },
+  methods: {
+    handlePlaylist(playList) {
+      if (playList.length > 0) {
+        this.$refs.songs.$el.classList.add("bottom");
+      } else {
+        this.$refs.songs.$el.classList.remove("bottom");
       }
     },
-    mounted() {
-      this.handlePlaylist(this.playList)
+    playAll() {
+      this.select_play({ playlist: this.songs, index: 0 });
     },
-    computed:{
-      getPlayIcon() {
-        return this.playing?'iconbofang3':'iconbofang7'
-      },
-      ...mapGetters(['playing','playList'])
+    showSearch() {
+      this.isShowSearch = true;
     },
-    data() {
-      return {
-        bounce:{
-          top: false,
-          bottom: true,
-          left: true,
-          right: true
-        },
-        listenScroll:true,
-        scrollY:0,
-        opacity:0,
-        probeType:3,
-        isShowSearch:false
+    hide() {
+      this.isShowSearch = false;
+    },
+    scroll(pos) {
+      this.scrollY = Math.abs(pos.y);
+    },
+    playSong(index) {
+      this.select_play({ playlist: this.songs, index });
+    },
+    isShowComment() {
+      this.$emit("comment");
+    },
+    ...mapActions(["select_play"]),
+  },
+  watch: {
+    scrollY(newValue) {
+      const height =
+        this.$refs.cover.clientHeight - this.$refs.navWrap.clientHeight;
+      const percent = newValue / height;
+      if (newValue > this.$refs.navWrap.clientHeight) {
+        this.$parent.barTitle = this.playlist.name;
+      } else {
+        this.$parent.barTitle = "歌单";
+      }
+      if (percent > 1) {
+        this.opacity = 1;
+      } else {
+        this.opacity = 1 * percent;
       }
     },
-    components:{
-      NetLoading,
-      BaseScroll,
-      BaseSongs,
-      NavBar,
-      SongsSearch
-    },
-    methods:{
-      handlePlaylist(playList) {
-        if(playList.length>0) {
-          this.$refs.songs.$el.classList.add('bottom')
-        } else {
-          this.$refs.songs.$el.classList.remove('bottom')
-        }
-      },
-      playAll() {
-        this.select_play({playlist:this.songs,index:0})
-      },
-      showSearch() {
-        this.isShowSearch = true
-      },
-      hide() {
-        this.isShowSearch = false
-      },
-      scroll(pos) {
-        this.scrollY = Math.abs(pos.y)
-      },
-      playSong(index) {
-        this.select_play({playlist:this.songs,index})
-      },
-      isShowComment() {
-        this.$emit('comment')
-      },
-      ...mapActions(['select_play'])
-    },
-    watch:{
-      scrollY(newValue) {
-        const height =this.$refs.cover.clientHeight-this.$refs.navWrap.clientHeight
-        const percent = newValue/height
-        if(newValue>this.$refs.navWrap.clientHeight ) {
-           this.$parent.barTitle=this.playlist.name
-        } else {
-           this.$parent.barTitle='歌单'
-        }
-        if(percent>1) {
-          this.opacity=1
-        } else {
-          this.opacity = 1*percent
-        }
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -202,7 +234,7 @@
     right: 0;
     z-index: 1;
     overflow: hidden;
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
     .background {
       position: absolute;
       top: 0;
@@ -246,13 +278,13 @@
         transform: scale(3);
         background-position: 50%;
         &:after {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           bottom: 0;
           left: 0;
           right: 0;
-          background-color: rgba(0,0,0,0.25);
+          background-color: rgba(0, 0, 0, 0.25);
           z-index: 1;
         }
       }
@@ -280,7 +312,7 @@
           .song-list-title {
             font-size: 20px;
             line-height: 36px;
-            color: rgba(255,255,255);
+            color: rgba(255, 255, 255);
           }
           .attention {
             display: flex;
@@ -294,15 +326,15 @@
             }
             .user-name {
               margin: 0 4px 0 12px;
-              color: rgb(182,175,178);
+              color: rgb(182, 175, 178);
               font-weight: 600;
             }
             .increase {
               padding: 8px 16px;
-              background-color: rgb(161,151,155);
+              background-color: rgb(161, 151, 155);
               border-radius: 13px;
               .iconhao {
-                color: rgb(216,213,214);
+                color: rgb(216, 213, 214);
               }
             }
           }
@@ -310,7 +342,7 @@
             display: flex;
             font-size: 16px;
             justify-content: space-between;
-            color: rgb(182,175,178);
+            color: rgb(182, 175, 178);
             .icongengduo1 {
               font-size: 16px;
             }
@@ -334,7 +366,7 @@
       right: 75px;
       border-radius: 30px;
       padding: 0 41px;
-      box-shadow: 0 15px 30px  rgba(0, 0, 0, .4);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       color: var(--font-color);
       .operation-list {
         display: flex;
@@ -373,7 +405,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 15px;
-      border: 1px solid rgb(233,233,233);
+      border: 1px solid rgb(233, 233, 233);
       border-radius: 12px;
       .vip-song {
         font-size: 20px;
@@ -384,7 +416,7 @@
       }
       .price {
         font-size: 18px;
-        color: rgb(154,154,154);
+        color: rgb(154, 154, 154);
         .icongengduo1 {
           font-size: 18px;
           margin-left: 12px;
@@ -403,15 +435,15 @@
         align-items: center;
         .iconbofang7 {
           font-size: 30px;
-          color: rgb(255,65,30);
+          color: rgb(255, 65, 30);
         }
         .iconbofang3 {
           font-size: 30px;
-          color: rgb(255,65,30);
+          color: rgb(255, 65, 30);
         }
         .num {
           font-size: 18px;
-          color: rgb(153,153,153);
+          color: rgb(153, 153, 153);
         }
         .all {
           font-size: 23px;
@@ -440,7 +472,7 @@
             flex: 0 0 7px;
             width: 7px;
             font-size: 16px;
-            color: rgb(153,153,153);
+            color: rgb(153, 153, 153);
             font-weight: 600;
           }
           .desc {
@@ -467,13 +499,13 @@
                 }
                 .text {
                   font-size: 12px;
-                  color: rgb(179,179,179);
+                  color: rgb(179, 179, 179);
                   .icondujia {
                     margin-right: 5px;
-                    color: rgb(246,162,159);
+                    color: rgb(246, 162, 159);
                   }
                   .iconsq {
-                    color: rgb(225,113,71);
+                    color: rgb(225, 113, 71);
                     margin-right: 5px;
                   }
                 }
@@ -481,7 +513,7 @@
               .iconbofang6 {
                 font-size: 22px;
                 margin-left: 34px;
-                color: rgb(179,179,179);
+                color: rgb(179, 179, 179);
               }
             }
             .play-icon {
@@ -489,7 +521,7 @@
               width: 22px;
               .iconsandian {
                 font-size: 22px;
-                color: rgb(179,179,179);
+                color: rgb(179, 179, 179);
               }
             }
           }

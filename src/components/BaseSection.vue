@@ -1,22 +1,32 @@
 <template>
   <div class="section">
     <div class="title">
-      <h1 class="text">{{title}}</h1>
+      <h1 class="text">{{ title }}</h1>
       <div @click="$router.push('/playlistCollection')" class="more">
         更多<span class="iconfont icongengduo1"></span>
       </div>
     </div>
-    <base-scroll :data="recommendList" :scroll-x="scrollX" class="song-list-wrap">
+    <base-scroll
+      :data="recommendList"
+      :scroll-x="scrollX"
+      class="song-list-wrap"
+    >
       <ul class="song-list-content">
-        <li @click="skip(item)" :key="item.id" class="song-list-item" v-for="(item) in recommendList">
+        <li
+          @click="skip(item)"
+          :key="item.id"
+          class="song-list-item"
+          v-for="item in recommendList"
+        >
           <div class="item-icon">
-            <img class="img" v-lazy="item.picUrl" alt="">
+            <img class="img" v-lazy="item.picUrl" alt="" />
             <div class="play-count">
-              <span class="iconfont iconbofangliang1"></span>{{item.playCount | parseNum(item.playCount,1)}}
+              <span class="iconfont iconbofangliang1"></span
+              >{{ item.playCount | parseNum(item.playCount, 1) }}
             </div>
           </div>
           <p class="text">
-            {{item.name}}
+            {{ item.name }}
           </p>
         </li>
       </ul>
@@ -27,32 +37,32 @@
 <script>
 import BaseScroll from "./BaseScroll";
 export default {
-  props:{
-    title:{
-      type:String
+  props: {
+    title: {
+      type: String,
     },
-    recommendList:{
-      type:Array
-    }
+    recommendList: {
+      type: Array,
+    },
   },
   data() {
     return {
-      scrollX:true
-    }
+      scrollX: true,
+    };
   },
-  methods:{
+  methods: {
     skip(item) {
-      this.$router.push(`/playlistCollection/${item.id}`)
-    }
+      this.$router.push(`/playlistCollection/${item.id}`);
+    },
   },
-  components:{
-    BaseScroll
-  }
-}
+  components: {
+    BaseScroll,
+  },
+};
 </script>
 
 <style lang="less" scoped>
-  @import '~../common/less/variable.less';
+@import "~../common/less/variable.less";
 .section {
   margin-left: 24px;
   margin-right: 24px;
@@ -106,11 +116,11 @@ export default {
             width: 81px;
             height: 26px;
             border-radius: 11px;
-            background-color: rgba(164,184,198,0.7);
+            background-color: rgba(164, 184, 198, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgb(255,255,255);
+            color: rgb(255, 255, 255);
             font-size: @font_size_small-m;
             .iconbofangliang1 {
               font-size: @font_size_small-m;

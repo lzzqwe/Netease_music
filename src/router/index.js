@@ -55,7 +55,7 @@ const routes = [{
     path: '/',
     name: 'NetHome',
     component: NetHome,
-    meta: { keepAlive: true }
+    meta: { keepAlive: false }
 }, {
     path: '/rank',
     name: 'NetRank',

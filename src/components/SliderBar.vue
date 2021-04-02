@@ -128,6 +128,7 @@ export default {
     },
     _getToken() {
       const token =getToken()
+      console.log(token);
       if(token) {
         return true
       } else {

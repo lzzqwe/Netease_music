@@ -86,6 +86,15 @@ export default {
         pagination: {
           el: ".swiper-pagination",
         },
+        on: {
+          click: function () {
+            // 这里有坑，需要注意的是：this 指向的是 swpier 实例，而不是当前的 vue， 因此借助 vm，来调用 methods 里的方法
+            // console.log(this); // -> Swiper
+            // 当前活动块的索引，与activeIndex不同的是，在loop模式下不会将 复制的块 的数量计算在内。
+            const realIndex = this.realIndex;
+            vm.handleClickSlide(realIndex);
+          },
+        },
         autoplay: {
           delay: 3000,
           stopOnLastSlide: false,
@@ -101,11 +110,12 @@ export default {
     };
   },
   created() {
+    vm = this;
     this._getSongsTags();
     this._getSongList(this.cat, this.limit, this.offset);
   },
   methods: {
-    handleClick(index) {
+    handleClickSlide(index) {
       const id = this.$refs.slide[index].$el.id;
       this.$router.push(`/playlistCollection/${id}`);
     },

@@ -129,7 +129,9 @@ VueRouter.prototype.push = function push(to) {
     return VueRouterPush.call(this, to).catch(err => err);
 }
 
-
+const router = new VueRouter({
+    routes
+})
 // router.beforeEach((to, from, next) => {
 //   const isLogin = localStorage.netToken
 //   if(to.path==='/login' || to.path==='/') {

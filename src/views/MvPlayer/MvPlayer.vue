@@ -91,8 +91,8 @@ const transform = prefixStyle('transform')
 export default {
   name: "MvPlayer",
   created() {
-    this._getMvUrl(this.$route.params.id);
-    this._getMvDetail(this.$route.params.id);
+    this._getMvUrl();
+    this._getMvDetail();
     this._getMvInfo(this.$route.params.id);
   },
   data() {
@@ -123,9 +123,12 @@ export default {
     this._initPlayer();
   },
   methods: {
-    async _getMvUrl(id) {
+    async _getMvUrl() {
+      const params = {
+        id:this.$route.params.id
+      }
       try {
-        const res = await getMvUrl(id);
+        const res = await getMvUrl(params);
         if (res.code === 200) {
           this.url = res.data.url;
         }
@@ -146,9 +149,13 @@ export default {
       }
     },
     async _getMvComment() {
+      const params = {
+        id:this.$route.params.id,
+        offset:this.offset,
+        limit:this.limit
+      }
       try {
-        const id = this.$route.params.id;
-        const res = await getMvComment(id, this.offset, this.limit);
+        const res = await getMvComment(params);
         if (res.code === 200) {
           let hotComments = [];
           if (res.hotComments) {
@@ -186,9 +193,12 @@ export default {
     close() {
       this.$refs.mvPlayer.style[transform]= "translateY(0)";
     },
-    async _getMvDetail(mvid) {
+    async _getMvDetail() {
+       const params = {
+        mvid:this.$route.params.id,
+      }
       try {
-        const res = await getMvDetail(mvid);
+        const res = await getMvDetail(params);
         if (res.code === 200) {
           this.userInfo = res.data;
         }
@@ -200,9 +210,12 @@ export default {
         });
       }
     },
-    async _getMvInfo(mvid) {
+    async _getMvInfo() {
+      const params = {
+        mvid:this.$route.params.id,
+      }
       try {
-        const res = await getMvInfo(mvid);
+        const res = await getMvInfo(params);
         if (res.code === 200) {
           this.likedCount = res.likedCount;
           this.shareCount = res.shareCount;

@@ -114,7 +114,7 @@ export default {
       },
     };
     this.initTheme();
-    this._getUserInfo(this.user.userId);
+    this._getUserInfo();
   },
   data() {
     return {
@@ -142,10 +142,13 @@ export default {
     gotoLogin() {
       
     },
-    async _getUserInfo(uid) {
+    async _getUserInfo() {
+      const params = {
+        uid:this.user.userId
+      }
       try {
-        if (uid) {
-          const res = await getuserInfo(uid);
+        if (this.user.userId) {
+          const res = await getuserInfo(params);
           if (res.code === 200) {
             this.profile = res.profile;
           }

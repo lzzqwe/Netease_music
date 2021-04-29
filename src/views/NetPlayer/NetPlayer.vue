@@ -162,12 +162,14 @@
         selectComment() {
           this.$router.push(`/comment?id=${this.currentSong.id}`)
         },
-        async _getSongComment(id) {
-          const result = await getSongComment(id)
+        async _getSongComment() {
+          const params = {
+            id:this.currentSong.id
+          }
+          const result = await getSongComment(params)
           if(result.code===200) {
             this.total = result.total
           }
-          console.log(result)
         },
         /*
         * 收藏歌曲
@@ -252,8 +254,11 @@
         /*
         * 获取当前歌曲的歌词
         * */
-        async _getLyric(id) {
-          const result =await getlyric(id)
+        async _getLyric() {
+          const params = {
+            id:this.currentSong.id
+          }
+          const result =await getlyric(params)
           this.nolyric = !isDef(result.lrc) || !result.lrc.lyric
           if(!this.nolyric) {
                 let lyric = new Lyric(result.lrc.lyric, this.handler)
@@ -303,8 +308,8 @@
           * */
           setTimeout(() => {
             this._play()
-            this._getLyric(this.currentSong.id)
-            this._getSongComment(this.currentSong.id)
+            this._getLyric()
+            this._getSongComment()
           },30)
 
         },

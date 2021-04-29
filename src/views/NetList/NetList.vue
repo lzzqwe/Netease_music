@@ -112,7 +112,7 @@ export default {
   created() {
     vm = this;
     this._getSongsTags();
-    this._getSongList(this.cat, this.limit, this.offset);
+    this._getSongList();
   },
   methods: {
     handleClickSlide(index) {
@@ -132,7 +132,7 @@ export default {
     loadMore() {
       this.loading = true;
       this.offset++;
-      this._getSongList(this.cat, this.limit, this.offset);
+      this._getSongList();
     },
     changeTag(name, title) {
       console.log(name, title);
@@ -153,9 +153,14 @@ export default {
         });
       }
     },
-    async _getSongList(cat, limit, offset) {
+    async _getSongList() {
+      const params = {
+        cat: this.cat,
+        limit: 50,
+        offset: this.offset,
+      };
       try {
-        const res = await getSongList(cat, limit, offset);
+        const res = await getSongList(params);
         if (res.code === 200) {
           this.songList = this.songList.concat(res.playlists);
           this._checkMore(res.playlists);
@@ -180,7 +185,7 @@ export default {
         console.log(newvalue);
         this.songList = [];
         this.offset = 0;
-        this._getSongList(newvalue, this.limit, this.offset);
+        this._getSongList();
       }
     },
   },

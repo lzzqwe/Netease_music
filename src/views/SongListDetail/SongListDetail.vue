@@ -25,7 +25,7 @@ export default {
     MusicList,
   },
   created() {
-    this._getSongListDetail(this.id);
+    this._getSongListDetail();
   },
   data() {
     return {
@@ -46,9 +46,12 @@ export default {
     isShowComment() {
       this.$router.push(`/comment?songListId=${this.id}`);
     },
-    async _getSongListDetail(id) {
+    async _getSongListDetail() {
+      const params = {
+        id:this.id
+      }
       try {
-        const res = await getSongListDetail(id);
+        const res = await getSongListDetail(params);
         if (res.code === 200) {
           this.playlist = res.playlist;
           const obj = createSong({
@@ -70,7 +73,10 @@ export default {
           tracksId.push(item.id);
         }
       });
-      const res = await getAllSongs(tracksId);
+      const params = {
+        ids:tracksId.toString()
+      }
+      const res = await getAllSongs(params);
       if (res.code === 200) {
         this.songs = this._createSong(res.songs);
       }

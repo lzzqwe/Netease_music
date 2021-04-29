@@ -133,8 +133,8 @@ export default {
     },
   },
   created() {
-    this._getUserDetail(this.user.userId);
-    this._getUserSonglist(this.user.userId);
+    this._getUserDetail();
+    this._getUserSonglist();
   },
   watch: {
     scrollY(newValue) {
@@ -164,9 +164,12 @@ export default {
     };
   },
   methods: {
-    async _getUserDetail(uid) {
+    async _getUserDetail() {
+      const params = {
+        uid:this.user.userId
+      }
       try {
-        const res = await getUserDetail(uid);
+        const res = await getUserDetail(params);
         if (res.code === 200) {
           this.profile = res.profile;
         }
@@ -178,9 +181,12 @@ export default {
         });
       }
     },
-    async _getUserSonglist(uid) {
+    async _getUserSonglist() {
+      const params = {
+        uid:this.user.userId
+      }
       try {
-        const res = await getUserSonglist(uid);
+        const res = await getUserSonglist(params);
         if (res.code === 200) {
           this.songlist = res.playlist;
         }

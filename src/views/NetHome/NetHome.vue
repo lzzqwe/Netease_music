@@ -119,6 +119,7 @@ export default {
     NetLoading,
   },
   created() {
+    this.set_banners();
     this._getHomeSwiper();
     this._getHomeCircleIcon();
     this.getHomeData();
@@ -158,8 +159,11 @@ export default {
       }
     },
     async getHomeData() {
+      const params = {
+        limit: 10,
+      };
       try {
-        const res_1 = await getRecommendList();
+        const res_1 = await getRecommendList(params);
         const res_2 = await getPrivateMusic();
         Promise.all([res_1, res_2])
           .then((res) => {

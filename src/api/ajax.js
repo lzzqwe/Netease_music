@@ -2,8 +2,8 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 axios.interceptors.request.use(config => {
   if (/get/i.test(config.method)) { //判断get请求
-      config.params = config.params || {};
-      config.params.t = Date.parse(new Date()) / 1000; //添加时间戳
+    config.params = config.params || {};
+    config.params.t = Date.parse(new Date()) / 1000; //添加时间戳
   }
   return config;
 }, error => {

@@ -102,11 +102,21 @@ export default {
         if (this.$route.query.hasOwnProperty("songListId")) {
           id = this.$route.query.songListId;
           this.cover = this.obj;
-          res = await getCommentPlaylist(id, this.offset, this.limit);
+          const params = {
+            id,
+            offset:this.offset,
+            limit:this.limit
+          }
+          res = await getCommentPlaylist(params);
         } else {
           id = this.$route.query.id;
           this.cover = this.currentSong;
-          res = await getSongComment(id, this.offset, this.limit);
+          const params = {
+            id,
+            offset:this.offset,
+            limit:this.limit
+          }
+          res = await getSongComment(params);
         }
         if (res.code === 200) {
           let hotComments = [];

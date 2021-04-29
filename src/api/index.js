@@ -10,110 +10,104 @@ if (process.env.VUE_APP_ENV === 'development') {
 /*
  * 1.获取移动端首页的轮播图
  */
-// export const getHomeSwiper = () => {
-//     return ajax(BASE + '/banner', { type: 1 })
-// }
 export const getHomeSwiper = (params) => {
-    // return ajax(BASE + '/banner', { type: 1 })
-    return http.get(BASE + '/banner',params)
+    return http.get(BASE + '/banner', params)
 }
-
-
 /*
  * 2.推荐歌单 /personalized?limit=10
  * */
-export const getRecommendList = () => {
-    return ajax(BASE + '/personalized', { limit: 10 })
+export const getRecommendList = (params) => {
+    return http.get(BASE + '/personalized', params)
 }
 /*
  * 3.私人定制 获取最新的音乐  /personalized/newsong
  * */
-export const getPrivateMusic = () => {
-    return ajax(BASE + '/personalized/newsong')
+export const getPrivateMusic = (params) => {
+    return http.get(BASE + '/personalized/newsong', params)
 }
 /*
  * 4.歌单标签 就是歌单分类
  * */
-export const getSongsTags = () => {
-    return ajax(BASE + '/playlist/catlist')
+export const getSongsTags = (params) => {
+    return http.get(BASE + '/playlist/catlist',params)
 }
 /*
  * 5.歌单列表
  * */
-export const getSongList = (cat, limit, offset) => {
-    return ajax(BASE + '/top/playlist', { cat, limit, offset })
+export const getSongList = (params) => {
+    return http.get(BASE + '/top/playlist',params)
 }
 /*
  * 6.热搜列表详细
  * */
-export const getHotSearchDetail = () => {
-    return ajax(BASE + '/search/hot/detail')
+export const getHotSearchDetail = (params) => {
+    return http.get(BASE + '/search/hot/detail',params)
 }
 /*
  * 7.搜索建议
  * */
-export const getSearchSuggest = (keywords, type = mobile) => {
-    return ajax(BASE + '/search/suggest', { keywords, type })
+export const getSearchSuggest = (params) => {
+    return http.get(BASE + '/search/suggest', params)
 }
 /*
  * 8.登录
  * */
-export const getLogin = (phone, password) => {
-    return ajax(BASE + '/login/cellphone', { phone, password }, 'POST')
+export const getLogin = (params) => {
+    return http.post(BASE + '/login/cellphone',params)
 }
 /*
  * 9.每日推荐
  * */
-export const getDayRecommend = () => {
-    return ajax(BASE + '/recommend/songs')
+export const getDayRecommend = (params) => {
+    return http.get(BASE + '/recommend/songs',params)
 }
 /*
  * 10.获取歌单详情
  * */
-export const getSongListDetail = (id) => {
-    return ajax(BASE + '/playlist/detail', { id })
+export const getSongListDetail = (params) => {
+    return http.get(BASE + '/playlist/detail', params)
 }
 /*
  * 11.获取歌单的所有歌曲
  * */
-export const getAllSongs = (tracks) => {
-    return ajax(BASE + `/song/detail?ids=${tracks}`)
+export const getAllSongs = (params) => {
+    return http.get(BASE + '/song/detail',params)
 }
 /*
  * 12.获取首页的圆形图标
  * */
-export const getHomeCircleIcon = () => {
-    return ajax(BASE + '/homepage/dragon/ball')
+export const getHomeCircleIcon = (params) => {
+    return http.get(BASE + '/homepage/dragon/ball',params)
 }
 /*
  * 13.获取歌单评论
  * */
-export const getCommentPlaylist = (id, offset, limit) => {
-    return ajax(BASE + '/comment/playlist', { id, offset, limit })
+export const getCommentPlaylist = (params) => {
+    return http.get(BASE + '/comment/playlist',params)
 }
 /*
  * 14.获取私人FM
  * */
-export const getPrivateFm = () => {
-    return ajax(BASE + '/personal_fm')
+export const getPrivateFm = (params) => {
+    return http.get(BASE + '/personal_fm',params)
 }
 /*
  *15.获取歌曲评论
  * */
-export const getSongComment = (id, offset, limit) => {
-    return ajax(BASE + '/comment/music', { id, offset, limit })
+export const getSongComment = (params) => {
+    return http.get(BASE + '/comment/music', params)
 }
 /*
  * 16.判断音乐是否可以用
  * */
-export const distinguishMusicUrl = (id) => {
-    return ajax(BASE + '/check/music', { id })
+export const distinguishMusicUrl = (params) => {
+    return http.get(BASE + '/check/music', params)
 }
 /*
  * 17.获取歌词
  * */
-export const getlyric = (id) => {
-    return ajax(BASE + '/lyric', { id })
+export const getlyric = (params) => {
+    return http.get(BASE + '/lyric',params)
 }
 /*
  * 18.搜索
@@ -128,58 +122,52 @@ export const handleCollect = (t, id) => {
     return ajax(BASE + '/playlist/subscribe', { t, id })
 }
 /*
- * 20.获取用户的歌单
- * */
-export const getUserPlaylist = (uid) => {
-    return ajax(BASE + '/user/playlist', { uid })
-}
-/*
  * 21.获取歌单的排行榜
  * */
 export const getTop = () => {
-    return ajax(BASE + '/toplist/detail')
+    return http.get(BASE + '/toplist/detail')
 }
 /*
  * 22.获取Mv
  * */
-export const getMv = (area) => {
-    return ajax(BASE + '/mv/first', { area })
+export const getMv = (params) => {
+    return http.get(BASE + '/mv/first',params)
 }
 /*
  * 23.获取用户详情
  * */
-export const getUserDetail = (uid) => {
-    return ajax(BASE + '/user/detail', { uid })
+export const getUserDetail = (params) => {
+    return http.get(BASE + '/user/detail', { params })
 }
 /*
  * 24.获取用户的歌单
  * */
-export const getUserSonglist = (uid) => {
-    return ajax(BASE + '/user/playlist', { uid })
+export const getUserSonglist = (params) => {
+    return http.get(BASE + '/user/playlist',params)
 }
 /*
  * 25.mv地址
  * */
-export const getMvUrl = (id) => {
-    return ajax(BASE + '/mv/url', { id })
+export const getMvUrl = (params) => {
+    return http.get(BASE + '/mv/url',params)
 }
 /*
  * 26.获取歌手详情
  * */
-export const getSingerDetail = (id) => {
-    return ajax(BASE + '/artist/detail', { id })
+export const getSingerDetail = (params) => {
+    return http.get(BASE + '/artist/detail',params)
 }
 /*
  * 27.获取mv的数据
  * */
-export const getMvDetail = (mvid) => {
-    return ajax(BASE + '/mv/detail', { mvid })
+export const getMvDetail = (params) => {
+    return http.get(BASE + '/mv/detail',params)
 }
 /*
  * 28.获取 mv 点赞转发评论数数据
  * */
-export const getMvInfo = (mvid) => {
-    return ajax(BASE + '/mv/detail/info', { mvid })
+export const getMvInfo = (params) => {
+    return http.get(BASE + '/mv/detail/info',params)
 }
 /*
  * 29.更新头像
@@ -190,12 +178,12 @@ export const updateAvatar = (imgFile) => {
 /**
  * 30.mv评论
  */
-export const getMvComment = (id, offset, limit) => {
-    return ajax(BASE + '/comment/mv', { id, offset, limit })
+export const getMvComment = (params) => {
+    return http.get(BASE + '/comment/mv',params)
 }
 /**
  * 31.获取用户的信息
  */
-export const getuserInfo = (uid) => {
-    return ajax(BASE + '/user/detail', { uid })
+export const getuserInfo = (params) => {
+    return http.get(BASE + '/user/detail',params)
 }

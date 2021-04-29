@@ -4,11 +4,11 @@
     <div class="login">
       <van-form @submit="onSubmit">
         <van-field
-          v-model="username"
-          name="用户名"
-          label="用户名"
-          placeholder="用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
+          v-model="phone"
+          name="手机号"
+          label="手机号"
+          placeholder="手机号"
+          :rules="[{ required: true, message: '请填写手机号' }]"
         />
         <van-field
           v-model="password"
@@ -42,15 +42,19 @@ export default {
   name: "NetLogin",
   data() {
     return {
-      username: "",
+      phone: "",
       password: "",
       cookie: "",
     };
   },
   methods: {
     async onSubmit() {
+      const params = {
+        phone: this.phone,
+        password: this.password,
+      };
       try {
-        const res = await getLogin(this.username, this.password);
+        const res = await getLogin(params);
         if (res.code === 200) {
           //保存在localstorage
           const userInfo = saveUserInfo(res.profile);

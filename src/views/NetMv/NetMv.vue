@@ -81,8 +81,12 @@ export default {
     };
   },
   methods: {
-    async _getMv(area) {
-      const res = await getMv(area);
+    async _getMv() {
+      const params = {
+        area: this,
+        area,
+      };
+      const res = await getMv(params);
       if (res.code === 200) {
         this.mvList = res.data;
       }

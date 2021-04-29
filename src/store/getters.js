@@ -1,5 +1,6 @@
 export default {
     user: state => { return state.user },
+    banners: state => { return state.banners },
     fullscreen: state => { return state.fullscreen },
     playList: state => state.playList,
     currentIndex: state => state.currentIndex,

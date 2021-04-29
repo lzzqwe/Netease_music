@@ -16,39 +16,14 @@ export default {
     };
   },
   deactivated() {
-    console.log('deactivated')
+    console.log("deactivated");
   },
   activated() {
-    console.log('activated')
+    console.log("activated");
   },
   name: "App",
   components: {
     NetPlayer,
-  },
-  // computed: {
-  //   flag() {
-  //     return this.$store.state;
-  //   },
-  // },
-  watch: {
-    // flag: {
-    //   handler() {
-    //     if (this.$store._committing) {
-    //       console.log(this.$store._committing);
-    //       console.log(this.$store);
-    //       console.log("通过commit修改");
-    //     } else {
-    //       console.log(this.$store._committing);
-    //       console.log("直接修改");
-    //     }
-    //   },
-    //   deep: true,
-    //   sync: true,
-    // },
-    '$route'(to,from) {
-      // console.log(to)
-      // console.log(from)
-    }
   },
 };
 </script>

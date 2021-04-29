@@ -1,4 +1,5 @@
 import ajax from './ajax.js'
+import http from './http.config'
 //基础地址
 let BASE
 if (process.env.VUE_APP_ENV === 'development') {
@@ -9,9 +10,15 @@ if (process.env.VUE_APP_ENV === 'development') {
 /*
  * 1.获取移动端首页的轮播图
  */
-export const getHomeSwiper = () => {
-    return ajax(BASE + '/banner', { type: 1 })
+// export const getHomeSwiper = () => {
+//     return ajax(BASE + '/banner', { type: 1 })
+// }
+export const getHomeSwiper = (params) => {
+    // return ajax(BASE + '/banner', { type: 1 })
+    return http.get(BASE + '/banner',params)
 }
+
+
 /*
  * 2.推荐歌单 /personalized?limit=10
  * */

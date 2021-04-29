@@ -97,12 +97,12 @@ if (env === "development") {
 } else if (env === "production") {
   BASE = "";
 }
-import NavBar from "../components/NavBar";
+import NavBar from "@/components/NavBar";
 import { mapGetters } from "vuex";
-import { getUserDetail, getUserSonglist } from "../api";
-import BaseScroll from "../components/BaseScroll";
-import NetLoading from "../components/NetLoading";
-import BaseList from "../components/BaseList";
+import { getUserDetail, getUserSonglist } from "@/api";
+import BaseScroll from "@/components/BaseScroll";
+import NetLoading from "@/components/NetLoading";
+import BaseList from "@/components/BaseList";
 import axios from "axios";
 export default {
   metaInfo() {
@@ -257,7 +257,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~../common/less/variable.less";
+@import "../../common/less/variable";
 .net-me {
   width: 100%;
   height: 100%;

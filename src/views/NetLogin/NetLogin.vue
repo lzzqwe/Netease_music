@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import { getLogin } from "../api/index.js";
-import { getToken } from "../common/js/auth";
-import { saveUserInfo } from "../common/js/cache";
+import { getLogin } from "@/api/index.js";
+import { getToken } from "@/common/js/auth";
+import { saveUserInfo } from "@/common/js/cache";
 import { mapActions } from "vuex";
 export default {
   metaInfo() {

@@ -56,10 +56,10 @@
 </template>
 
 <script>
-import { getMv, getSingerDetail } from "../api";
-import NavBar from "../components/NavBar";
-import BaseScroll from "../components/BaseScroll";
-import Mv from "../common/js/mv";
+import { getMv, getSingerDetail } from "@/api";
+import NavBar from "@/components/NavBar";
+import BaseScroll from "@/components/BaseScroll";
+import Mv from "@/common/js/mv";
 // import NetLoading from "../components/NetLoading";
 export default {
   metaInfo() {
@@ -109,7 +109,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~../common/less/variable";
+@import "../../common/less/variable";
 .net-mv {
   width: 100%;
   height: 100%;

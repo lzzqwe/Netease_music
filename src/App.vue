@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import NetPlayer from "./views/NetPlayer";
+import NetPlayer from "./views/NetPlayer/NetPlayer";
 export default {
   metaInfo() {
     return {
@@ -46,8 +46,8 @@ export default {
     //   sync: true,
     // },
     '$route'(to,from) {
-      console.log(to)
-      console.log(from)
+      // console.log(to)
+      // console.log(from)
     }
   },
 };

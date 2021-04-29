@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import NetLogin from "./NetLogin";
-import RecommendContent from "../components/RecommendContent";
+import NetLogin from "../NetLogin/NetLogin";
+import RecommendContent from "@/components/RecommendContent";
 import { mapGetters } from "vuex";
 export default {
    metaInfo() {

@@ -91,13 +91,13 @@
 
 <script>
     import {mapGetters,mapMutations,mapActions} from 'vuex'
-    import {saveFavorite,delFavorite,saveHistory} from '../common/js/cache'
-    import ProgressBar from "../components/ProgressBar";
-    import PlayList from "../components/PlayList";
-    import BaseScroll from "../components/BaseScroll";
-    import {getlyric,getSongComment} from '../api/index'
+    import {saveFavorite,delFavorite,saveHistory} from '@/common/js/cache'
+    import ProgressBar from "@/components/ProgressBar";
+    import PlayList from "@/components/PlayList";
+    import BaseScroll from "@/components/BaseScroll";
+    import {getlyric,getSongComment} from '@/api/index'
     import Lyric from 'lyric-parser'
-    import {isDef} from "../common/js/common";
+    import {isDef} from "@/common/js/common";
     export default {
       name: "NetPlayer",
       data() {

@@ -53,13 +53,13 @@
 </template>
 
 <script>
-import { getCommentPlaylist, getSongComment } from "../api/index.js";
+import { getCommentPlaylist, getSongComment } from "@/api/index.js";
 import { mapGetters } from "vuex";
-import BaseDivder from "../components/BaseDivder";
-import NavBar from "../components/NavBar";
-import BaseScroll from "../components/BaseScroll";
-import NetLoading from "../components/NetLoading";
-import BaseComment from "../components/BaseComment";
+import BaseDivder from "@/components/BaseDivder";
+import NavBar from "@/components/NavBar";
+import BaseScroll from "@/components/BaseScroll";
+import NetLoading from "@/components/NetLoading";
+import BaseComment from "@/components/BaseComment";
 export default {
   metaInfo() {
     return {

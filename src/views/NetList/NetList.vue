@@ -59,11 +59,11 @@
 </template>
 <script>
 let vm = null;
-import NavBar from "../components/NavBar";
-import SongList from "../components/SongList";
-import BaseScroll from "../components/BaseScroll";
-import NetLoading from "../components/NetLoading";
-import { getSongsTags, getSongList } from "../api/index";
+import NavBar from "@/components/NavBar";
+import SongList from "@/components/SongList";
+import BaseScroll from "@/components/BaseScroll";
+import NetLoading from "@/components/NetLoading";
+import { getSongsTags, getSongList } from "@/api/index";
 export default {
   metaInfo() {
     return {

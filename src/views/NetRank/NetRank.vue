@@ -41,12 +41,12 @@
 </template>
 
 <script>
-import { getTop } from "../api";
-import NavBar from "../components/NavBar";
-import RankList from "../components/RankList";
-import BaseScroll from "../components/BaseScroll";
-import NetLoading from "../components/NetLoading";
-import { mapActions, mapGetters } from "vuex";
+import { getTop } from "@/api";
+import NavBar from "@/components/NavBar";
+import RankList from "@/components/RankList";
+import BaseScroll from "@/components/BaseScroll";
+import NetLoading from "@/components/NetLoading";
+import {mapGetters } from "vuex";
 export default {
   metaInfo() {
     return {

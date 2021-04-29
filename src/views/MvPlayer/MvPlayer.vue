@@ -80,13 +80,13 @@
 </template>
 
 <script>
-import {prefixStyle} from '../common/js/dom'
-import { getMvUrl, getMvDetail, getMvInfo, getMvComment } from "../api";
+import {prefixStyle} from '@/common/js/dom'
+import { getMvUrl, getMvDetail, getMvInfo, getMvComment } from "@/api";
 import Player from "xgplayer";
-import NavBar from "../components/NavBar";
-import BaseComment from "../components/BaseComment";
-import NetLoading from "../components/NetLoading";
-import BaseScroll from "../components/BaseScroll";
+import NavBar from "@/components/NavBar";
+import BaseComment from "@/components/BaseComment";
+import NetLoading from "@/components/NetLoading";
+import BaseScroll from "@/components/BaseScroll";
 const transform = prefixStyle('transform')
 export default {
   name: "MvPlayer",
@@ -246,7 +246,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../common/less/variable";
+@import "../../common/less/variable";
 .mv-player {
   position: fixed;
   top: 0;

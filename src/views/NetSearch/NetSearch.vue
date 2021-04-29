@@ -142,13 +142,13 @@
   </div>
 </template>
 <script>
-import BaseScroll from "../components/BaseScroll";
-import BaseList from "../components/BaseList";
-import BaseSongs from "../components/BaseSongs";
-import NetCard from "../components/NetCard";
-import NetLoading from "../components/NetLoading";
-import { getSearch } from "../api";
-import { createSong } from "../common/js/song";
+import BaseScroll from "@/components/BaseScroll";
+import BaseList from "@/components/BaseList";
+import BaseSongs from "@/components/BaseSongs";
+import NetCard from "@/components/NetCard";
+import NetLoading from "@/components/NetLoading";
+import { getSearch } from "@/api";
+import { createSong } from "@/common/js/song";
 import { mapActions } from "vuex";
 export default {
   metaInfo() {
@@ -308,7 +308,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "~../common/less/variable.less";
+@import "../../common/less/variable";
 .search {
   width: 100%;
   height: 100%;

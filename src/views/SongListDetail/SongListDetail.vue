@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import MusicList from "../components/MusicList";
-import { getSongListDetail, getAllSongs } from "../api/index";
-import { createSong } from "../common/js/song";
+import MusicList from "@/components/MusicList";
+import { getSongListDetail, getAllSongs } from "@/api/index";
+import { createSong } from "@/common/js/song";
 import { mapActions } from "vuex";
 export default {
   metaInfo() {

@@ -64,8 +64,8 @@ export default {
 <style lang="less" scoped>
 @import "~../common/less/variable.less";
 .section {
-  margin-left: 24px;
-  margin-right: 24px;
+  margin-left: 15px;
+  margin-right: 15px;
   padding: 18px 0 29px 0;
   border-top: 1px solid rgb(var(--font-color));
   color: var(--font-color);
@@ -75,33 +75,33 @@ export default {
     align-items: center;
     margin-bottom: 24px;
     .text {
-      font-size: @font_size_large;
+      font-size: @font_size_medium-s;
       font-weight: 600;
     }
     .more {
-      width: 79px;
-      height: 37px;
+      width: 70px;
+      height: 26px;
       border: 1px solid var(--btn-border-color);
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 16px;
-      font-size: @font_size_small-s;
+      font-size: @font_size_small-m;
     }
   }
   .song-list-wrap {
     overflow: hidden;
     .song-list-content {
       display: flex;
-      width: 1734px;
+      width: 1204px;
       .song-list-item {
-        margin-right: 16px;
+        margin-right: 6px;
         &:last-child {
           margin-right: 0;
         }
         .item-icon {
-          width: 149px;
-          height: 149px;
+          width: 103.5px;
+          height: 103.5px;
           margin-bottom: 10px;
           position: relative;
           .img {
@@ -113,30 +113,30 @@ export default {
             position: absolute;
             top: 6px;
             right: 6px;
-            width: 81px;
-            height: 26px;
-            border-radius: 11px;
+            width: 60px;
+            height: 25px;
+            border-radius: 5px;
             background-color: rgba(164, 184, 198, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
             color: rgb(255, 255, 255);
-            font-size: @font_size_small-m;
+            font-size: @font_size_small-s;
             .iconbofangliang1 {
-              font-size: @font_size_small-m;
+              font-size: @font_size_small-s;
               margin-right: 5px;
             }
           }
         }
         .text {
-          width: 149px;
+          width: 103.5px;
           text-overflow: ellipsis;
           overflow: hidden;
           padding: 0 5px;
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
-          font-size: @font_size_small;
+          font-size: @font_size_small-m;
           line-height: 26px;
         }
       }

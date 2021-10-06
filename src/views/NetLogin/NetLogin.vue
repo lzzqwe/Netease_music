@@ -1,94 +1,233 @@
 <template>
-  <div class="login-wrap">
-    <!--    <h1 class="login-logo"></h1>-->
-    <div class="login">
-      <van-form @submit="onSubmit">
-        <van-field
-          v-model="phone"
-          name="手机号"
-          label="手机号"
-          placeholder="手机号"
-          :rules="[{ required: true, message: '请填写手机号' }]"
+  <div class="logon">
+    <div class="content">
+      <div class="account">
+        <span class="account-icon"></span>
+        <input
+          class="account-txt"
+          type="text"
+          v-model="userCode"
+          placeholder="请输入手机号"
         />
-        <van-field
-          v-model="password"
-          type="password"
-          name="密码"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
-        <div style="margin: 16px">
-          <van-button round block type="info" native-type="submit"
-            >提交</van-button
-          >
+      </div>
+      <div class="password">
+        <div class="password-left">
+          <span class="password-icon"></span>
+          <input
+            type="text"
+            :password="isPass"
+            v-model="userPassWord"
+            placeholder="请输入密码"
+            class="password-txt"
+          />
         </div>
-      </van-form>
+        <div class="password-right">
+          <span @click="hideOrshowPassword" :class="iconStyle"></span>
+        </div>
+      </div>
+<!--      <div class="forget-password">忘记密码？</div>-->
+    </div>
+
+    <div class="login-button" @click="logonAdd"> 登录 </div>
+    <div class="user-service-agreement">
+      <span class="click-agree">点击登录即代表您同意</span>
+      <span class="service-agreement">《用户服务协议》</span>
     </div>
   </div>
 </template>
 
 <script>
-import { getLogin } from "@/api/index.js";
-import { getToken } from "@/common/js/auth";
-import { saveUserInfo } from "@/common/js/cache";
-import { mapActions } from "vuex";
-export default {
-  metaInfo() {
-    return {
-      title: "登录",
-    };
-  },
-  name: "NetLogin",
-  data() {
-    return {
-      phone: "",
-      password: "",
-      cookie: "",
-    };
-  },
-  methods: {
-    async onSubmit() {
-      const params = {
-        phone: this.phone,
-        password: this.password,
+  export default {
+    data() {
+      return {
+        userCode: "",
+        userPassWord: "",
+        isPass: true,
       };
-      try {
-        const res = await getLogin(params);
-        if (res.code === 200) {
-          //保存在localstorage
-          const userInfo = saveUserInfo(res.profile);
-          console.log(getToken());
-          //保存在vuex中
-          this.save_user_info(userInfo);
-          this.save_token(getToken());
-          console.log(this.$route);
-          if (this.$route.path === "/login") {
-            this.$router.push("/");
-          }
-        }
-      } catch (error) {
-        this.$notify({
-          message: "提交数据失败",
-          color: "#FFFFFF",
-          background: "#00A2E8",
-        });
-      }
     },
-    ...mapActions(["save_user_info", "save_token"]),
-  },
-};
+    computed: {
+      iconStyle() {
+        return this.isPass ? "password-eye-hide" : "password-eye-show";
+      },
+    },
+    methods: {
+      hideOrshowPassword() {
+        this.isPass = !this.isPass;
+      },
+      logonAdd() {
+        if (!this.userCode) {
+          uni.showToast({
+            title: "请输入工号",
+            icon: "none",
+            duration: 2500,
+          });
+          return;
+        }
+        if (!this.userPassWord) {
+          uni.showToast({
+            title: "请输入密码",
+            icon: "none",
+            duration: 2500,
+          });
+          return;
+        }
+        let json = {
+          userCode: this.userCode,
+          userPassword: this.userPassWord,
+        };
+        uni.showLoading({
+          title: "请稍后...",
+        });
+        logon(json)
+          .then((res) => {
+            console.log(res.data);
+            uni.setStorage({
+              key: "token_1",
+              data: res.data + "token",
+            });
+            setTimeout(() => {
+              uni.switchTab({
+                url: "../index/index",
+              });
+            }, 1500);
+          })
+          .catch((err) => {
+            uni.hideLoading();
+          });
+      },
+    },
+  };
 </script>
 
-<style lang="less" scoped>
-.login-wrap {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  .login {
-    padding: 150px 24px 0 24px;
+<style scoped lang="less">
+  .logon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url("./Sign in.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .content {
+      position: absolute;
+      top: 240px;
+      width: 100%;
+      .account {
+        margin: 0 15px 0 15px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #eeeeee;
+        display: flex;
+        .account-icon {
+          width: 22px;
+          height: 22px;
+          display: inline-block;
+          background-image: url("./手机号.png");
+          background-size: 100% 100%;
+          margin-right: 10px;
+        }
+        /deep/ .account-txt {
+          font-size: 17px;
+          font-weight: normal;
+          /*color: #f5f5f5;*/
+          line-height: 24px;
+          .uni-input-wrapper {
+            .uni-input-placeholder {
+              color: #f5f5f5;
+            }
+          }
+        }
+      }
+      .password {
+        margin: 0 15px 0 15px;
+        padding-top: 27px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #eeeeee;
+        display: flex;
+        justify-content: space-between;
+        .password-left {
+          display: flex;
+          .password-icon {
+            width: 22px;
+            height: 22px;
+            display: inline-block;
+            background-image: url("./密码.png");
+            background-size: 100% 100%;
+            margin-right: 10px;
+          }
+          /deep/ .password-txt {
+            font-size: 17px;
+            font-weight: normal;
+            line-height: 24px;
+            .uni-input-wrapper {
+              .uni-input-placeholder {
+                color: #f5f5f5;
+              }
+            }
+          }
+        }
+        .password-right {
+          .password-eye-show {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background-image: url("./Icon Xia.png");
+            background-size: 100% 100%;
+          }
+          .password-eye-hide {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background-image: url("./Icon - hide.png");
+            background-size: 100% 100%;
+          }
+        }
+      }
+      .forget-password {
+        text-align: right;
+        padding-right: 15px;
+        margin-top: 13px;
+        font-size: 12px;
+        font-weight: normal;
+        color: #ffffff;
+        line-height: 17px;
+      }
+    }
+    .login-button {
+      position: absolute;
+      top: 415px;
+      left: 15px;
+      right: 15px;
+      text-align: center;
+      padding: 12px 0;
+      background: red;
+      border-radius: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 25px;
+    }
+    .user-service-agreement {
+      position: absolute;
+      bottom: 44px;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 20px;
+      left: 50%;
+      width: 252px;
+      transform: translate3d(-50%, 0, 0);
+      .click-agree {
+        color: #f5f5f5;
+      }
+      .service-agreement {
+        color: #1683fe;
+      }
+    }
   }
-}
+
+  /deep/ uni-toast {
+    .uni-toast__content {
+      background: #ffffff !important;
+    }
+  }
 </style>

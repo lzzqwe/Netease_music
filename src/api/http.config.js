@@ -6,7 +6,7 @@ import { Notify } from 'vant';
 axios.defaults.timeout = 50000
 axios.defaults.withCredentials = true
 // axios.defaults.headers.common.Authorization = ''
-axios.defaults.headers.get['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.get.Accept = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.put['Content-Type'] = 'application/json'

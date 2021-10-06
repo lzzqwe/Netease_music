@@ -21,7 +21,7 @@
                   <div :class="poleIcon" class="music-pole"></div>
                   <div class="inner-circle">
                     <div class="album-img" :class="albumIcon">
-                      <img class="image" :src="currentSong.picUrl" alt="">
+                      <img class="image" :src="currentSong.picUrl || album" alt="">
                     </div>
                   </div>
                   <p v-if="txt" class="current-text">{{txt}}</p>
@@ -66,7 +66,7 @@
      <transition name="van-slide-up">
        <div @click="showPlayer" v-show="!fullscreen" class="mini-player">
          <div :class="albumIcon" class="mini-icon">
-           <img class="image" :src="currentSong.picUrl" alt="">
+           <img class="image" :src="currentSong.picUrl || album" alt="">
          </div>
          <div class="text">
            <span>{{currentSong.name}}<span class="singer-name">-{{currentSong.singer}}</span> </span>
@@ -97,6 +97,7 @@
     import BaseScroll from "@/components/BaseScroll";
     import {getlyric,getSongComment} from '@/api/index'
     import Lyric from 'lyric-parser'
+    import album from './album.png'
     import {isDef} from "@/common/js/common";
     export default {
       name: "NetPlayer",
@@ -110,7 +111,8 @@
           txt:'',
           nolyric:false,
           total:0,
-          show:false
+          show:false,
+          album:album
         }
       },
       components:{

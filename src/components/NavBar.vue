@@ -23,15 +23,15 @@
 
 <style lang="less" scoped>
 .nav-bar {
-  height: 85px;
+  height: 44px;
   display: flex;
   align-items: center;
   .iconxia {
-    margin-right: 28px;
-    font-size: 24px;
+    margin-right: 10px;
+    font-size: 16px;
   }
   .bar-text {
-    font-size: 24px;
+    font-size: 16px;
     line-height: 30px;
     width: 270px;
     display: inline-block;

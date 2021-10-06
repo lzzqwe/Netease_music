@@ -98,6 +98,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+ @import '../../common/less/variable';
 .net-rank {
   position: fixed;
   top: 0;
@@ -110,11 +111,11 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    padding: 32px 24px 0 24px;
+    padding: 0px 15px 0 15px;
   }
   .net-rank-wrap {
     position: fixed;
-    top: 114px;
+    top: 45px;
     bottom: 0;
     width: 100%;
     overflow: hidden;
@@ -126,11 +127,11 @@ export default {
         padding: 0 24px;
         margin-top: 66px;
         .rank-title {
-          font-size: 24px;
-          font-weight: 600;
+          font-size:16px;
+          font-weight:600;
         }
         .rank-official-list {
-          margin-top: 30px;
+          margin-top: 15px;
           .rank-official-item {
             display: flex;
             margin-bottom: 15px;
@@ -138,23 +139,23 @@ export default {
               margin-bottom: 0;
             }
             .song-cover {
-              width: 155px;
-              height: 155px;
-              flex: 0 0 155px;
+              width: 110px;
+              height: 110px;
+              flex: 0 0 110px;
               .song-cover-img {
                 width: 100%;
                 height: 100%;
-                border-radius: 20px;
+                border-radius: 6px;
               }
             }
             .tracks-list {
               flex: 1;
-              font-size: 16px;
+              font-size: @font_size_small-s;
               color: rgb(102, 102, 102);
               margin-top: 21px;
               .tracks-item {
-                margin-left: 16px;
-                margin-bottom: 29px;
+                margin-left: 10px;
+                margin-bottom: 10px;
                 &:last-child {
                   margin-bottom: 0;
                 }
@@ -172,7 +173,7 @@ export default {
   .rank-recommend {
     padding: 0 16.5px;
     .rank-title {
-      font-size: 24px;
+      font-size:16px !important;
       font-weight: 600;
       color: rgb(51, 51, 51);
       margin-left: 7.5px;

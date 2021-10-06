@@ -1,22 +1,19 @@
 <template>
-  <div v-if="token" class="daily-recommend">
+  <div class="daily-recommend">
     <recommend-content></recommend-content>
-  </div>
-  <div v-else>
-    <net-login></net-login>
   </div>
 </template>
 
 <script>
-import NetLogin from "../NetLogin/NetLogin";
+// import NetLogin from "../NetLogin/NetLogin";
 import RecommendContent from "@/components/RecommendContent";
 import { mapGetters } from "vuex";
 export default {
-   metaInfo() {
-      return {
-        title:"每日推荐"
-      }
-    },
+  metaInfo() {
+    return {
+      title: "每日推荐",
+    };
+  },
   name: "DailyRecommend",
   data() {
     return {
@@ -24,18 +21,20 @@ export default {
     };
   },
   components: {
-    NetLogin,
+    // NetLogin,
     RecommendContent,
   },
   computed: {
-    ...mapGetters(["user","token"]),
+    ...mapGetters(["user", "token"]),
   },
   created() {
     const token = this.token;
+    console.log(token);
     if (!token) {
       this.$dialog.alert({
         message: "必须要登录后才可以获取每日推荐内容",
       });
+      this.$router.push("/login");
     }
   },
 };

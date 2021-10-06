@@ -41,6 +41,11 @@ const cdn = {
 module.exports = {
   productionSourceMap: false,
   publicPath: './',
+  // devServer: {
+	// 	compress: true,
+	// 	disableHostCheck: true, //webpack4.0 开启热更新
+	// },
+
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', resolve('src'))
@@ -72,6 +77,8 @@ module.exports = {
       }
       return args
     })
+    //   //  修复HMR
+    // config.resolve.symlinks(true);
 
 
   },
@@ -159,7 +166,7 @@ module.exports = {
           //   propList: ['*']
           // })
           pxtoviewport({
-            viewportWidth: 540
+            viewportWidth: 375
           })
         ]
       },

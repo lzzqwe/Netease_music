@@ -80,8 +80,8 @@ import {getToken,removeToken} from '../common/js/auth';
 import { getuserInfo } from "../api/index";
 import { delUserInfo } from "../common/js/cache";
 import storage from "good-storage";
-import variables from "../common/themes/variables";
-import variablesBlack from "../common/themes/variables-black";
+import variables from "@/common/themes/variables";
+import variablesBlack from "@/common/themes/variables-black";
 import { mapGetters, mapActions } from "vuex";
 const themes = {
   white: "white",
@@ -113,7 +113,7 @@ export default {
         title: "黑色",
       },
     };
-    this.initTheme();
+    // this.initTheme();
     this._getUserInfo();
   },
   data() {

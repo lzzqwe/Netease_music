@@ -27,15 +27,15 @@
         <base-scroll :scroll-x="scrollX" class="net-nav-wrap">
           <ul ref="navCotent" class="nav-content">
             <router-link
-              :to="handleString(item.url)"
+              :to="item.path"
               tag="li"
-              :key="item.id"
-              v-for="item in navIcon"
+              :key="index"
+              v-for="(item,index) in navIcon"
               class="nav-item"
               ref="navItem"
             >
               <div class="nav-icon">
-                <img v-lazy="item.iconUrl" class="img" alt="" />
+                <img :src="item.picUrl" class="img" alt="" />
               </div>
               <p class="text">{{ item.name }}</p>
             </router-link>
@@ -94,6 +94,11 @@
 </template>
 
 <script>
+  import recommend from './recommend.png'
+  import songlist from './songlist.png'
+  import singer from './singer.png'
+  import rank from './rank.png'
+  import MV from './MV.png'
 import BaseScroll from "@/components/BaseScroll";
 import NetLoading from "@/components/NetLoading";
 import BaseSection from "@/components/BaseSection";
@@ -119,9 +124,8 @@ export default {
     NetLoading,
   },
   created() {
-    this.set_banners();
     this._getHomeSwiper();
-    this._getHomeCircleIcon();
+    // this._getHomeCircleIcon();
     this.getHomeData();
   },
   data() {
@@ -131,7 +135,27 @@ export default {
       isShowSearch: false,
       recommednList: [],
       privateMusic: [],
-      navIcon: [],
+      navIcon: [{
+        picUrl:recommend,
+        name:"每日推荐",
+        path:"/songrcmd"
+      },{
+        picUrl:songlist,
+        name:"歌单",
+        path:"/playlistCollection"
+      },{
+        picUrl:singer,
+        name:"歌手",
+        path:"/singer"
+      },{
+        picUrl:rank,
+        name:"排行榜",
+        path:"/rank"
+      },{
+        picUrl:MV,
+        name:"MV",
+        path: '/mv',
+      }],
       result: [],
       banners: [],
     };
@@ -143,20 +167,19 @@ export default {
     ...mapGetters(["fullscreen", "playList", "playing"]),
   },
   methods: {
-    loadRefresh() {
-      setTimeout(() => {
-        this.getHomeData();
-        this.$refs.netHome.refresh();
-      }, 3000);
-    },
     async _getHomeSwiper() {
-      const params = {
+      try {
+         const params = {
         type: 1,
       };
       const res = await getHomeSwiper(params);
       if (res.code === 200) {
         this.banners = res.banners;
       }
+      } catch (error) {
+         console.log('2222');
+      }
+
     },
     async getHomeData() {
       const params = {
@@ -172,6 +195,7 @@ export default {
             this.privateMusic = this._createSong(this.result[1].result);
           })
           .catch((err) => {
+            console.log('8888');
             throw new Error(err);
           });
       } catch (error) {
@@ -210,27 +234,27 @@ export default {
     selectItem(index) {
       this.select_play({ playlist: this.privateMusic, index });
     },
-    async _getHomeCircleIcon() {
-      try {
-        const res = await getHomeCircleIcon();
-        if (res.code === 200) {
-          const nav = res.data;
-          nav[4].name = "mv";
-          nav[4].url = "orpheus://mv";
-          nav[3].url = "orpheus://rank";
-          this.navIcon = nav;
-        }
-      } catch (error) {
-        this.$notify({
-          message: "获取数据失败",
-          color: "#FFFFFF",
-          background: "#00A2E8",
-        });
-      }
-    },
-    handleString(str) {
-      return str.slice(9);
-    },
+    // async _getHomeCircleIcon() {
+    //   try {
+    //     const res = await getHomeCircleIcon();
+    //     if (res.code === 200) {
+    //       const nav = res.data.slice(0,5);
+    //       nav[4].name = "mv";
+    //       nav[4].url = "orpheus://mv";
+    //       nav[3].url = "orpheus://rank";
+    //       this.navIcon = nav;
+    //     }
+    //   } catch (error) {
+    //     this.$notify({
+    //       message: "获取数据失败",
+    //       color: "#FFFFFF",
+    //       background: "#00A2E8",
+    //     });
+    //   }
+    // },
+    // handleString(str) {
+    //   return str.slice(9);
+    // },
     toggleSetting() {
       this.isShowSetting = !this.isShowSetting;
     },

@@ -1,5 +1,5 @@
 export default {
-  ['--body-bgcolor']:'rgb(255,255,255)',
+  ['--body-bgcolor']:'#F5F5F5',
   ['--font-color']:'rgb(51,51,51)',
   ['--divder-color']:'rgb(245,245,245)',
   ['--btn-border-color']:'rgb(229,229,229)',

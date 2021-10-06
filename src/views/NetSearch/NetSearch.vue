@@ -111,32 +111,32 @@
             </ul>
           </base-scroll>
         </van-tab>
-        <van-tab title="视频">
-          <base-scroll :data="videos_1" class="video_1">
-            <ul class="video-list">
-              <li
-                @click="selectVideo(item.id)"
-                :key="item.id"
-                v-for="item in videos_1"
-                class="item"
-              >
-                <div class="video-album-cover">
-                  <img class="image" :src="item.coverUrl" alt="" />
-                </div>
-                <div class="content">
-                  <h1 class="video-title">{{ item.title }}</h1>
-                  <div class="video-info">
-                    <span>00:16,</span><span>黑猫-警长,</span
-                    ><span>12万播放</span>
-                  </div>
-                </div>
-              </li>
-              <div v-show="!this.videos_1.length" class="net-loading-wrap">
-                <net-loading></net-loading>
-              </div>
-            </ul>
-          </base-scroll>
-        </van-tab>
+<!--        <van-tab title="视频">-->
+<!--          <base-scroll :data="videos_1" class="video_1">-->
+<!--            <ul class="video-list">-->
+<!--              <li-->
+<!--                @click="selectVideo(item.id)"-->
+<!--                :key="item.id"-->
+<!--                v-for="item in videos_1"-->
+<!--                class="item"-->
+<!--              >-->
+<!--                <div class="video-album-cover">-->
+<!--                  <img class="image" :src="item.coverUrl" alt="" />-->
+<!--                </div>-->
+<!--                <div class="content">-->
+<!--                  <h1 class="video-title">{{ item.title }}</h1>-->
+<!--                  <div class="video-info">-->
+<!--                    <span>00:16,</span><span>黑猫-警长,</span-->
+<!--                    ><span>12万播放</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              <div v-show="!this.videos_1.length" class="net-loading-wrap">-->
+<!--                <net-loading></net-loading>-->
+<!--              </div>-->
+<!--            </ul>-->
+<!--          </base-scroll>-->
+<!--        </van-tab>-->
       </van-tabs>
     </div>
   </div>

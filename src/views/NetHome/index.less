@@ -13,36 +13,37 @@
         right: 0;
         box-sizing: border-box;
         display: flex;
-        padding: 16px 24px 28px 24px;
+        padding: 10px 15px 10px 15px;
         align-items: center;
         color: var(--font-color);
-        background-color: var(--body-bgcolor);
+        background-color:#FFFFFF;
         z-index: 10;
 
         .iconliebiao {
-            font-size: 28px;
+            font-size: 16px;
         }
 
         .search-input {
-            height: 53px;
+            height: 30px;
             flex: 1;
-            margin: 0 24px;
-            background-color: #fcfcfc;
-            border-radius: 25px;
+            margin: 0 15px;
+            background-color: #F5F5F5;
+            
+            border-radius: 6px;
             display: flex;
             align-items: center;
-            padding-left: 23px;
+            padding-left: 10px;
             font-size: @font_size_small-s;
             color: #989898;
 
             .iconsousuo {
-                font-size: 30px;
+                font-size: 16px;
                 margin-right: 6px;
             }
         }
 
         .icontinggeshiqu40x40 {
-            font-size: 28px;
+            font-size: 16px;
         }
     }
 
@@ -57,10 +58,11 @@
     .net-home {
         overflow: hidden;
         position: fixed;
-        top: 97px;
+        top: 50px;
         bottom: 0;
         left: 0;
         right: 0;
+        background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
 
         &.bottom {
             bottom: 82px;
@@ -68,7 +70,6 @@
 
         .net-home-content {
             .swiper-container {
-                background-color: var(--body-bgcolor);
                 color: var(--font-color);
                 position: relative;
 
@@ -84,7 +85,7 @@
                 }
 
                 .swiper-content {
-                    padding: 0 24px 0 24px;
+                    padding: 0 15px 0 15px;
 
                     .my-swipe {
                         width: 100%;
@@ -101,7 +102,7 @@
 
                             .swip-item-img {
                                 width: 100%;
-                                height: 200px;
+                                height: 144px;
                                 border-radius: 5px;
                             }
                         }
@@ -111,41 +112,39 @@
 
             .net-nav-wrap {
                 padding: 24px 0 24px 0;
-                margin-left: 24px;
-                margin-right: 24px;
+                margin-left: 15px;
+                margin-right: 15px;
                 overflow: hidden;
 
                 .nav-content {
                     display: flex;
-                    width: 840px;
+                    width: 375px;
 
                     .nav-item {
-                        padding-right: 30px;
+                        //padding-right: 10px;
                         text-align: center;
-
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
                         &:last-child {
                             padding-right: 0;
                         }
 
                         .nav-icon {
-                            width: 75px;
-                            height: 75px;
-                            background-color: #8f342d;
-                            border-radius: 50%;
+                            width: 50px;
+                            height: 50px;
                             margin-bottom: 10px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-
                             .img {
-                                width: 33px;
-                                height: 33px;
+                                width: 100%;
+                                height: 100%;
                             }
                         }
 
                         .text {
-                            font-size: @font_size_small-s;
+                            font-size: @font_size_small-m;
                             width: 75px;
+                            text-align: center;
                         }
                     }
                 }
@@ -153,22 +152,22 @@
 
             .private-custom-made {
                 margin: 0 24px 0 24px;
-                padding-top: 38px;
+                padding-top: 10px;
                 position: relative;
 
                 .custom-made-title {
                     .title {
-                        font-size: @font_size_small;
+                        font-size: @font_size_small-s;
                         margin-bottom: 10px;
                         color: rgb(179, 179, 179);
                     }
 
                     .refresh {
-                        font-size: 26px;
+                        font-size: @font_size_medium-s;
                         font-weight: 600;
 
                         .iconrefresh {
-                            font-size: @font_size_large;
+                            font-size: @font_size_medium-s;
                             margin-right: 11px;
                         }
                     }
@@ -178,14 +177,14 @@
                     position: absolute;
                     top: 58px;
                     right: 0;
-                    width: 85px;
-                    height: 37px;
+                    width: 70px;
+                    height: 26px;
                     border: 1px solid var(--btn-border-color);
                     border-radius: 12px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: @font_size_medium-s;
+                    font-size: @font_size_small-m;
 
                     .iconbofang4 {
                         margin-right: 5px;
@@ -204,17 +203,17 @@
                             .item {
                                 display: flex;
                                 width: 468px;
-                                margin-bottom: 8px;
+                                margin-bottom: 15px;
 
                                 &:last-child {
                                     margin-bottom: 0;
                                 }
 
                                 .cover {
-                                    width: 76px;
-                                    height: 76px;
-                                    margin-right: 15px;
-                                    flex: 0 0 76px;
+                                    width: 60px;
+                                    height: 60px;
+                                    margin-right: 10px;
+                                    flex: 0 0 60px;
                                     position: relative;
 
                                     .cover-imgage {
@@ -242,7 +241,7 @@
                                     }
 
                                     .name {
-                                        font-size: @font_size_small;
+                                        font-size: @font_size_small-s;
                                         display: flex;
                                         align-items: center;
                                         color: rgb(153, 153, 153);
@@ -250,7 +249,7 @@
                                         margin-bottom: 15px;
 
                                         .text {
-                                            font-size: @font_size_medium-l;
+                                            font-size: @font_size_small-s;
                                             color: rgb(51, 51, 51);
                                         }
 

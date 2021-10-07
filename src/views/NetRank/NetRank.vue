@@ -124,7 +124,7 @@ export default {
     }
     .net-rank-content {
       .rank-official {
-        padding: 0 24px;
+        padding: 0 15px;
         margin-top: 66px;
         .rank-title {
           font-size:16px;
@@ -166,38 +166,6 @@ export default {
               }
             }
           }
-        }
-      }
-    }
-  }
-  .rank-recommend {
-    padding: 0 16.5px;
-    .rank-title {
-      font-size:16px !important;
-      font-weight: 600;
-      color: rgb(51, 51, 51);
-      margin-left: 7.5px;
-      margin-bottom: 18px;
-    }
-    .rank-list {
-      display: flex;
-      flex-wrap: wrap;
-      .rank-item {
-        margin-top: 30px;
-        .song-cover {
-          width: 155px;
-          height: 155px;
-          padding: 0 7px;
-          .song-cover-img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .text {
-          font-size: 14px;
-          margin-top: 13px;
-          text-align: left;
-          padding-left: 7px;
         }
       }
     }

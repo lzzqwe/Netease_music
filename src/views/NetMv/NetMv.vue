@@ -81,10 +81,9 @@ export default {
     };
   },
   methods: {
-    async _getMv() {
+    async _getMv(value='') {
       const params = {
-        area: this,
-        area,
+        area: value
       };
       const res = await getMv(params);
       if (res.code === 200) {
@@ -119,38 +118,58 @@ export default {
   height: 100%;
   background-color: rgb(245, 245, 245);
   /deep/ .van-field__control {
-    height: 52px;
-    font-size: 20px;
+    height: 30px;
+    font-size: 12px;
   }
   /deep/ .van-cell {
     align-items: center;
     .van-icon {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
   .nav-bar-container {
-    padding: 0 24px;
+    padding: 0 15px;
   }
   .tabs-wrap {
+    /deep/ .van-tabs__wrap {
+      height: 40px;
+      border-bottom: 0.5px solid rgb(181, 186, 187);
+      background-color: rgb(193, 197, 201);
+    }
+    /deep/ .van-tab {
+      font-size: 14px;
+      color: rgb(81, 84, 84);
+    }
+    /deep/ .van-tabs__nav--complete {
+      padding: 0 12px;
+    }
+    /deep/ .van-tab--active {
+      color: rgb(38, 41, 41);
+      font-weight: 600;
+    }
+    /deep/ .van-tabs__line {
+      bottom: 5px;
+      height: 4px;
+    }
     .mv-content-wrap {
       position: fixed;
-      top: 175px;
+      top: 95px;
       bottom: 0;
       width: 100%;
       overflow: hidden;
       .mv-list {
         display: flex;
-        padding: 0 24px;
-        margin-top: 24px;
+        padding: 0 15px;
+        margin-top: 15px;
         flex-wrap: wrap;
         font-size: 0;
         .item {
-          width: 234px;
-          margin: 0 6px;
+          width: 162px;
+          margin: 0 5px;
           margin-bottom: 24px;
           .mv-album {
             width: 100%;
-            height: 294px;
+            height: 204px;
             font-size: 0;
             position: relative;
             overflow: hidden;
@@ -158,12 +177,12 @@ export default {
             align-items: center;
             justify-content: center;
             .album-img {
-              width: 215px;
-              height: 128px;
+              width: 149px;
+              height: 88px;
               .img {
                 width: 100%;
                 height: 100%;
-                border-radius: 15px;
+                border-radius: 6px;
               }
             }
             .background {
@@ -189,7 +208,7 @@ export default {
             background-color: rgb(255, 255, 255);
             border-radius: 0 0 15px 15px;
             .title {
-              font-size: @font_size_medium-s;
+              font-size: @font_size_small-s;
               display: -webkit-box;
               -webkit-box-orient: vertical;
               -webkit-line-clamp: 2;
@@ -211,7 +230,10 @@ export default {
                 color: @font-deep-gray;
               }
               .icondianzan {
+                font-size: @font_size_small-m;
                 .count {
+                  font-size: @font_size_small-m;
+                  margin-left: 4px;
                 }
               }
               .nickname {

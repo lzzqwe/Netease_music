@@ -227,7 +227,7 @@ export default {
 <style lang="less" scoped>
 .music-list {
   .nav-bar-wrap {
-    padding: 0 24px;
+    padding: 0 15px;
     position: fixed;
     top: 0;
     left: 0;
@@ -249,11 +249,11 @@ export default {
       transform: scale(3);
     }
     .iconsousuo {
-      font-size: 30px;
+      font-size: 16px;
       color: #ffffff;
       position: absolute;
-      right: 50px;
-      top: 26px;
+      right: 20px;
+      top: 13px;
     }
   }
   .song-list-wrap {
@@ -269,13 +269,13 @@ export default {
     .background-wrap {
       overflow: hidden;
       .song-list-background {
-        height: 400px;
+        height: 270px;
         width: 100%;
         position: relative;
         background-size: cover;
         filter: blur(20px);
         background-repeat: no-repeat;
-        transform: scale(3);
+        transform: scale(2);
         background-position: 50%;
         &:after {
           content: "";
@@ -291,37 +291,37 @@ export default {
     }
     .song-detail-cover {
       position: absolute;
-      top: 145px;
+      top: 80px;
       left: 0;
       right: 0;
       .detail-cover-content {
-        padding: 0 24px;
+        padding: 0 15px;
         display: flex;
         .cover-img {
-          flex: 0 0 181px;
-          width: 181px;
+          flex: 0 0 125px;
+          width: 125px;
           .icon-album {
-            width: 181px;
-            height: 181px;
-            border-radius: 12px;
+            width: 125px;
+            height: 125px;
+            border-radius: 6px;
           }
         }
         .description {
           flex: 1;
-          margin-left: 28px;
+          margin-left: 10px;
           .song-list-title {
-            font-size: 20px;
-            line-height: 36px;
+            font-size: 14px;
+            line-height: 25px;
             color: rgba(255, 255, 255);
           }
           .attention {
             display: flex;
-            margin: 24px 0 32px 0;
-            font-size: 16px;
+            margin: 12px 0 15px 0;
+            font-size: 12px;
             align-items: center;
             .avatar {
-              width: 37px;
-              height: 37px;
+              width: 25px;
+              height: 25px;
               border-radius: 50%;
             }
             .user-name {
@@ -330,9 +330,9 @@ export default {
               font-weight: 600;
             }
             .increase {
-              padding: 8px 16px;
+              padding: 5px 10px;
               background-color: rgb(161, 151, 155);
-              border-radius: 13px;
+              border-radius: 1px;
               .iconhao {
                 color: rgb(216, 213, 214);
               }
@@ -340,7 +340,7 @@ export default {
           }
           .song-list-content {
             display: flex;
-            font-size: 16px;
+            font-size: 12px;
             justify-content: space-between;
             color: rgb(182, 175, 178);
             .icongengduo1 {
@@ -359,13 +359,13 @@ export default {
     }
     .song-detail-operation {
       background-color: var(--song-detail-operation-color);
-      height: 60px;
+      height: 40px;
       position: absolute;
-      top: 365px;
-      left: 75px;
-      right: 75px;
-      border-radius: 30px;
-      padding: 0 41px;
+      top: 245px;
+      left: 45px;
+      right: 45px;
+      border-radius: 20px;
+      padding: 0 20px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       color: var(--font-color);
       .operation-list {
@@ -374,7 +374,7 @@ export default {
         align-items: center;
         height: 100%;
         .operator-item {
-          font-size: 14px;
+          font-size: 12px;
           display: flex;
           align-items: center;
           border-right: 1px solid var(--border-right-color);
@@ -384,71 +384,71 @@ export default {
             border-right: 0;
           }
           .iconjiatianjiakuangxuanduoxuan-8 {
-            font-size: 26px;
-            margin-right: 12px;
+            font-size: 16px;
+            margin-right: 6px;
           }
           .iconpinglun1 {
-            font-size: 26px;
-            margin-right: 12px;
+            font-size: 16px;
+            margin-right: 6px;
           }
           .iconfenxiang1 {
-            font-size: 26px;
-            margin-right: 12px;
+            font-size: 16px;
+            margin-right: 6px;
           }
         }
       }
     }
     .open-vip {
-      margin: 60px 18px 0 18px;
+      margin: 30px 15px 0 15px;
       display: flex;
-      height: 65px;
+      height: 45px;
       align-items: center;
       justify-content: space-between;
       padding: 0 15px;
       border: 1px solid rgb(233, 233, 233);
-      border-radius: 12px;
+      border-radius: 6px;
       .vip-song {
-        font-size: 20px;
+        font-size: 12px;
         .iconVIP- {
           margin-right: 17px;
-          font-size: 20px;
+          font-size: 12px;
         }
       }
       .price {
-        font-size: 18px;
+        font-size: 12px;
         color: rgb(154, 154, 154);
         .icongengduo1 {
-          font-size: 18px;
+          font-size: 12px;
           margin-left: 12px;
         }
       }
     }
     .play-all {
-      padding: 0 24px;
+      padding: 0 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 12px 0 20px 0;
-      height: 75px;
+      margin: 5px 0 10px 0;
+      height: 45px;
       .play {
         display: flex;
         align-items: center;
         .iconbofang7 {
-          font-size: 30px;
+          font-size: 16px;
           color: rgb(255, 65, 30);
         }
         .iconbofang3 {
-          font-size: 30px;
+          font-size: 16px;
           color: rgb(255, 65, 30);
         }
         .num {
-          font-size: 18px;
+          font-size: 14px;
           color: rgb(153, 153, 153);
         }
         .all {
-          font-size: 23px;
+          font-size: 16px;
           font-weight: 600;
-          margin: 0 14px 0 23px;
+          margin: 0 6px 0 6px;
         }
       }
       .down-select {
@@ -462,71 +462,71 @@ export default {
       }
     }
     .list {
-      padding: 0 33px;
-      .list-content {
-        .list-item {
-          display: flex;
-          align-items: center;
-          margin-bottom: 38px;
-          .item-index {
-            flex: 0 0 7px;
-            width: 7px;
-            font-size: 16px;
-            color: rgb(153, 153, 153);
-            font-weight: 600;
-          }
-          .desc {
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            margin-left: 37px;
-            align-items: center;
-            .song-name-text {
-              margin-right: 39px;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              .song-name-content {
-                flex: 0 0 320px;
-                width: 320px;
-                .name {
-                  width: 100%;
-                  font-size: 20px;
-                  margin-bottom: 16px;
-                  white-space: nowrap;
-                  text-overflow: ellipsis;
-                  overflow: hidden;
-                }
-                .text {
-                  font-size: 12px;
-                  color: rgb(179, 179, 179);
-                  .icondujia {
-                    margin-right: 5px;
-                    color: rgb(246, 162, 159);
-                  }
-                  .iconsq {
-                    color: rgb(225, 113, 71);
-                    margin-right: 5px;
-                  }
-                }
-              }
-              .iconbofang6 {
-                font-size: 22px;
-                margin-left: 34px;
-                color: rgb(179, 179, 179);
-              }
-            }
-            .play-icon {
-              flex: 0 0 22px;
-              width: 22px;
-              .iconsandian {
-                font-size: 22px;
-                color: rgb(179, 179, 179);
-              }
-            }
-          }
-        }
-      }
+      padding: 0 15px;
+      /*.list-content {*/
+      /*  .list-item {*/
+      /*    display: flex;*/
+      /*    align-items: center;*/
+      /*    margin-bottom: 20px;*/
+      /*    .item-index {*/
+      /*      flex: 0 0 7px;*/
+      /*      width: 7px;*/
+      /*      font-size: 14px;*/
+      /*      color: rgb(153, 153, 153);*/
+      /*      font-weight: 600;*/
+      /*    }*/
+      /*    .desc {*/
+      /*      flex: 1;*/
+      /*      display: flex;*/
+      /*      justify-content: space-between;*/
+      /*      margin-left: 10px;*/
+      /*      align-items: center;*/
+      /*      .song-name-text {*/
+      /*        margin-right: 39px;*/
+      /*        display: flex;*/
+      /*        align-items: center;*/
+      /*        justify-content: space-between;*/
+      /*        .song-name-content {*/
+      /*          flex: 0 0 320px;*/
+      /*          width: 320px;*/
+      /*          .name {*/
+      /*            width: 100%;*/
+      /*            font-size: 14px;*/
+      /*            margin-bottom: 16px;*/
+      /*            white-space: nowrap;*/
+      /*            text-overflow: ellipsis;*/
+      /*            overflow: hidden;*/
+      /*          }*/
+      /*          .text {*/
+      /*            font-size: 12px;*/
+      /*            color: rgb(179, 179, 179);*/
+      /*            .icondujia {*/
+      /*              margin-right: 5px;*/
+      /*              color: rgb(246, 162, 159);*/
+      /*            }*/
+      /*            .iconsq {*/
+      /*              color: rgb(225, 113, 71);*/
+      /*              margin-right: 5px;*/
+      /*            }*/
+      /*          }*/
+      /*        }*/
+      /*        .iconbofang6 {*/
+      /*          font-size: 22px;*/
+      /*          margin-left: 34px;*/
+      /*          color: rgb(179, 179, 179);*/
+      /*        }*/
+      /*      }*/
+      /*      .play-icon {*/
+      /*        flex: 0 0 22px;*/
+      /*        width: 22px;*/
+      /*        .iconsandian {*/
+      /*          font-size: 22px;*/
+      /*          color: rgb(179, 179, 179);*/
+      /*        }*/
+      /*      }*/
+      /*    }*/
+      /*  }*/
+      /*}*/
     }
   }
 }

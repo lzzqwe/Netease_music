@@ -35,8 +35,8 @@
       font-size: 16px;
       font-weight: 600;
       color: rgb(51,51,51);
-      margin-left: 7.5px;
-      margin-bottom: 18px;
+      /*margin-left: 7.5px;*/
+      margin-bottom: 10px;
       padding-top: 20px;
     }
     .rank-list {

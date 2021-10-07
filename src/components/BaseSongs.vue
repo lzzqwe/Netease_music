@@ -43,11 +43,11 @@ export default {
 .list-item {
   display: flex;
   align-items: center;
-  margin-bottom: 38px;
+  margin-bottom: 20px;
   .item-index {
     flex: 0 0 7px;
     width: 7px;
-    font-size: 16px;
+    font-size: 14px;
     color: rgb(153, 153, 153);
     font-weight: 600;
   }
@@ -55,7 +55,7 @@ export default {
     flex: 1;
     display: flex;
     justify-content: space-between;
-    margin-left: 37px;
+    margin-left: 15px;
     align-items: center;
     .song-name-text {
       margin-right: 39px;
@@ -67,8 +67,8 @@ export default {
         width: 320px;
         .name {
           width: 100%;
-          font-size: 20px;
-          margin-bottom: 16px;
+          font-size: 14px;
+          margin-bottom: 10px;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;

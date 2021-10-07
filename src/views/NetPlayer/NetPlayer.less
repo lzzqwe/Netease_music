@@ -41,22 +41,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 70px;
-      padding: 0 21px 0 27px;
+      height: 45px;
+      padding: 0 15px 0 15px;
       color: rgba(255,255,253);
-      margin-top: 32px;
       .iconshouqi {
-        font-size: 24px;
-        width: 24px;
-        flex: 0 0 24px;
+        font-size: 18px;
+        width: 18px;
+        flex: 0 0 18px;
       }
       .name {
         font-size: 0;
         flex: 1;
         .song-name {
-          font-size: 24px;
-          padding: 0 30px;
+          font-size: 16px;
+          padding: 0 15px;
           margin: 0 auto;
+          /deep/ .van-notice-bar__wrap {
+            margin-top: 10px;
+          }
         }
         .singer {
           margin-top: 9px;
@@ -64,11 +66,11 @@
           justify-content: center;
           color: rgb(116,136,149);
           .text {
-            font-size: 18px;
+            font-size: 16px;
             margin-right: 7px;
           }
           .icongengduo1 {
-            font-size: 18px;
+            font-size: 16px;
           }
         }
       }
@@ -80,8 +82,8 @@
     .middle {
       position: fixed;
       top: 10.9%;
-      left: 67px;
-      right: 67px;
+      left: 50px;
+      right: 50px;
       bottom: 20%;
       border-radius: 50%;
       display: flex;
@@ -95,8 +97,8 @@
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 394px;
-          height: 394px;
+          width: 270px;
+          height: 270px;
           transform: translate3d(-50%,-50%,0);
           border-radius: 50%;
           background-image: url("https://s3.music.126.net/mobile-new/img/disc-plus.png?b700b62e1971b351dcb8b8ce1c9ceea3=");
@@ -105,8 +107,8 @@
           align-items: center;
           justify-content: center;
           .album-img {
-            width: 266px;
-            height: 266px;
+            width: 250px;
+            height: 250px;
             z-index: 10;
             position: absolute;
             &.rotate {
@@ -128,14 +130,14 @@
         .music-pole {
           position: absolute;
           top: 0;
-          width: 120px;
-          height: 270px;
+          width: 90px;
+          height: 160px;
           background-color: transparent;
           left: 50%;
           z-index: 15;
           margin-left: -44px;
           background-image: url("./needle.png");
-          background-size: 120px 270px;
+          background-size: 90px 160px;
           transform-origin: 0 0;
           transition: all 1s;
           &.rateCls {
@@ -151,9 +153,9 @@
           left: 0;
           right: 0;
           text-align: center;
-          font-size: 14px;
+          font-size: 12px;
           color: #ffffff;
-          font-weight: 600;
+          font-weight: 550;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
@@ -162,8 +164,8 @@
       .lyric {
         width: 100%;
         height: 100%;
-        font-size: 23px;
-        line-height: 65px;
+        font-size: 12px;
+        line-height: 26px;
         position: absolute;
         top: 0;
         left: 0;
@@ -172,37 +174,37 @@
         z-index: 14;
         text-align: center;
         .current {
-          font-weight: 600;
+          font-weight: 550;
           color: #ffffff;
         }
       }
     }
     .bottom {
       position: fixed;
-      bottom: 31px;
-      left: 30px;
-      right: 30px;
+      bottom: 20px;
+      left: 15px;
+      right: 15px;
       .operator_1{
         display: flex;
         justify-content: space-between;
         color: rgb(185,191,200);
-        padding: 0 46px;
+        padding: 0 15px;
         align-items: center;
         .iconshoucang3 {
-          font-size: 31px;
+          font-size: 20px;
         }
         .iconcollection {
-          font-size: 31px;
+          font-size: 20px;
           color: #8f342d;
         }
         .icondibar-xiazai {
-          font-size: 31px;
+          font-size: 20px;
         }
         .iconicon-test {
-          font-size: 31px;
+          font-size: 20px;
         }
         .iconpinglun1 {
-          font-size: 31px;
+          font-size: 20px;
           position: relative;
           .comment-count {
             position: absolute;
@@ -212,7 +214,7 @@
           }
         }
         .iconsandian {
-          font-size: 31px;
+          font-size: 20px;
         }
       }
       .operator_2 {
@@ -220,25 +222,25 @@
         justify-content: space-between;
         align-items: center;
         color: rgb(185,191,200);
-        padding: 0 46px;
-        margin-top: 25px;
+        padding: 0 15px;
+        margin-top: 15px;
         .iconloop {
-          font-size: 28px;
+          font-size: 20px;
         }
         .iconshangyiqu3 {
-          font-size: 28px;
+          font-size: 20px;
         }
         .iconbofang3 {
-          font-size: 76px;
+          font-size: 50px;
         }
         .iconbofang9 {
-          font-size: 76px;
+          font-size: 50px;
         }
         .iconxiayiqu1 {
-          font-size: 28px;
+          font-size: 20px;
         }
         .iconbofangliebiao {
-          font-size: 28px;
+          font-size: 20px;
         }
       }
     }
@@ -247,21 +249,21 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 82px;
+    height: 55px;
     z-index: 100;
     right: 0;
     background-color: var(--body-bgcolor);
     color: var(--font-color);
-    border-top: 1px solid var(--body-bgcolor);
-    padding: 0 24px;
+    border-top: 0.5px solid var(--body-bgcolor);
+    padding: 0 15px;
     display: flex;
     box-sizing: border-box;
     .mini-icon {
-      width: 55px;
-      height: 55px;
-      flex: 0 0 55px;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
       font-size: 0;
-      margin-top: 7px;
+      margin-top: 12.5px;
       &.rotate {
         animation-name: rotate;
         animation-duration: 20s;
@@ -279,7 +281,7 @@
     }
     .text {
       flex: 1;
-      font-size: 16px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       margin-left: 13px;
@@ -288,21 +290,21 @@
       }
     }
     .control {
-      flex: 0 0 42px;
+      flex: 0 0 22px;
       display: flex;
       align-items: center;
-      margin-right: 40px;
+      margin-right: 10px;
       &:last-child {
         margin-right:0 ;
       }
       .iconbofang3 {
-        font-size: 42px;
+        font-size: 24px;
       }
       .iconbofang9 {
-        font-size: 42px;
+        font-size: 24px;
       }
       .iconliebiao {
-        font-size: 42px;
+        font-size: 24px;
       }
     }
   }

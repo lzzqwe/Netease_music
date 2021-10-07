@@ -140,7 +140,7 @@ export default {
       this.$router.push("/me");
     },
     gotoLogin() {
-      
+
     },
     async _getUserInfo() {
       const params = {
@@ -216,23 +216,23 @@ export default {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 454px;
+    width: 300px;
     background-color: var(--body-bgcolor);
     color: var(--font-color);
     .setting-content {
       position: fixed;
       top: 64px;
       bottom: 0;
-      width: 454px;
+      width: 300px;
       overflow: hidden;
       .music-package {
-        margin: 34px 24px 24px 24px;
-        height: 163px;
+        margin: 10px 15px 15px 15px;
+        height: 113px;
         background-color: rgb(153, 153, 153);
-        border-radius: 23px;
+        border-radius: 8px;
         .prerogative {
-          padding: 20px 0 22px 0;
-          margin: 0 23px;
+          padding: 10px 0 10px 0;
+          margin: 0 11px;
           display: flex;
           justify-content: space-between;
           border-bottom: 1px solid rgb(174, 174, 174);
@@ -244,13 +244,13 @@ export default {
             }
             .web-font {
               font-family: "webfont" !important;
-              font-size: @font_size_large-l;
+              font-size: @font_size_medium-s;
               font-style: normal;
               -webkit-font-smoothing: antialiased;
               -moz-osx-font-smoothing: grayscale;
             }
             .desc {
-              font-size: @font_size_small;
+              font-size: @font_size_small-s;
               color: rgb(216, 216, 216);
               display: flex;
               .text {
@@ -259,15 +259,15 @@ export default {
             }
           }
           .member-center {
-            width: 95px;
-            height: 36px;
+            width: 70px;
+            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 17px;
+            border-radius: 15px;
             border: 1px solid rgb(238, 238, 238);
             color: rgb(238, 238, 238);
-            font-size: @font_size_medium-s;
+            font-size: @font_size_small-s;
           }
         }
         .member-system {
@@ -277,28 +277,41 @@ export default {
           margin-top: 15px;
           align-items: center;
           color: rgb(215, 215, 215);
-          font-size: @font_size_medium-s;
+          font-size: @font_size_small-m;
+          line-height: 20px;
         }
       }
       .info-center {
         padding: 0 24px;
+        /deep/ .van-switch {
+          height: 20px;
+          width: 40px;
+          border-radius: 20px;
+        }
+        /deep/ .van-switch__node {
+          width: 20px;
+          height: 20px;
+        }
+        /deep/ .van-switch--on .van-switch__node{
+          transform: translateX(20px);
+        }
         .info-center-list {
           .list-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 74px;
+            height: 45px;
             border-bottom: 1px solid rgb(230, 230, 230);
             &:last-child {
               border-bottom: 0;
             }
             .infomation {
-              font-size: @font_size_medium;
+              font-size: @font_size_small-s;
               .iconicon-test1 {
-                font-size: @font_size_medium-l;
+                font-size: @font_size_small-s;
               }
               .text {
-                margin-left: 18px;
+                margin-left: @font_size_small-s;
               }
             }
             .icongengduo1 {
@@ -313,9 +326,9 @@ export default {
       padding: 22px 24px 0 24px;
       display: flex;
       .avatar-image {
-        width: 42px;
-        height: 42px;
-        flex: 0 0 42px;
+        width: 30px;
+        height: 30px;
+        flex: 0 0 30px;
         .image {
           width: 100%;
           height: 100%;
@@ -329,17 +342,17 @@ export default {
         justify-content: space-between;
         align-items: center;
         .name {
-          font-size: @font_size_medium-s;
+          font-size: @font_size_small;
           .icongengduo1 {
             margin-left: 9px;
-            font-size: @font_size_medium-s;
+            font-size: @font_size_small;
           }
         }
         .scan-code {
-          width: 32px;
-          height: 32px;
+          width: 22px;
+          height: 22px;
           .iconsaoma {
-            font-size: @font_size_giant;
+            font-size: @font_size_medium;
           }
         }
       }
@@ -348,14 +361,14 @@ export default {
 }
 .setting {
   /deep/ .van-image {
-    width: 42px;
-    height: 42px;
+    width: 30px;
+    height: 30px;
   }
 }
 .member-system {
   /deep/ .van-image {
-    width: 33px;
-    height: 33px;
+    width: 23px;
+    height: 23px;
   }
 }
 </style>

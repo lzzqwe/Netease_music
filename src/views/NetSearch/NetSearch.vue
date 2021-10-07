@@ -97,7 +97,7 @@
           </base-scroll>
         </van-tab>
         <van-tab title="歌单">
-          <base-scroll class="list" :data="playLists_1">
+          <base-scroll class="search-content-wrap" :data="playLists_1">
             <ul class="single-song-list">
               <base-list
                 @select="selectItem(item.id)"
@@ -318,72 +318,96 @@ export default {
   }
   .search-input-container {
     display: flex;
-    height: 70px;
+    height: 44px;
     align-items: center;
-    margin: 0 24px;
+    margin: 0 15px;
     overflow: hidden;
     font-size: 0;
     .left-arrow {
-      flex: 0 0 @font_size_large-l;
-      width: @font_size_large-l;
+      flex: 0 0 @font_size_small;
+      width: @font_size_small;
       .iconyoujiantou {
-        font-size: @font_size_large-l;
+        font-size: @font_size_small;
       }
     }
     .input-content {
       flex: 1;
       position: relative;
-      margin-left: 27px;
+      margin-left: 10px;
       .input {
         width: 100%;
-        border-bottom: 1px solid @font-deep-gray;
-        font-size: @font_size_large-s;
-        padding-bottom: 13px;
+        border-bottom: 0.5px solid @font-deep-gray;
+        font-size: @font_size_small-m;
+        padding-bottom: 5px;
+        padding-top: 5px;
       }
       .iconiconjia {
         position: absolute;
         bottom: 10px;
         right: 0;
-        font-size: @font_size_large-l;
+        font-size: @font_size_small;
       }
     }
   }
   .tab-wrap {
+    /deep/ .van-tabs__wrap {
+      height: 40px;
+      border-bottom: 0.5px solid rgb(181, 186, 187);
+      background-color: rgb(193, 197, 201);
+    }
+    /deep/ .van-tab {
+      font-size: 14px;
+      color: rgb(81, 84, 84);
+    }
+    /deep/ .van-tabs__nav--complete {
+      padding: 0 12px;
+    }
+    /deep/ .van-tab--active {
+      color: rgb(38, 41, 41);
+      font-weight: 600;
+    }
+    /deep/ .van-tabs__line {
+      bottom: 15px;
+      height: 4px;
+    }
     .search-content-wrap {
       position: fixed;
-      top: 156px;
+      top: 95px;
       bottom: 0;
       left: 0;
       right: 0;
       overflow: hidden;
       .net-card {
-        margin: 0 24px 24px 24px;
+        margin: 0 15px 10px 15px;
         background-color: rgb(255, 255, 255);
         padding: 0 24px;
         .title {
           display: flex;
-          padding-top: 34px;
+          padding-top: 15px;
           justify-content: space-between;
-          padding-bottom: 12px;
+          padding-bottom: 10px;
           .txt {
-            font-size: @font_size_large;
+            font-size: @font_size_medium-s;
             font-weight: 600;
             color: @font-black;
           }
         }
       }
       .single-song-list {
+        padding: 0 15px;
         .item {
-          height: 90px;
+          /*height: 90px;*/
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-bottom: 1px solid @font-light-gray;
+          padding-bottom: 15px;
+          border-bottom: 0.5px solid @font-light-gray;
+          margin-bottom: 15px;
           .content {
-            flex: 0 0 410px;
-            width: 410px;
+            flex: 0 0 250px;
+            width: 250px;
             .name {
-              font-size: @font_size_medium-l;
+              font-size: @font_size_small-s;
               color: @font-black;
               margin-bottom: 10px;
               text-overflow: ellipsis;
@@ -391,15 +415,16 @@ export default {
               white-space: nowrap;
             }
             .desc {
-              font-size: @font_size_small;
+              font-size: @font_size_small-m;
               color: @font-deep-gray;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
+
             }
           }
           .iconsandian {
-            font-size: @font_size_medium-l;
+            font-size: @font_size_small;
             color: @font-deep-gray;
           }
         }
@@ -438,17 +463,17 @@ export default {
         }
       }
       .look-over-more {
-        height: 60px;
-        font-size: @font_size_small;
+        height: 40px;
+        font-size: @font_size_small-s;
         color: @font-deep-gray;
         text-align: center;
-        line-height: 60px;
+        line-height: 40px;
       }
     }
     .song-list {
       padding: 0 24px;
       position: fixed;
-      top: 156px;
+      top: 95px;
       bottom: 0;
       left: 0;
       right: 0;
@@ -466,7 +491,7 @@ export default {
     .video_1 {
       padding: 0 24px;
       position: fixed;
-      top: 156px;
+      top: 95px;
       bottom: 0;
       left: 0;
       right: 0;

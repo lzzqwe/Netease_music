@@ -173,22 +173,22 @@ module.exports = {
       less: {
         modifyVars: {
           // 直接覆盖变量
-          'dialog-width': '470px',
-          'dialog-border-radius': '12px',
-          'dialog-message-font-size': '20px',
+          'dialog-width': '300px',
+          'dialog-border-radius': '10px',
+          'dialog-message-font-size': '12px',
           'dialog-has-title-message-text-color': 'rgb(153,153,153)',
-          'dialog-font-size': '20px',
+          'dialog-font-size': '12px',
           'dialog-message-padding': '30px',
           'tabs-bottom-bar-width': '50px',
           'tabs-bottom-bar-height': '9px',
           'tabs-line-height': '86px',
           'tabs-nav-background-color': 'rgb(245,245,245)',
           'tab-font-size': '20px',
-          'search-padding': '0 24px',
+          'search-padding': '0 15px',
           'search-background-color': 'rgb(245,245,245)',
           'search-content-background-color': 'rgb(238,238,238)',
-          'search-input-height': '52px',
-          'search-action-font-size': '20px'
+          'search-input-height': '30px',
+          'search-action-font-size': '12px'
         }
       }
     }

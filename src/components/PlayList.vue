@@ -80,44 +80,45 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 400px;
+      height: 300px;
       background-color: var(--body-bgcolor);
       color: var(--font-color);
       z-index: 2025;
       .name {
         display: flex;
         justify-content: space-between;
-        padding: 0 24px;
-        height: 60px;
+        padding: 0 15px;
+        height: 40px;
         align-items: center;
+        border-bottom: 0.5px solid #E1E1E1;
         .title {
-          font-size: 25px;
+          font-size: 18px;
           font-weight: 600;
           color: @font-black;
         }
         .iconlajitong1 {
-          font-size: 25px;
+          font-size: 18px;
         }
       }
       .playlist {
         height: 100%;
-        margin-top: 35px;
-        padding: 0 24px;
+        margin-top: 20px;
+        padding: 0 15px;
         overflow: hidden;
         .item {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 45px;
+          margin-bottom: 20px;
           font-size: 0;
           .singer-name {
-            font-size: 20px;
+            font-size: 14px;
             width: 400px;
             .no-wrap;
             &.current {
               color: red;
             }
             .txt {
-              font-size: 14px;
+              font-size: 12px;
               color: @font-deep-gray;
               &.current {
                 color: red;
@@ -125,7 +126,7 @@
             }
           }
           .iconiconjia {
-            font-size: 20px;
+            font-size: 16px;
             color:  @font-deep-gray;
           }
         }

@@ -30,28 +30,28 @@
 
 <style lang="less" scoped>
   .song-list-item {
-    margin-bottom: 33px;
-    padding: 0 7px;
+    margin-bottom: 15px;
+    /*padding: 0 7px;*/
     &:last-child {
       margin-right: 0;
     }
     .item-icon {
       margin-bottom: 10px;
       position: relative;
-      width: 155px;
-      height: 155px;
+      width: 105px;
+      height: 105px;
       .img {
         width: 100%;
         height: 100%;
-        border-radius: 12px;
+        border-radius: 5px;
       }
       .play-count {
         position: absolute;
         top: 6px;
         right: 6px;
-        width: 81px;
-        height: 26px;
-        border-radius: 11px;
+        width: 60px;
+        height: 25px;
+        border-radius: 5px;
         background-color: rgba(164,184,198,0.7);
         display: flex;
         justify-content: center;
@@ -65,16 +65,16 @@
       }
     }
     .text {
-      width: 145px;
+      width: 115px;
       text-overflow: ellipsis;
       overflow: hidden;
-      padding: 0 5px;
+      /*padding: 0 5px;*/
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
-      font-size: 16px;
+      font-size: 14px;
       color: var(--font-color);
-      line-height: 26px;
+      line-height: 20px;
     }
   }
 </style>

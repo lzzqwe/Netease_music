@@ -159,11 +159,11 @@ export default {
   background-color: var(--body-bgcolor);
   color: var(--font-color);
   .nav-bar-wrap {
-    padding: 32px 24px 0 24px;
+    padding: 0 15px 0 15px;
   }
   .comment-content {
     position: fixed;
-    top: 114px;
+    top: 45px;
     bottom: 0;
     width: 100%;
     overflow: hidden;
@@ -172,16 +172,16 @@ export default {
     }
     .playlist-cover {
       display: flex;
-      padding: 0 24px;
-      margin-bottom: 15px;
+      padding: 0 15px;
+      margin-bottom: 10px;
       .cover {
-        width: 106px;
-        flex: 0 0 106px;
+        width: 73px;
+        flex: 0 0 73px;
         font-size: 0;
         .image-cover {
-          width: 106px;
-          height: 106px;
-          border-radius: 10px;
+          width: 73px;
+          height: 73px;
+          border-radius: 6px;
         }
       }
       .title {
@@ -193,11 +193,11 @@ export default {
           margin-left: 15px;
           padding-right: 26px;
           .content {
-            font-size: 22px;
-            line-height: 28px;
+            font-size: 14px;
+            line-height: 25px;
           }
           .name {
-            font-size: 18px;
+            font-size: 14px;
             margin-top: 13px;
             color: rgb(87, 124, 161);
             .from {
@@ -212,19 +212,19 @@ export default {
       }
     }
     .comment-zone {
-      height: 60px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
+      padding: 0 15px;
       .title {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
       }
       .comment-option {
         .comment-option-list {
           display: flex;
-          font-size: 18px;
+          font-size: 16px;
           .item {
             padding-right: 15px;
             border-right: 1px solid rgb(245, 245, 245);
@@ -244,13 +244,13 @@ export default {
       }
     }
     .comment-list-wrap {
-      margin-top: 16px;
+      margin-top: 10px;
       .comment-list {
-        padding: 0 24px;
+        padding: 0 15px;
         .no-result {
           width: 100%;
           line-height: 40px;
-          font-size: 20px;
+          font-size: 12px;
           padding-bottom: 30px;
           text-align: center;
         }

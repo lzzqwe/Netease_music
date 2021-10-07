@@ -121,9 +121,9 @@ export default {
             justify-content: center;
             align-items: center;
             color: rgb(255, 255, 255);
-            font-size: @font_size_small-s;
+            font-size: @font_size_small-m;
             .iconbofangliang1 {
-              font-size: @font_size_small-s;
+              font-size: @font_size_small-m;
               margin-right: 5px;
             }
           }

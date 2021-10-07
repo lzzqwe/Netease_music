@@ -22,16 +22,16 @@
 <style lang="less" scoped>
   .loading-wrap {
     width: 100%;
-    height: 30px;
+    height: 10px;
     .loader {
       width: 100%;
-      height: 30px;
+      height: 10px;
       margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
       .loading-text {
-        font-size: 20px;
+        font-size: 16px;
         margin-left: 5px;
         color: rgb(128,128,128);
       }

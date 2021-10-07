@@ -102,26 +102,26 @@
     display: flex;
     justify-content: space-between;
     color: rgb(185,191,200);
-    margin-top: 25px;
+    margin-top: 15px;
     align-items: center;
     /*position: relative;*/
     .time {
-      font-size: 10px;
-      flex: 0 0 33px;
-      width: 33px;
+      font-size: 12px;
+      flex: 0 0 30px;
+      width: 30px;
     }
     .progress-bar {
       flex: 1;
-      height: 3px;
+      height: 2px;
       background-color: rgb(94,105,125);
-      margin: 0 17px;
+      margin: 0 10px;
       position: relative;
       font-size: 0;
       .progress-circle-wrap {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         position: absolute;
-        bottom: -15px;
+        bottom: -10px;
         left: 0;
         padding: 2px;
         display: flex;
@@ -129,12 +129,12 @@
         .progress-circle {
           border-radius: 50%;
           background-color:rgb(254,254,254);
-          width: 16px;
-          height: 16px;
+          width: 10px;
+          height: 10px;
         }
       }
       .progress-inner-bar {
-        height: 3px;
+        height: 2px;
         top: 0;
         position: absolute;
         left: 0;

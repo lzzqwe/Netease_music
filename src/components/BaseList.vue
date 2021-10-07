@@ -36,15 +36,15 @@ export default {
 .taste-item {
   display: flex;
   margin-bottom: 15px;
-  &:last-child {
-    margin-bottom: 0;
-  }
+  /*&:last-child {*/
+  /*  margin-bottom: 0;*/
+  /*}*/
   .album {
-    width: 76px;
-    height: 76px;
-    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
     overflow: hidden;
-    flex: 0 0 76px;
+    flex: 0 0 60px;
     .album-img {
       width: 100%;
       height: 100%;
@@ -58,17 +58,17 @@ export default {
     margin-left: 16px;
     .rank {
       margin-bottom: 13px;
-      font-size: @font_size_medium-l;
+      font-size: @font_size_small-s;
       color: @font-black;
-      width: 350px;
+      width: 190px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }
     .number {
-      font-size: @font_size_small;
+      font-size: @font_size_small-m;
       color: @font-deep-gray;
-      width: 350px;
+      width: 190px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;

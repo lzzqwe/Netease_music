@@ -2,9 +2,9 @@
     <div v-if=" Object.values(this.data).length>0" class="net-card">
       <div class="title">
         <h1 class="txt">{{title}}</h1>
-        <van-button type="default">
+        <div class="play">
           <span class="iconfont iconbofang4">播放</span>
-        </van-button>
+        </div>
       </div>
       <slot></slot>
     </div>
@@ -40,9 +40,22 @@
       justify-content: space-between;
       padding-bottom: 12px;
       .txt {
-        font-size: @font_size_large;
+        font-size: @font_size_small;
         font-weight: 600;
         color: @font-black;
+      }
+      .play {
+        width: 70px;
+        height: 26px;
+        border: 1px solid var(--btn-border-color);
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .iconbofang4 {
+          font-size: @font_size_small-m;
+        }
       }
     }
   }

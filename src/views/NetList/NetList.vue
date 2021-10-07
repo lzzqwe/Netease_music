@@ -78,7 +78,7 @@ export default {
       cat: "全部",
       songList: [],
       pullup: true,
-      limit: 50,
+      limit: 15,
       offset: 0,
       loading: false,
       hasMore: true,
@@ -156,7 +156,7 @@ export default {
     async _getSongList() {
       const params = {
         cat: this.cat,
-        limit: 50,
+        limit: 15,
         offset: this.offset,
       };
       try {
@@ -204,24 +204,24 @@ export default {
   background-color: var(--body-bgcolor);
   color: var(--font-color);
   .nav-bar-wrap {
-    padding: 0 24px;
+    padding: 0 15px;
   }
   .song-list-wrap {
     position: fixed;
-    top: 178px;
+    top: 85px;
     bottom: 0;
     left: 0;
     right: 0;
     overflow: hidden;
     .song-list-content {
       .song-swiper {
-        padding: 0 24px;
+        padding: 15px 15px;
         .slide-container {
-          width: 240px;
-          height: 280px;
+          width: 150px;
+          height: 180px;
           .img {
-            width: 240px;
-            height: 240px;
+            width: 150px;
+            height: 180px;
           }
           .dec {
             font-size: 18px;
@@ -233,7 +233,7 @@ export default {
       .songs-wrap {
         display: flex;
         flex-wrap: wrap;
-        padding: 0 16.5px;
+        padding: 0 15px;
         .no-result {
           width: 100%;
           line-height: 40px;
@@ -245,12 +245,12 @@ export default {
 }
 .song-piazza {
   /deep/ .van-tabs__wrap {
-    height: 60px;
-    border-bottom: 1px solid rgb(181, 186, 187);
+    height: 40px;
+    border-bottom: 0.5px solid rgb(181, 186, 187);
     background-color: rgb(193, 197, 201);
   }
   /deep/ .van-tab {
-    font-size: 20px;
+    font-size: 14px;
     color: rgb(81, 84, 84);
   }
   /deep/ .van-tabs__nav--complete {
@@ -259,6 +259,10 @@ export default {
   /deep/ .van-tab--active {
     color: rgb(38, 41, 41);
     font-weight: 600;
+  }
+  /deep/ .van-tabs__line {
+    bottom: 5px;
+    height: 4px;
   }
 }
 .loading-wrap {

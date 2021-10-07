@@ -85,13 +85,13 @@
     .search-input {
       display: flex;
       align-items: center;
-      padding: 20px 12px 12px 27px;
+      padding: 10px 15px 10px 15px;
       .iconxia {
-        font-size: 28px;
+        font-size: 16px;
         display: inline-block;
-        flex: 0 0 28px;
-        width: 28px;
-        margin-right: 27px;
+        flex: 0 0 18px;
+        width: 16px;
+        margin-right: 10px;
         color: rgb(255,255,255);
       }
       .input {
@@ -99,9 +99,9 @@
         border-bottom: 1px solid rgb(187,187,184);
         .txt {
           width: 100%;
-          margin-bottom: 10px;
+          margin-bottom: 5px;
           border-left: 1px solid rgb(70,70,70);
-          font-size: 22px;
+          font-size: 14px;
           color: rgb(137,136,136);
         }
       }
@@ -123,11 +123,11 @@
   }
   .song-wrap {
     position: fixed;
-    top: 130px;
+    top: 50px;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 0 24px;
+    padding: 0 15px;
     overflow: hidden;
   }
 

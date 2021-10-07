@@ -47,19 +47,19 @@ export default {
   display: flex;
   margin-bottom: 15px;
   .avatar {
-    width: 55px;
-    flex: 0 0 55px;
+    width: 35px;
+    flex: 0 0 35px;
     font-size: 0;
     .avatar-img {
-      width: 55px;
-      height: 55px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
     }
   }
   .comment-info {
-    margin-left: 15px;
+    margin-left: 10px;
     flex: 1;
-    padding-bottom: 25px;
+    padding-bottom: 15px;
     .user {
       display: flex;
       justify-content: space-between;
@@ -69,28 +69,28 @@ export default {
         display: flex;
         flex-direction: column;
         .nickname {
-          font-size: 16px;
+          font-size: 12px;
           color: rgb(102, 102, 102);
         }
         .time {
           font-size: 12px;
           color: rgb(175, 175, 175);
-          margin-top: 12px;
+          margin-top: 6px;
         }
       }
       .count {
-        font-size: 14px;
+        font-size: 12px;
         color: rgb(153, 153, 153);
         .icondianzan {
-          font-size: 22px;
+          font-size: 16px;
           margin-left: 8px;
         }
       }
     }
     .text {
-      font-size: 18px;
-      margin-top: 23px;
-      line-height: 32px;
+      font-size: 12px;
+      margin-top: 15px;
+      line-height: 20px;
     }
   }
 }

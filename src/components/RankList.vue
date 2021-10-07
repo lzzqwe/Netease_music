@@ -43,10 +43,16 @@
       display: flex;
       flex-wrap: wrap;
       .rank-item {
-        margin-top: 15px;
+        // margin-top: 15px;
+        // margin-left: 7.5px;
+        background-color: #fff;
+        // padding-bottom: 10px;
+        border-radius: 10px;
+         padding: 0 2px 10px 2px;
+         margin: 0 3px 15px 3px;
         .song-cover {
-          width: 107.5px;
-          height: 107.5px;
+          width: 105px;
+          height: 105px;
           /*padding: 0 7px;*/
           font-size: 0;
           .song-cover-img {
@@ -56,14 +62,15 @@
           }
         }
         .text {
-          font-size: 14px;
+          font-size: 12px;
           margin-top: 13px;
           text-align: left;
-          padding: 0 3.5px;
+          // padding: 0 3.5px;
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
-          width: 107.5px;
+          width: 105px;
+          text-align: center;
         }
       }
     }

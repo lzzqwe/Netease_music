@@ -11,40 +11,36 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 // externals
-const externals = {
-  vue: 'Vue',
-  'vue-router': 'VueRouter',
-  vuex: 'Vuex',
-  vant: 'vant',
-  axios: 'axios'
-}
+// const externals = {
+//   vue: 'Vue',
+//   'vue-router': 'VueRouter',
+//   vuex: 'Vuex',
+//   vant: 'vant',
+//   axios: 'axios'
+// }
 // CDN外链，会插入到index.html中
-const cdn = {
-  // 开发环境
-  dev: {
-    css: [],
-    js: []
-  },
-  // 生产环境
-  build: {
-    css: ['https://cdn.jsdelivr.net/npm/vant@2.12/lib/index.css'],
-    js: [
-      'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
-      'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
-      'https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js',
-      'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
-      'https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js',
-      'https://cdn.bootcdn.net/ajax/libs/better-scroll/2.2.1/better-scroll.min.js'
-    ]
-  }
-}
+// const cdn = {
+//   // 开发环境
+//   dev: {
+//     css: [],
+//     js: []
+//   },
+//   // 生产环境
+//   build: {
+//     css: ['https://cdn.jsdelivr.net/npm/vant@2.12/lib/index.css'],
+//     js: [
+//       'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
+//       'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
+//       'https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js',
+//       'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
+//       'https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js',
+//       'https://cdn.bootcdn.net/ajax/libs/better-scroll/2.2.1/better-scroll.min.js'
+//     ]
+//   }
+// }
 module.exports = {
   productionSourceMap: false,
   publicPath: './',
-  // devServer: {
-	// 	compress: true,
-	// 	disableHostCheck: true, //webpack4.0 开启热更新
-	// },
 
   chainWebpack: (config) => {
     config.resolve.alias
@@ -68,19 +64,15 @@ module.exports = {
         .plugin('webpack-bundle-analyzer')
         .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     }
-    config.plugin('html').tap(args => {
-      if (process.env.NODE_ENV === 'production') {
-        args[0].cdn = cdn.build
-      }
-      if (process.env.NODE_ENV === 'development') {
-        args[0].cdn = cdn.dev
-      }
-      return args
-    })
-    //   //  修复HMR
-    // config.resolve.symlinks(true);
-
-
+    // config.plugin('html').tap(args => {
+    //   if (process.env.NODE_ENV === 'production') {
+    //     args[0].cdn = cdn.build
+    //   }
+    //   if (process.env.NODE_ENV === 'development') {
+    //     args[0].cdn = cdn.dev
+    //   }
+    //   return args
+    // })
   },
   configureWebpack: config => {
     const plugins = [];
@@ -151,7 +143,7 @@ module.exports = {
       }
 
       // 打包时npm包转CDN
-      config.externals = externals;
+      // config.externals = externals;
     }
 
     return { plugins }

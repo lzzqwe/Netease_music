@@ -43,13 +43,18 @@ export default {
 .list-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-radius: 10px;
+  padding-left: 5px;
   .item-index {
     flex: 0 0 7px;
     width: 7px;
-    font-size: 14px;
+    font-size: 12px;
     color: rgb(153, 153, 153);
-    font-weight: 600;
+    // font-weight: 600;
   }
   .desc {
     flex: 1;

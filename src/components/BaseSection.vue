@@ -9,6 +9,7 @@
     <base-scroll
       :data="recommendList"
       :scroll-x="scrollX"
+      v-if="recommendList.length>0"
       class="song-list-wrap"
     >
       <ul class="song-list-content">
@@ -31,6 +32,11 @@
         </li>
       </ul>
     </base-scroll>
+    <div class="no-data-wrap" v-else>
+      <div class="no-data-icon">
+        <span class="no-data-txt">暂无数据</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -96,6 +102,7 @@ export default {
       width: 1204px;
       .song-list-item {
         margin-right: 6px;
+        background-color: #ffffff;
         &:last-child {
           margin-right: 0;
         }
@@ -139,6 +146,32 @@ export default {
           font-size: @font_size_small-m;
           line-height: 26px;
         }
+      }
+    }
+  }
+  .no-data-wrap {
+    position: relative;
+    height: 165.5px;
+    background-color: #ffffff;
+    .no-data-icon {
+      width: 100px;
+      height: 100px;
+      background-image: url("./Icon - no data available.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: center center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      .no-data-txt {
+        font-size: 12px;
+        color: #1683fe;
+        line-height: 22px;
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
       }
     }
   }

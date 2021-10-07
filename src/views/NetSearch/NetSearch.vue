@@ -338,6 +338,7 @@ export default {
         width: 100%;
         border-bottom: 0.5px solid @font-deep-gray;
         font-size: @font_size_small-m;
+        line-height: 20px;
         padding-bottom: 5px;
         padding-top: 5px;
       }
@@ -372,7 +373,7 @@ export default {
     }
     .search-content-wrap {
       position: fixed;
-      top: 95px;
+      top: 100px;
       bottom: 0;
       left: 0;
       right: 0;
@@ -471,9 +472,9 @@ export default {
       }
     }
     .song-list {
-      padding: 0 24px;
+      padding: 0 15px;
       position: fixed;
-      top: 95px;
+      top: 100px;
       bottom: 0;
       left: 0;
       right: 0;
@@ -491,7 +492,7 @@ export default {
     .video_1 {
       padding: 0 24px;
       position: fixed;
-      top: 95px;
+      top: 100px;
       bottom: 0;
       left: 0;
       right: 0;
@@ -529,5 +530,8 @@ export default {
       }
     }
   }
+}
+.net-loading-wrap {
+  margin-top: 10px;
 }
 </style>

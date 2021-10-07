@@ -135,6 +135,7 @@ export default {
           .rank-official-item {
             display: flex;
             margin-bottom: 15px;
+            background-color: #fff;
             &:last-child {
               margin-bottom: 0;
             }

@@ -290,24 +290,26 @@ export default {
     .operator_item {
       display: flex;
       flex-direction: column;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       &:last-child {
         margin-bottom: 0;
       }
       .icondianzan1 {
-        font-size: 36px;
+        font-size: 26px;
       }
       .iconicon_fapinglun-mian {
-        font-size: 36px;
+        font-size: 26px;
       }
       .iconshare-fill {
-        font-size: 36px;
+        font-size: 26px;
       }
       .icontianjia {
-        font-size: 36px;
+        font-size: 26px;
       }
       .num {
         color: @font-deep-gray;
+        font-size: 12px;
+        margin-top: 6px;
       }
     }
   }
@@ -319,29 +321,29 @@ export default {
     font-size: @font_size_small-s;
     .watch {
       .iconsq {
-        padding: 10px;
+        padding: 5px;
         display: inline-block;
-        border-radius: 5px;
+        border-radius: 2px;
         border: 1px solid rgb(36, 36, 36);
-        margin-right: 10px;
-        margin-top: 10px;
+        margin-right: 5px;
+        margin-top: 5px;
       }
     }
     .desc {
-      margin-top: 10px;
+      margin-top: 5px;
     }
     .avatar {
       display: flex;
       align-items: center;
       .img {
-        width: 46px;
-        height: 46px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
-        margin-right: 10px;
+        margin-right: 5px;
       }
       .name {
         font-weight: 600;
-        margin-right: 10px;
+        margin-right: 5px;
       }
       .iconhao {
         display: inline-block;
@@ -352,16 +354,16 @@ export default {
     }
   }
   .content-wrap {
-    padding: 0 24px 0 24px;
-    height: 400px;
+    padding: 0 15px 0 15px;
+    height: 300px;
     position: fixed;
     bottom: 0;
-    background-color: #fff;
+    background-color:#F5F5F5;
     width: 100%;
     box-sizing: border-box;
     .title {
-      height: 50px;
-      line-height: 50px;
+      height: 40px;
+      line-height: 40px;
       display: flex;
       justify-content: space-between;
       font-size: 16px;
@@ -373,7 +375,7 @@ export default {
       height: 100%;
       overflow: auto;
       .comment-list {
-        padding: 0 24px;
+        // padding: 0 24px;
         .no-result {
           width: 100%;
           line-height: 40px;

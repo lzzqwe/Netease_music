@@ -30,11 +30,10 @@
 
 <style lang="less" scoped>
   .song-list-item {
-    margin-bottom: 15px;
-    /*padding: 0 7px;*/
-    &:last-child {
-      margin-right: 0;
-    }
+    background-color: #fff;
+    padding-bottom: 10px;
+    padding: 0 2px;
+    margin: 0 3px 15px 3px;
     .item-icon {
       margin-bottom: 10px;
       position: relative;
@@ -65,16 +64,17 @@
       }
     }
     .text {
-      width: 115px;
+      width: 105px;
       text-overflow: ellipsis;
       overflow: hidden;
       /*padding: 0 5px;*/
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
-      font-size: 14px;
+      font-size: 12px;
       color: var(--font-color);
       line-height: 20px;
+      text-align: center;
     }
   }
 </style>

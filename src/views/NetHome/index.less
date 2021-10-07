@@ -62,16 +62,17 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
+        //background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
 
         &.bottom {
-            bottom: 82px;
+            bottom: 55px;
         }
 
         .net-home-content {
             .swiper-container {
                 color: var(--font-color);
                 position: relative;
+                height: 144px;
 
                 &:after {
                     position: absolute;
@@ -107,9 +108,43 @@
                             }
                         }
                     }
+                    .no-data-wrap {
+                        position: relative;
+                        height: 144px;
+                        background-color: #ffffff;
+                        .no-data-icon {
+                            width: 100px;
+                            height: 100px;
+                            background-image: url("./Icon - no data available.png");
+                            background-repeat: no-repeat;
+                            background-size: 100% 100%;
+                            background-position: center center;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate3d(-50%, -50%, 0);
+                            .no-data-txt {
+                                font-size: 12px;
+                                color: #1683fe;
+                                line-height: 22px;
+                                position: absolute;
+                                bottom: 0px;
+                                left: 50%;
+                                transform: translate3d(-50%, 0, 0);
+                            }
+                        }
+                    }
                 }
             }
-
+            .home-bac {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 600px;
+                background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
+                z-index: -1;
+            }
             .net-nav-wrap {
                 padding: 24px 0 24px 0;
                 margin-left: 15px;
@@ -196,14 +231,17 @@
                 }
 
                 .private-song-wrap {
-                    padding: 23px 0;
+                    padding: 45px 0 20px 0;
 
                     .private-song-content {
                         .private-song-list {
                             .item {
                                 display: flex;
-                                width: 468px;
+                                //width: 468px;
                                 margin-bottom: 15px;
+                                background-color: #ffffff;
+                                padding-bottom: 5px;
+                                padding-top: 5px;
 
                                 &:last-child {
                                     margin-bottom: 0;
@@ -263,6 +301,32 @@
                                         font-size: @font_size_medium-s;
                                     }
                                 }
+                            }
+                        }
+                    }
+                    .no-data-wrap {
+                        position: relative;
+                        height: 200px;
+                        background-color: #ffffff;
+                        .no-data-icon {
+                            width: 200px;
+                            height: 200px;
+                            background-image: url("./Icon - no data available.png");
+                            background-repeat: no-repeat;
+                            background-size: 100% 100%;
+                            background-position: center center;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate3d(-50%, -50%, 0);
+                            .no-data-txt {
+                                font-size: 14px;
+                                color: #1683fe;
+                                line-height: 22px;
+                                position: absolute;
+                                bottom: 12px;
+                                left: 50%;
+                                transform: translate3d(-50%, 0, 0);
                             }
                         }
                     }

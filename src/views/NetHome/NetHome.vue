@@ -12,7 +12,7 @@
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
-            <van-swipe class="my-swipe" indicator-color="white">
+            <van-swipe v-if="banners.length>0" class="my-swipe" indicator-color="white">
               <van-swipe-item :key="item.bannerId" v-for="item in banners">
                 <img
                   class="swip-item-img"
@@ -22,6 +22,11 @@
                 />
               </van-swipe-item>
             </van-swipe>
+            <div v-else class="no-data-wrap">
+              <div class="no-data-icon">
+                <span class="no-data-txt">暂无数据</span>
+              </div>
+            </div>
           </div>
         </div>
         <base-scroll :scroll-x="scrollX" class="net-nav-wrap">
@@ -45,6 +50,7 @@
           :recommend-list="recommednList"
           title="推荐歌单"
         ></base-section>
+        <div class="home-bac"></div>
         <base-divder></base-divder>
         <div class="private-custom-made">
           <div class="custom-made-title">
@@ -57,7 +63,7 @@
             <span :class="_getIcon" class="iconfont"></span>播放
           </div>
           <div class="private-song-wrap">
-            <div class="private-song-content">
+            <div v-if="privateMusic.length>0" class="private-song-content">
               <ul class="private-song-list">
                 <li
                   @click="selectItem(index)"
@@ -77,6 +83,11 @@
                   </div>
                 </li>
               </ul>
+            </div>
+            <div v-else class="no-data-wrap">
+              <div class="no-data-icon">
+                <span class="no-data-txt">暂无数据</span>
+              </div>
             </div>
           </div>
         </div>

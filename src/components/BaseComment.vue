@@ -46,6 +46,9 @@ export default {
 .item {
   display: flex;
   margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 5px;
   .avatar {
     width: 35px;
     flex: 0 0 35px;

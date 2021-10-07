@@ -36,6 +36,8 @@ export default {
 .taste-item {
   display: flex;
   margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 5px;
   /*&:last-child {*/
   /*  margin-bottom: 0;*/
   /*}*/

@@ -11,7 +11,7 @@
       class="comment-content"
     >
       <div>
-        <div class="playlist-cover">
+        <div @click="goto($route.query.songListId)" class="playlist-cover">
           <div class="cover">
             <img class="image-cover" v-lazy="cover.picUrl" alt="" />
           </div>
@@ -28,13 +28,13 @@
         <base-divder></base-divder>
         <div class="comment-zone">
           <h1 class="title">评论区</h1>
-          <div class="comment-option">
+          <!-- <div class="comment-option">
             <ul class="comment-option-list">
               <li class="item active">推荐</li>
               <li class="item">最热</li>
               <li class="item">最新</li>
             </ul>
-          </div>
+          </div> -->
         </div>
         <div class="comment-list-wrap">
           <ul class="comment-list">
@@ -95,6 +95,9 @@ export default {
     this._getCommentPlaylist();
   },
   methods: {
+    goto(id) {
+ this.$router.push(`/rank/${id}`);
+    },
     async _getCommentPlaylist() {
       try {
         let id = 0;

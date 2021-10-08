@@ -31,26 +31,18 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 0 22px 0;
+  padding: 11.5px 0 11.5px 0;
   position: sticky;
-  top: 82px;
+  top: 45px;
   overflow: hidden;
   background-color: var(--body-bgcolor);
   color: var(--font-color);
   z-index: 14;
   .play {
-    font-size: 23px;
-    color: rgb(51, 51, 51);
+    font-size: 16px;
     .iconbofang7 {
-      font-size: 30px;
-      margin-right: 23px;
-      background-color: rgb(255, 64, 49);
-      color: rgb(255, 255, 255);
-      border-radius: 50%;
-    }
-    .iconbofang3 {
-      font-size: 30px;
-      margin-right: 23px;
+      font-size: 16px;
+      margin-right: 10px;
       background-color: rgb(255, 64, 49);
       color: rgb(255, 255, 255);
       border-radius: 50%;
@@ -58,7 +50,11 @@ export default {
   }
   .iconquanxuan {
     color: rgb(51, 51, 51);
-    font-size: 30px;
+    font-size: 16px;
+  }
+  .iconquanxuan {
+    color: rgb(51, 51, 51);
+    font-size: 22px;
   }
 }
 </style>

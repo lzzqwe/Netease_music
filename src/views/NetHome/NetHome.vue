@@ -12,7 +12,11 @@
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
-            <van-swipe v-if="banners.length>0" class="my-swipe" indicator-color="white">
+            <van-swipe
+              v-if="banners.length > 0"
+              class="my-swipe"
+              indicator-color="white"
+            >
               <van-swipe-item :key="item.bannerId" v-for="item in banners">
                 <img
                   class="swip-item-img"
@@ -35,7 +39,7 @@
               :to="item.path"
               tag="li"
               :key="index"
-              v-for="(item,index) in navIcon"
+              v-for="(item, index) in navIcon"
               class="nav-item"
               ref="navItem"
             >
@@ -63,7 +67,7 @@
             <span :class="_getIcon" class="iconfont"></span>播放
           </div>
           <div class="private-song-wrap">
-            <div v-if="privateMusic.length>0" class="private-song-content">
+            <div v-if="privateMusic.length > 0" class="private-song-content">
               <ul class="private-song-list">
                 <li
                   @click="selectItem(index)"
@@ -105,11 +109,11 @@
 </template>
 
 <script>
-  import recommend from './recommend.png'
-  import songlist from './songlist.png'
-  import singer from './singer.png'
-  import rank from './rank.png'
-  import MV from './MV.png'
+import recommend from "./recommend.png";
+import songlist from "./songlist.png";
+import singer from "./singer.png";
+import rank from "./rank.png";
+import MV from "./MV.png";
 import BaseScroll from "@/components/BaseScroll";
 import NetLoading from "@/components/NetLoading";
 import BaseSection from "@/components/BaseSection";
@@ -135,6 +139,7 @@ export default {
     NetLoading,
   },
   created() {
+    this.set_banners()
     this._getHomeSwiper();
     // this._getHomeCircleIcon();
     this.getHomeData();
@@ -146,27 +151,33 @@ export default {
       isShowSearch: false,
       recommednList: [],
       privateMusic: [],
-      navIcon: [{
-        picUrl:recommend,
-        name:"每日推荐",
-        path:"/songrcmd"
-      },{
-        picUrl:songlist,
-        name:"歌单",
-        path:"/playlistCollection"
-      },{
-        picUrl:singer,
-        name:"歌手",
-        path:"/singer"
-      },{
-        picUrl:rank,
-        name:"排行榜",
-        path:"/rank"
-      },{
-        picUrl:MV,
-        name:"MV",
-        path: '/mv',
-      }],
+      navIcon: [
+        {
+          picUrl: recommend,
+          name: "每日推荐",
+          path: "/songrcmd",
+        },
+        {
+          picUrl: songlist,
+          name: "歌单",
+          path: "/playlistCollection",
+        },
+        {
+          picUrl: singer,
+          name: "歌手",
+          path: "/singer",
+        },
+        {
+          picUrl: rank,
+          name: "排行榜",
+          path: "/rank",
+        },
+        {
+          picUrl: MV,
+          name: "MV",
+          path: "/mv",
+        },
+      ],
       result: [],
       banners: [],
     };
@@ -177,20 +188,22 @@ export default {
     },
     ...mapGetters(["fullscreen", "playList", "playing"]),
   },
+  mounted() {
+   this.handlePlaylist(this.playList)
+  },
   methods: {
     async _getHomeSwiper() {
       try {
-         const params = {
-        type: 1,
-      };
-      const res = await getHomeSwiper(params);
-      if (res.code === 200) {
-        this.banners = res.banners;
-      }
+        const params = {
+          type: 1,
+        };
+        const res = await getHomeSwiper(params);
+        if (res.code === 200) {
+          this.banners = res.banners;
+        }
       } catch (error) {
-         console.log('2222');
+        console.log("2222");
       }
-
     },
     async getHomeData() {
       const params = {
@@ -206,7 +219,7 @@ export default {
             this.privateMusic = this._createSong(this.result[1].result);
           })
           .catch((err) => {
-            console.log('8888');
+            console.log("8888");
             throw new Error(err);
           });
       } catch (error) {
@@ -282,6 +295,7 @@ export default {
       this.$refs.netHome.refresh();
     },
     playList(newValue) {
+      console.log(newValue);
       this.handlePlaylist(newValue);
     },
   },

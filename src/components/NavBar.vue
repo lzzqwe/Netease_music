@@ -34,6 +34,7 @@
     font-size: 16px;
     line-height: 30px;
     width: 270px;
+    color: #000;
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;

@@ -1,6 +1,6 @@
 <template>
   <div class="daily-recommend">
-    <recommend-content></recommend-content>
+    <recommend-content v-if="token"></recommend-content>
   </div>
 </template>
 

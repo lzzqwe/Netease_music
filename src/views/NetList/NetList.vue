@@ -14,6 +14,7 @@
           :pullup="pullup"
           :data="songList"
           :key="index"
+          ref="songlist"
           class="song-list-wrap"
         >
           <div class="song-list-content">
@@ -64,6 +65,7 @@ import SongList from "@/components/SongList";
 import BaseScroll from "@/components/BaseScroll";
 import NetLoading from "@/components/NetLoading";
 import { getSongsTags, getSongList } from "@/api/index";
+import { mapGetters } from "vuex";
 export default {
   metaInfo() {
     return {
@@ -75,6 +77,7 @@ export default {
     return {
       barTitle: "歌单广场",
       tags: [],
+      index:0,
       cat: "全部",
       songList: [],
       pullup: true,
@@ -114,10 +117,27 @@ export default {
     this._getSongsTags();
     this._getSongList();
   },
+  updated() {
+    console.log('0000');
+    this.handlePlaylist(this.playList);
+  },
+  computed: {
+    ...mapGetters(["playList"]),
+  },
   methods: {
     handleClickSlide(index) {
       const id = this.$refs.slide[index].$el.id;
       this.$router.push(`/playlistCollection/${id}`);
+    },
+    handlePlaylist(playList) {
+      let index = this.$refs.songlist.length-1
+      console.log(index);
+      if (playList.length > 0) {
+        this.$refs.songlist[index].$el.classList.add("bottom");
+      } else {
+        this.$refs.songlist[index].$el.classList.remove("bottom");
+      }
+      this.$refs.songlist[index].refresh();
     },
     needOne(index) {
       if (index === 0) {
@@ -137,6 +157,7 @@ export default {
     changeTag(name, title) {
       console.log(name, title);
       this.cat = title;
+      this.index =name
     },
     async _getSongsTags() {
       try {
@@ -213,6 +234,9 @@ export default {
     left: 0;
     right: 0;
     overflow: hidden;
+    &.bottom {
+      bottom: 55px;
+    }
     .song-list-content {
       .song-swiper {
         padding: 15px 15px;

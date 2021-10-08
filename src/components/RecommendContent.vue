@@ -61,7 +61,8 @@
                   <div class="desc">
                     <span class="iconfont icondujia"></span>
                     <span class="iconfont iconsq"></span>
-                    <span>{{ item.singer }}-{{ item.name }}</span>
+                    <!-- <span></span> -->
+                    {{ item.singer }}-{{ item.name }}
                   </div>
                 </div>
                 <div class="play-icon">
@@ -108,7 +109,7 @@ export default {
       },
       barTitle: "",
       paddingStyle: {
-        padding: "22px 24px 22px 24px",
+        padding: "11.5px 15px 11.5px 15px",
       },
       scrollY: 0,
       opacity: 0,
@@ -211,7 +212,7 @@ export default {
     z-index: 15;
     padding: 0 24px;
     overflow: hidden;
-    color: #ffffff;
+    // color: #ffffff;
     .bgc {
       position: absolute;
       top: 0;
@@ -240,21 +241,21 @@ export default {
     bottom: 0;
     width: 100%;
     &.bottom {
-      bottom: 82px;
+      bottom: 55px;
     }
     .day-recommend {
-      height: 300px;
+      height: 180px;
       box-sizing: border-box;
-      padding: 32px 24px 0 24px;
+      padding: 25px 15px 0 15px;
       background-size: cover;
       background-repeat: no-repeat;
       color: rgb(233, 255, 255);
       .date {
-        margin-top: 123px;
+        margin-top: 50px;
         .title {
-          font-size: 20px;
+          font-size: 16px;
           .large {
-            font-size: 38px;
+            font-size: 27px;
           }
         }
         .history-recommend {
@@ -275,19 +276,19 @@ export default {
       }
     }
     .recommend-content {
-      padding: 0 24px;
+      padding: 0 15px;
       .play-all {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 22px 0 22px 0;
+        padding: 11.5px 0 11.5px 0;
         position: sticky;
-        top: 82px;
+        top: 45px;
         .play {
-          font-size: 23px;
+          font-size: 16px;
           .iconbofang7 {
-            font-size: 30px;
-            margin-right: 23px;
+            font-size: 16px;
+            margin-right: 10px;
             background-color: rgb(255, 64, 49);
             color: rgb(255, 255, 255);
             border-radius: 50%;
@@ -295,7 +296,7 @@ export default {
         }
         .iconquanxuan {
           color: rgb(51, 51, 51);
-          font-size: 30px;
+          font-size: 16px;
         }
       }
       .play-list {
@@ -323,16 +324,16 @@ export default {
             .content {
               margin-left: 15px;
               .name {
-                font-size: 20px;
+                font-size: 14px;
                 margin-top: 6px;
                 margin-bottom: 14px;
-                width: 330px;
+                width: 230px;
                 .no-wrap();
               }
               .desc {
-                font-size: 16px;
+                font-size: 12px;
                 color: rgb(128, 128, 128);
-                width: 330px;
+                width: 230px;
                 .no-wrap();
                 .icondujia {
                   margin-right: 5px;
@@ -345,12 +346,12 @@ export default {
             }
             .play-icon {
               .iconbofang6 {
-                font-size: 27px;
+                font-size: 16px;
                 margin-right: 34px;
                 color: rgb(179, 179, 179);
               }
               .iconsandian {
-                font-size: 27px;
+                font-size: 16px;
                 color: rgb(179, 179, 179);
               }
             }

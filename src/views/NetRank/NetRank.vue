@@ -120,7 +120,7 @@ export default {
     width: 100%;
     overflow: hidden;
     &.bottom {
-      bottom: 82px;
+      bottom: 55px;
     }
     .net-rank-content {
       .rank-official {

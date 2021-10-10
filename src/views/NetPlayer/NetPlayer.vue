@@ -103,8 +103,9 @@
         <div class="text">
           <span
             >{{ currentSong.name
-            }}<span class="singer-name">-{{ currentSong.singer }}</span>
+            }}
           </span>
+          <span class="singer-name">-{{ currentSong.singer }}</span>
         </div>
         <div class="control">
           <span @click.stop="togglePlaying" :class="playIcon"></span>

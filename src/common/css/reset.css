@@ -9,7 +9,9 @@
     font-style: normal;
   }
 
-
+  .van-notify {
+      color:red;
+  }
 
 html,
 body,

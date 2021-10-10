@@ -49,6 +49,7 @@ export default {
   padding-top: 10px;
   border-radius: 10px;
   padding-left: 5px;
+  width: 100%;
   .item-index {
     flex: 0 0 7px;
     width: 7px;
@@ -57,7 +58,7 @@ export default {
     // font-weight: 600;
   }
   .desc {
-    flex: 1;
+    width: 320px;
     display: flex;
     justify-content: space-between;
     margin-left: 15px;
@@ -68,8 +69,8 @@ export default {
       align-items: center;
       justify-content: space-between;
       .song-name-content {
-        flex: 0 0 320px;
-        width: 320px;
+        flex: 0 0 240px;
+        width: 240px;
         .name {
           width: 100%;
           font-size: 14px;
@@ -98,16 +99,16 @@ export default {
         }
       }
       .iconbofang6 {
-        font-size: 22px;
+        font-size: 16px;
         margin-left: 34px;
         color: rgb(179, 179, 179);
       }
     }
     .play-icon {
-      flex: 0 0 22px;
-      width: 22px;
+      flex: 0 0 16px;
+      width: 16px;
       .iconsandian {
-        font-size: 22px;
+        font-size: 16px;
         color: rgb(179, 179, 179);
       }
     }

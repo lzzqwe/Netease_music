@@ -27,7 +27,7 @@ function request(options) {
         window.location.href = res.data.data
       } else {
         // Message.error(res.data.msg)
-        Notify(res.data.msg);
+        Notify('暂无数据');
       }
     }, err => {
       handleError(err)

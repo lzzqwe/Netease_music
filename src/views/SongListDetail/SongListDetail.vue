@@ -16,10 +16,10 @@ import { createSong } from "@/common/js/song";
 import { mapActions } from "vuex";
 export default {
   metaInfo() {
-      return {
-        title:"歌单详情"
-      }
-    },
+    return {
+      title: "歌单详情",
+    };
+  },
   name: "SongListDetail",
   components: {
     MusicList,
@@ -48,8 +48,8 @@ export default {
     },
     async _getSongListDetail() {
       const params = {
-        id:this.id
-      }
+        id: this.id,
+      };
       try {
         const res = await getSongListDetail(params);
         if (res.code === 200) {
@@ -68,17 +68,20 @@ export default {
     },
     async _normalizeSongs(list) {
       const tracksId = [];
-      list.trackIds.forEach((item) => {
-        if (item.id) {
-          tracksId.push(item.id);
+      if (list.trackIds.length > 0) {
+        list.trackIds.forEach((item) => {
+          if (item.id) {
+            tracksId.push(item.id);
+          }
+        });
+
+        const params = {
+          ids: tracksId.toString(),
+        };
+        const res = await getAllSongs(params);
+        if (res.code === 200) {
+          this.songs = this._createSong(res.songs);
         }
-      });
-      const params = {
-        ids:tracksId.toString()
-      }
-      const res = await getAllSongs(params);
-      if (res.code === 200) {
-        this.songs = this._createSong(res.songs);
       }
     },
     _createSong(list) {

@@ -1,6 +1,6 @@
 import { getPrivateFm, getHomeSwiper } from '../api/index.js'
 import { createSong } from '../common/js/song'
-import { saveSearches, clearAllSearches } from '../common/js/cache'
+import { saveSearches, clearAllSearches,saveUserInfo } from '../common/js/cache'
 import {
     SET_BANNERS,
     SET_CURRENTINDEX,
@@ -50,7 +50,7 @@ export default {
         await dispatch('select_play', { playlist: state.privateFm, index: 0 })
     },
     save_user_info({ commit }, userInfo) {
-        commit(SAVE_USER_INFO, userInfo)
+        commit(SAVE_USER_INFO, saveUserInfo(userInfo))
     },
     save_obj({ commit }, { obj }) {
         commit(SET_OBJ, { obj })

@@ -1,6 +1,6 @@
 <template>
   <div class="recommend-content-wrap">
-    <div ref="nav" class="nav-bar-wrap">
+    <div ref="nav" class="nav-bar-wrap" :style="{opacity: opacity+0.1}">
       <nav-bar :bar-title="barTitle"></nav-bar>
       <div
       v-if="banners>0"
@@ -210,8 +210,9 @@ export default {
     left: 0;
     right: 0;
     z-index: 15;
-    padding: 0 24px;
+    padding: 0 15px;
     overflow: hidden;
+    background-color: #fff;
     // color: #ffffff;
     .bgc {
       position: absolute;
@@ -283,7 +284,7 @@ export default {
         align-items: center;
         padding: 11.5px 0 11.5px 0;
         position: sticky;
-        top: 45px;
+        top: 44px;
         .play {
           font-size: 16px;
           .iconbofang7 {
@@ -303,7 +304,10 @@ export default {
         margin-top: 14px;
         .play-item {
           display: flex;
-          margin-bottom: 30px;
+          margin-bottom: 10px;
+          background-color: #fff;
+          padding: 5px;
+          border-radius: 6px;
           &:last-child {
             margin-bottom: 0;
           }

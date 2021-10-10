@@ -97,12 +97,14 @@ export default {
       getLogin(json)
         .then((res) => {
            this.save_token(res.token)
+           this.save_user_info(res.profile)
+           this.$router.push("/")
         })
         .catch((err) => {
          
         });
     },
-    ...mapActions(['save_token'])
+    ...mapActions(['save_token','save_user_info'])
   },
 };
 </script>

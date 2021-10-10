@@ -35,6 +35,7 @@ export default {
         state.playing = playing
     },
     [SAVE_USER_INFO](state, userInfo) {
+        console.log(userInfo);
         state.user = userInfo
     },
     [SET_OBJ](state, { obj }) {

@@ -12,7 +12,7 @@
     <div class="tab-wrap">
       <van-tabs @click="onClick" v-model="active">
         <van-tab title="综合">
-          <base-scroll :data="dataList" class="search-content-wrap">
+          <base-scroll ref="searchwrap" :data="dataList" class="search-content-wrap">
             <div>
               <net-card :data="songs" :title="songTitle">
                 <ul class="single-song-list">
@@ -43,7 +43,7 @@
                   ></base-list>
                 </ul>
                 <div @click="getMore(1000, 2)" class="look-over-more">
-                  {{ playList.moreText }}
+                  {{ playListObj.moreText }}
                 </div>
               </net-card>
               <net-card :data="this.result.video" :title="videoTitle">
@@ -81,7 +81,7 @@
           </base-scroll>
         </van-tab>
         <van-tab title="单曲">
-          <base-scroll :data="songs_1" class="song-list">
+          <base-scroll ref="searchwrap" :data="songs_1" style="padding-left:15px;padding-right:15px;" class="search-content-wrap">
             <ul>
               <base-songs
                 :index="index"
@@ -97,7 +97,7 @@
           </base-scroll>
         </van-tab>
         <van-tab title="歌单">
-          <base-scroll class="search-content-wrap" :data="playLists_1">
+          <base-scroll ref="searchwrap" class="search-content-wrap" :data="playLists_1">
             <ul class="single-song-list">
               <base-list
                 @select="selectItem(item.id)"
@@ -149,7 +149,7 @@ import NetCard from "@/components/NetCard";
 import NetLoading from "@/components/NetLoading";
 import { getSearch } from "@/api";
 import { createSong } from "@/common/js/song";
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 export default {
   metaInfo() {
     return {
@@ -177,7 +177,7 @@ export default {
       songs: [],
       songs_1: [],
       song: {},
-      playList: {},
+      playListObj: {},
       playLists: [],
       playLists_1: [],
       video: {},
@@ -196,8 +196,23 @@ export default {
     dataList() {
       return Object.values(this.result);
     },
+    ...mapGetters(["playList"]),
+  },
+  // mounted() {
+  //   this.handlePlaylist(this.playList);
+  // },
+  updated() {
+this.handlePlaylist(this.playList);
   },
   methods: {
+      handlePlaylist(playList) {
+      if (playList.length > 0) {
+        this.$refs.searchwrap.$el.classList.add("bottom");
+      } else {
+        this.$refs.searchwrap.$el.classList.remove("bottom");
+      }
+      this.$refs.searchwrap.refresh();
+    },
     back() {
       this.$router.back();
     },
@@ -244,7 +259,7 @@ export default {
         if (type === 1018) {
           if (res.code === 200) {
             this.result = res.result;
-            this.playList = res.result.playList;
+            this.playListObj = res.result.playList;
             this.playLists = res.result.playList.playLists;
             this.song = res.result.song;
             console.log(res.result.song);
@@ -317,10 +332,14 @@ export default {
     font-size: 20px;
   }
   .search-input-container {
+    position: fixed;
+    top: 0;
     display: flex;
     height: 44px;
     align-items: center;
-    margin: 0 15px;
+    // margin: 0 15px;
+    left: 15px;
+    right: 15px;
     overflow: hidden;
     font-size: 0;
     .left-arrow {
@@ -351,6 +370,10 @@ export default {
     }
   }
   .tab-wrap {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    right: 0;
     /deep/ .van-tabs__wrap {
       height: 40px;
       border-bottom: 0.5px solid rgb(181, 186, 187);
@@ -378,6 +401,9 @@ export default {
       left: 0;
       right: 0;
       overflow: hidden;
+      &.bottom {
+        bottom: 55px;
+      }
       .net-card {
         margin: 0 15px 10px 15px;
         background-color: rgb(255, 255, 255);

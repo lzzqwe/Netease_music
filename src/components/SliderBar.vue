@@ -1,6 +1,6 @@
 <template>
   <transition name="van-slide-left">
-    <div @click.self="toggle" v-show="isShowSetting" class="setting-wrap">
+    <div @click.self="toggle" v-if="isShowSetting" class="setting-wrap">
       <div class="setting">
         <div v-if="_getToken()" class="avatar">
           <div @click="goToMe" class="avatar-image">

@@ -41,6 +41,9 @@ function resolve(dir) {
 module.exports = {
   productionSourceMap: false,
   publicPath: './',
+  devServer:{
+    host:"127.0.0.1"
+  },
 
   chainWebpack: (config) => {
     config.resolve.alias

@@ -64,18 +64,39 @@
                 playlist.subscribedCount | parseNum(playlist.subscribedCount, 1)
               }}</span>
             </li>
-            <li @click="isShowComment" class="operator-item">
+             <li
+              class="operator-item"
+              v-else
+            >
+              <span class="iconfont iconjiatianjiakuangxuanduoxuan-8"></span
+              ><span>暂无收藏</span>
+            </li>
+            <li v-if="playlist.commentCount" @click="isShowComment" class="operator-item">
               <span class="iconfont iconpinglun1"></span>
-              <span v-if="playlist.commentCount">{{
+              <span>{{
                 playlist.commentCount | parseNum(playlist.commentCount, 1)
               }}</span>
-              <span v-else>评论</span>
             </li>
+               <li
+              class="operator-item"
+              v-else
+            >
+              <span class="iconfont iconpinglun1"></span
+              ><span>暂无评论</span>
+            </li>
+            
             <li class="operator-item" v-if="playlist.shareCount">
               <span class="iconfont iconfenxiang1"></span
               ><span>{{
                 playlist.shareCount | parseNum(playlist.shareCount, 1)
               }}</span>
+            </li>
+                 <li
+              class="operator-item"
+              v-else
+            >
+              <span class="iconfont iconfenxiang1"></span
+              ><span>暂无分享</span>
             </li>
           </ul>
         </div>
@@ -378,7 +399,7 @@ export default {
           display: flex;
           align-items: center;
           border-right: 1px solid var(--border-right-color);
-          padding-right: 23px;
+          padding-right: 15px;
           &:last-child {
             padding-right: 0;
             border-right: 0;
@@ -463,70 +484,6 @@ export default {
     }
     .list {
       padding: 0 15px;
-      /*.list-content {*/
-      /*  .list-item {*/
-      /*    display: flex;*/
-      /*    align-items: center;*/
-      /*    margin-bottom: 20px;*/
-      /*    .item-index {*/
-      /*      flex: 0 0 7px;*/
-      /*      width: 7px;*/
-      /*      font-size: 14px;*/
-      /*      color: rgb(153, 153, 153);*/
-      /*      font-weight: 600;*/
-      /*    }*/
-      /*    .desc {*/
-      /*      flex: 1;*/
-      /*      display: flex;*/
-      /*      justify-content: space-between;*/
-      /*      margin-left: 10px;*/
-      /*      align-items: center;*/
-      /*      .song-name-text {*/
-      /*        margin-right: 39px;*/
-      /*        display: flex;*/
-      /*        align-items: center;*/
-      /*        justify-content: space-between;*/
-      /*        .song-name-content {*/
-      /*          flex: 0 0 320px;*/
-      /*          width: 320px;*/
-      /*          .name {*/
-      /*            width: 100%;*/
-      /*            font-size: 14px;*/
-      /*            margin-bottom: 16px;*/
-      /*            white-space: nowrap;*/
-      /*            text-overflow: ellipsis;*/
-      /*            overflow: hidden;*/
-      /*          }*/
-      /*          .text {*/
-      /*            font-size: 12px;*/
-      /*            color: rgb(179, 179, 179);*/
-      /*            .icondujia {*/
-      /*              margin-right: 5px;*/
-      /*              color: rgb(246, 162, 159);*/
-      /*            }*/
-      /*            .iconsq {*/
-      /*              color: rgb(225, 113, 71);*/
-      /*              margin-right: 5px;*/
-      /*            }*/
-      /*          }*/
-      /*        }*/
-      /*        .iconbofang6 {*/
-      /*          font-size: 22px;*/
-      /*          margin-left: 34px;*/
-      /*          color: rgb(179, 179, 179);*/
-      /*        }*/
-      /*      }*/
-      /*      .play-icon {*/
-      /*        flex: 0 0 22px;*/
-      /*        width: 22px;*/
-      /*        .iconsandian {*/
-      /*          font-size: 22px;*/
-      /*          color: rgb(179, 179, 179);*/
-      /*        }*/
-      /*      }*/
-      /*    }*/
-      /*  }*/
-      /*}*/
     }
   }
 }

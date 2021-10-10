@@ -63,6 +63,7 @@ export default {
     margin-left: 10px;
     flex: 1;
     padding-bottom: 15px;
+    margin-right: 10px;
     .user {
       display: flex;
       justify-content: space-between;

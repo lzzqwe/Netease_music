@@ -6,7 +6,7 @@
     <div class="tabs-wrap">
       <van-tabs @click="onClick" v-model="active">
         <van-tab :key="item.name" v-for="item in area" :title="item.name">
-          <base-scroll :data="mvList" class="mv-content-wrap">
+          <base-scroll ref="mvwrap" :data="mvList" class="mv-content-wrap">
             <div>
               <van-search
                 v-model="value"
@@ -60,6 +60,7 @@ import { getMv, getSingerDetail } from "@/api";
 import NavBar from "@/components/NavBar";
 import BaseScroll from "@/components/BaseScroll";
 import Mv from "@/common/js/mv";
+import { mapActions, mapGetters } from "vuex";
 // import NetLoading from "../components/NetLoading";
 export default {
   metaInfo() {
@@ -72,6 +73,9 @@ export default {
     this.area = Mv.area;
     this._getMv();
   },
+  computed: {
+    ...mapGetters(["playList"]),
+  },
   data() {
     return {
       barTitle: "mv",
@@ -80,20 +84,31 @@ export default {
       mvList: [],
     };
   },
+  updated() {
+    this.handlePlaylist(this.playList);
+  },
   methods: {
-    async _getMv(value='') {
+    async _getMv(value = "") {
       const params = {
-        area: value
+        area: value,
       };
       const res = await getMv(params);
       if (res.code === 200) {
         this.mvList = res.data;
       }
     },
+    handlePlaylist(playList) {
+      const index = this.$refs.mvwrap.length-1;
+      if (playList.length > 0) {
+        this.$refs.mvwrap[index].$el.classList.add("bottom");
+      } else {
+        this.$refs.mvwrap[index].$el.classList.remove("bottom");
+      }
+      this.$refs.mvwrap[index].refresh();
+    },
     selctItem(id) {
       this.$router.push(`/mv/${id}`);
     },
-    showComment() {},
     onClick(name, title) {
       this.mvList = [];
       if (title === "全部") {
@@ -157,6 +172,9 @@ export default {
       bottom: 0;
       width: 100%;
       overflow: hidden;
+      &.bottom {
+        bottom: 55px;
+      }
       .mv-list {
         display: flex;
         padding: 0 15px;

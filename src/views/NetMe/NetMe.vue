@@ -8,6 +8,7 @@
       :probe-type="scrollAttribute.probeType"
       :listenScroll="scrollAttribute.listenScroll"
       @onscroll="scroll"
+      ref="me"
       class="me-container"
     >
       <div>
@@ -99,7 +100,7 @@ if (env === "development") {
 }
 import NavBar from "@/components/NavBar";
 import { mapGetters } from "vuex";
-import { getUserDetail, getUserSonglist } from "@/api";
+import { getUserSonglist, getuserInfo } from "@/api";
 import BaseScroll from "@/components/BaseScroll";
 import NetLoading from "@/components/NetLoading";
 import BaseList from "@/components/BaseList";
@@ -112,7 +113,7 @@ export default {
   },
   name: "NetMe",
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["user",'playList']),
     createList() {
       const result = [];
       this.songlist.forEach((item) => {
@@ -135,6 +136,9 @@ export default {
   created() {
     this._getUserDetail();
     this._getUserSonglist();
+  },
+   mounted() {
+   this.handlePlaylist(this.playList)
   },
   watch: {
     scrollY(newValue) {
@@ -166,10 +170,10 @@ export default {
   methods: {
     async _getUserDetail() {
       const params = {
-        uid:this.user.userId
-      }
+        uid: this.user.userId,
+      };
       try {
-        const res = await getUserDetail(params);
+        const res = await getuserInfo(params);
         if (res.code === 200) {
           this.profile = res.profile;
         }
@@ -181,10 +185,18 @@ export default {
         });
       }
     },
+     handlePlaylist(playList) {
+      if (playList.length > 0) {
+        this.$refs.me.$el.classList.add("bottom");
+      } else {
+        this.$refs.me.$el.classList.remove("bottom");
+      }
+      this.$refs.me.refresh();
+    },
     async _getUserSonglist() {
       const params = {
-        uid:this.user.userId
-      }
+        uid: this.user.userId,
+      };
       try {
         const res = await getUserSonglist(params);
         if (res.code === 200) {
@@ -283,36 +295,39 @@ export default {
     bottom: 0;
     background-color: rgb(245, 245, 245);
     overflow: hidden;
+    &.bottom {
+      bottom: 55px;
+    }
     .me-background {
-      height: 402px;
+      height: 260px;
       width: 100%;
       position: relative;
       .user-info {
         position: absolute;
-        bottom: -175px;
-        left: 24px;
-        right: 24px;
-        height: 200px;
-        margin: 0 24px;
+        bottom: -100px;
+        left: 15px;
+        right: 15px;
+        height: 140px;
+        // margin: 0 15px;
         box-sizing: border-box;
         background-color: #ffffff;
-        border-radius: 23px;
+        border-radius: 10px;
         z-index: 12;
         .avatar {
-          width: 120px;
-          height: 120px;
+          width: 80px;
+          height: 80px;
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
-          top: -60px;
+          top: -40px;
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: 50%;
           border: 1px solid @font-light-gray;
           .image {
-            width: 118px;
-            height: 118px;
+            width: 78px;
+            height: 78px;
             border-radius: 50%;
           }
         }
@@ -328,14 +343,14 @@ export default {
       top: 50%;
       transform: translate3d(-50%, -50%, 0);
       .name {
-        font-size: 25px;
+        font-size: 18px;
         color: @font-black;
         margin-bottom: 13px;
         font-weight: 600;
         text-align: center;
       }
       .fans {
-        font-size: @font_size_small-s;
+        font-size: @font_size_small-m;
         display: flex;
         color: @font-black;
         .following {
@@ -361,21 +376,39 @@ export default {
     }
     .tab-wrap {
       width: 100%;
-      margin-top: 175px;
+      margin-top: 105px;
+      /deep/ .van-tabs__wrap {
+        height: 40px;
+      }
+      /deep/ .van-tab {
+        font-size: 14px;
+        color: rgb(81, 84, 84);
+      }
+      /deep/ .van-tabs__nav--complete {
+        padding: 0 12px;
+      }
+      /deep/ .van-tab--active {
+        color: rgb(38, 41, 41);
+        font-weight: 600;
+      }
+      /deep/ .van-tabs__line {
+        bottom: 20px;
+        height: 4px;
+      }
       .basic-info {
-        margin: 0 24px;
+        margin: 0 15px;
         background-color: rgb(255, 255, 255);
-        font-size: @font_size_medium-s;
-        padding-left: 25px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        border-radius: 12px;
+        font-size: @font_size_small;
+        padding-left: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 10px;
         .title {
-          font-size: @font_size_large-s;
+          font-size:@font_size_small;
           font-weight: 600;
         }
         .age {
-          margin: 30px 0;
+          margin: 20px 0;
           .village-age {
             .num {
               margin-left: 20px;
@@ -391,15 +424,15 @@ export default {
         }
       }
       .music-taste {
-        margin: 24px 24px 0 24px;
+        margin: 24px 15px 0 15px;
         background-color: rgb(255, 255, 255);
         font-size: 0;
-        padding-left: 25px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        border-radius: 12px;
+        padding-left: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 10px;
         .title {
-          font-size: @font_size_large-s;
+          font-size: @font_size_medium-s;
           font-weight: 600;
         }
         .taste-list {

@@ -151,7 +151,7 @@ export default {
             }
             .tracks-list {
               flex: 1;
-              font-size: @font_size_small-s;
+              font-size: @font_size_small-m;
               color: rgb(102, 102, 102);
               margin-top: 21px;
               .tracks-item {
@@ -163,6 +163,7 @@ export default {
                 .index {
                 }
                 .name {
+                  line-height: 20px;
                 }
               }
             }

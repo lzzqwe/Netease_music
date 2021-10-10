@@ -1,5 +1,6 @@
 <template>
   <div ref="login" class="logon">
+    <div class="login-title">云音乐登录</div>
     <div class="content">
       <div class="account">
         <span class="account-icon"></span>
@@ -25,7 +26,6 @@
           <span @click="hideOrshowPassword" :class="iconStyle"></span>
         </div>
       </div>
-      <!--      <div class="forget-password">忘记密码？</div>-->
     </div>
 
     <div class="login-button" @click="logonAdd">登录</div>
@@ -68,32 +68,12 @@ export default {
       } else {
         this.$refs.login.classList.remove("bottom");
       }
-      // this.$refs.login.refresh();
     },
     logonAdd() {
-      // if (!this.userCode) {
-      //   uni.showToast({
-      //     title: "请输入工号",
-      //     icon: "none",
-      //     duration: 2500,
-      //   });
-      //   return;
-      // }
-      // if (!this.userPassWord) {
-      //   uni.showToast({
-      //     title: "请输入密码",
-      //     icon: "none",
-      //     duration: 2500,
-      //   });
-      //   return;
-      // }
       let json = {
         phone: this.userCode,
         password: this.userPassWord,
       };
-      // uni.showLoading({
-      //   title: "请稍后...",
-      // });
       getLogin(json)
         .then((res) => {
            this.save_token(res.token)
@@ -122,6 +102,16 @@ export default {
   &.bottom {
     bottom: 55px;
   }
+  .login-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 180px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: ;
+  }
   .content {
     position: absolute;
     top: 240px;
@@ -129,7 +119,7 @@ export default {
     .account {
       margin: 0 15px 0 15px;
       padding-bottom: 14px;
-      border-bottom: 1px solid #eeeeee;
+      border-bottom: 1px solid #cda2a2;
       display: flex;
       .account-icon {
         width: 22px;
@@ -155,7 +145,7 @@ export default {
       margin: 0 15px 0 15px;
       padding-top: 27px;
       padding-bottom: 14px;
-      border-bottom: 1px solid #eeeeee;
+      border-bottom: 1px solid #cda2a2;
       display: flex;
       justify-content: space-between;
       .password-left {
@@ -213,7 +203,7 @@ export default {
     right: 15px;
     text-align: center;
     padding: 12px 0;
-    background: red;
+    background: #1683FE;
     border-radius: 24px;
     font-size: 18px;
     font-weight: 500;
@@ -230,7 +220,7 @@ export default {
     width: 252px;
     transform: translate3d(-50%, 0, 0);
     .click-agree {
-      color: #f5f5f5;
+      color: #333333;
     }
     .service-agreement {
       color: #1683fe;

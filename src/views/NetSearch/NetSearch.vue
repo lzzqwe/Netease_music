@@ -12,7 +12,11 @@
     <div class="tab-wrap">
       <van-tabs @click="onClick" v-model="active">
         <van-tab title="综合">
-          <base-scroll ref="searchwrap" :data="dataList" class="search-content-wrap">
+          <base-scroll
+            ref="searchwrap"
+            :data="dataList"
+            class="search-content-wrap"
+          >
             <div>
               <net-card :data="songs" :title="songTitle">
                 <ul class="single-song-list">
@@ -81,7 +85,12 @@
           </base-scroll>
         </van-tab>
         <van-tab title="单曲">
-          <base-scroll ref="searchwrap" :data="songs_1" style="padding-left:15px;padding-right:15px;" class="search-content-wrap">
+          <base-scroll
+            ref="searchwrap"
+            :data="songs_1"
+            style="padding-left: 15px; padding-right: 15px"
+            class="search-content-wrap"
+          >
             <ul>
               <base-songs
                 :index="index"
@@ -97,7 +106,11 @@
           </base-scroll>
         </van-tab>
         <van-tab title="歌单">
-          <base-scroll ref="searchwrap" class="search-content-wrap" :data="playLists_1">
+          <base-scroll
+            ref="searchwrap"
+            class="search-content-wrap"
+            :data="playLists_1"
+          >
             <ul class="single-song-list">
               <base-list
                 @select="selectItem(item.id)"
@@ -111,32 +124,32 @@
             </ul>
           </base-scroll>
         </van-tab>
-<!--        <van-tab title="视频">-->
-<!--          <base-scroll :data="videos_1" class="video_1">-->
-<!--            <ul class="video-list">-->
-<!--              <li-->
-<!--                @click="selectVideo(item.id)"-->
-<!--                :key="item.id"-->
-<!--                v-for="item in videos_1"-->
-<!--                class="item"-->
-<!--              >-->
-<!--                <div class="video-album-cover">-->
-<!--                  <img class="image" :src="item.coverUrl" alt="" />-->
-<!--                </div>-->
-<!--                <div class="content">-->
-<!--                  <h1 class="video-title">{{ item.title }}</h1>-->
-<!--                  <div class="video-info">-->
-<!--                    <span>00:16,</span><span>黑猫-警长,</span-->
-<!--                    ><span>12万播放</span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </li>-->
-<!--              <div v-show="!this.videos_1.length" class="net-loading-wrap">-->
-<!--                <net-loading></net-loading>-->
-<!--              </div>-->
-<!--            </ul>-->
-<!--          </base-scroll>-->
-<!--        </van-tab>-->
+        <!--        <van-tab title="视频">-->
+        <!--          <base-scroll :data="videos_1" class="video_1">-->
+        <!--            <ul class="video-list">-->
+        <!--              <li-->
+        <!--                @click="selectVideo(item.id)"-->
+        <!--                :key="item.id"-->
+        <!--                v-for="item in videos_1"-->
+        <!--                class="item"-->
+        <!--              >-->
+        <!--                <div class="video-album-cover">-->
+        <!--                  <img class="image" :src="item.coverUrl" alt="" />-->
+        <!--                </div>-->
+        <!--                <div class="content">-->
+        <!--                  <h1 class="video-title">{{ item.title }}</h1>-->
+        <!--                  <div class="video-info">-->
+        <!--                    <span>00:16,</span><span>黑猫-警长,</span-->
+        <!--                    ><span>12万播放</span>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--              </li>-->
+        <!--              <div v-show="!this.videos_1.length" class="net-loading-wrap">-->
+        <!--                <net-loading></net-loading>-->
+        <!--              </div>-->
+        <!--            </ul>-->
+        <!--          </base-scroll>-->
+        <!--        </van-tab>-->
       </van-tabs>
     </div>
   </div>
@@ -149,7 +162,7 @@ import NetCard from "@/components/NetCard";
 import NetLoading from "@/components/NetLoading";
 import { getSearch } from "@/api";
 import { createSong } from "@/common/js/song";
-import { mapActions,mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   metaInfo() {
     return {
@@ -198,14 +211,11 @@ export default {
     },
     ...mapGetters(["playList"]),
   },
-  // mounted() {
-  //   this.handlePlaylist(this.playList);
-  // },
   updated() {
-this.handlePlaylist(this.playList);
+    this.handlePlaylist(this.playList);
   },
   methods: {
-      handlePlaylist(playList) {
+    handlePlaylist(playList) {
       if (playList.length > 0) {
         this.$refs.searchwrap.$el.classList.add("bottom");
       } else {
@@ -315,6 +325,12 @@ this.handlePlaylist(this.playList);
       }
     },
     ...mapActions(["select_play", "save_searches"]),
+  },
+   watch: {
+    playList(newValue) {
+      // console.log(newValue);
+      this.handlePlaylist(newValue);
+    },
   },
   created() {
     console.log(this.$route.query.keyword);
@@ -447,7 +463,6 @@ this.handlePlaylist(this.playList);
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
-
             }
           }
           .iconsandian {

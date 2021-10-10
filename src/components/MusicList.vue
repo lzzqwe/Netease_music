@@ -241,6 +241,11 @@ export default {
         this.opacity = 1 * percent;
       }
     },
+    playList(newValue) {
+        // console.log(newValue);
+        this.handlePlaylist(this.playList);
+    }
+
   },
 };
 </script>
@@ -285,7 +290,7 @@ export default {
     right: 0;
     overflow: hidden;
     &.bottom {
-      bottom: 82px;
+      bottom: 55px;
     }
     .background-wrap {
       overflow: hidden;

@@ -353,7 +353,8 @@ export default {
             .user-name {
               margin: 0 4px 0 12px;
               color: rgb(182, 175, 178);
-              font-weight: 600;
+              font-family: PingFangSC-Medium;
+        font-weight: 500;
             }
             .increase {
               padding: 5px 10px;
@@ -377,7 +378,8 @@ export default {
               text-overflow: ellipsis;
               width: 200px;
               overflow: hidden;
-              font-weight: 600;
+              font-family: PingFangSC-Medium;
+        font-weight: 500;
             }
           }
         }

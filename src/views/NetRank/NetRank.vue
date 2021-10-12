@@ -128,7 +128,8 @@ export default {
         margin-top: 66px;
         .rank-title {
           font-size:16px;
-          font-weight:600;
+           font-family: PingFangSC-Medium;
+        font-weight: 500;
         }
         .rank-official-list {
           margin-top: 15px;

@@ -38,6 +38,8 @@
       /*margin-left: 7.5px;*/
       margin-bottom: 10px;
       padding-top: 20px;
+       font-family: PingFangSC-Medium;
+    font-weight: 500;
     }
     .rank-list {
       display: flex;

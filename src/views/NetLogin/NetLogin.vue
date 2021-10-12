@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import {getLogin} from '@/api/index.js'
-import { mapGetters,mapActions } from "vuex";
+import { getLogin } from "@/api/index.js";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -76,15 +76,13 @@ export default {
       };
       getLogin(json)
         .then((res) => {
-           this.save_token(res.token)
-           this.save_user_info(res.profile)
-           this.$router.push("/")
+          this.save_token(res.token);
+          this.save_user_info(res.profile);
+          this.$router.push("/");
         })
-        .catch((err) => {
-         
-        });
+        .catch((err) => {});
     },
-    ...mapActions(['save_token','save_user_info'])
+    ...mapActions(["save_token", "save_user_info"]),
   },
 };
 </script>
@@ -109,8 +107,8 @@ export default {
     top: 180px;
     text-align: center;
     font-size: 26px;
-    font-weight: 600;
-    font-family: ;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
   }
   .content {
     position: absolute;
@@ -160,7 +158,6 @@ export default {
         }
         /deep/ .password-txt {
           font-size: 17px;
-          font-weight: normal;
           line-height: 24px;
           .uni-input-wrapper {
             .uni-input-placeholder {
@@ -203,7 +200,7 @@ export default {
     right: 15px;
     text-align: center;
     padding: 12px 0;
-    background: #1683FE;
+    background: #1683fe;
     border-radius: 24px;
     font-size: 18px;
     font-weight: 500;
@@ -214,7 +211,6 @@ export default {
     position: absolute;
     bottom: 44px;
     font-size: 14px;
-    font-weight: normal;
     line-height: 20px;
     left: 50%;
     width: 252px;

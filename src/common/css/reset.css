@@ -3,8 +3,14 @@
    License: none (public domain)
 */
 @font-face {
-    font-family: 'myFont'; 
-    src: url('../font/aaa.ttf'); 
+    font-family: 'PingFangSC-Regular'; 
+    src: url('../font/PingFangSC-Regular.ttf'); 
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PingFangSC-Medium'; 
+    src: url('../font/PingFangSC-Medium.ttf'); 
     font-weight: normal;
     font-style: normal;
   }
@@ -100,7 +106,7 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: myFont;
+    font-family: PingFangSC-Regular;
 }
 
 

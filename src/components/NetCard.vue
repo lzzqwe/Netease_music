@@ -41,7 +41,8 @@
       padding-bottom: 12px;
       .txt {
         font-size: @font_size_small;
-        font-weight: 600;
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
         color: @font-black;
       }
       .play {

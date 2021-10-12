@@ -9,7 +9,7 @@
     <base-scroll
       :data="recommendList"
       :scroll-x="scrollX"
-      v-if="recommendList.length>0"
+      v-if="recommendList.length > 0"
       class="song-list-wrap"
     >
       <ul class="song-list-content">
@@ -82,7 +82,8 @@ export default {
     margin-bottom: 24px;
     .text {
       font-size: @font_size_medium-s;
-      font-weight: 600;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
     }
     .more {
       width: 70px;

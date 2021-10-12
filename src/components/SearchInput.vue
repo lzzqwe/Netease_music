@@ -302,7 +302,8 @@ export default {
         align-items: center;
         .title {
           font-size: @font_size_small;
-          font-weight: 600;
+          font-family: PingFangSC-Medium;
+        font-weight: 500;
           margin-right: 15px;
         }
         .history-list-wrap {
@@ -340,7 +341,8 @@ export default {
           border-bottom: 0.5px solid rgb(230, 230, 230);
           .hot-title {
             font-size: @font_size_small;
-            font-weight: 600;
+            font-family: PingFangSC-Medium;
+        font-weight: 500;
           }
           .hot-play {
             width: 70px;

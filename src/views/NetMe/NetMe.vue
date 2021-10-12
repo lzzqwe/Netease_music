@@ -405,7 +405,8 @@ export default {
         border-radius: 10px;
         .title {
           font-size:@font_size_small;
-          font-weight: 600;
+          font-family: PingFangSC-Medium;
+        font-weight: 500;
         }
         .age {
           margin: 20px 0;
@@ -433,7 +434,8 @@ export default {
         border-radius: 10px;
         .title {
           font-size: @font_size_medium-s;
-          font-weight: 600;
+          font-family: PingFangSC-Medium;
+        font-weight: 500;
         }
         .taste-list {
           margin-top: 23px;

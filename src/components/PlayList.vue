@@ -93,7 +93,8 @@
         border-bottom: 0.5px solid #E1E1E1;
         .title {
           font-size: 18px;
-          font-weight: 600;
+         font-family: PingFangSC-Medium;
+        font-weight: 500;
           color: @font-black;
         }
         .iconlajitong1 {

@@ -404,7 +404,8 @@ export default {
     }
     /deep/ .van-tab--active {
       color: rgb(38, 41, 41);
-      font-weight: 600;
+       font-family: PingFangSC-Medium;
+        font-weight: 500;
     }
     /deep/ .van-tabs__line {
       bottom: 15px;
@@ -431,7 +432,8 @@ export default {
           padding-bottom: 10px;
           .txt {
             font-size: @font_size_medium-s;
-            font-weight: 600;
+            font-family: PingFangSC-Medium;
+        font-weight: 500;
             color: @font-black;
           }
         }

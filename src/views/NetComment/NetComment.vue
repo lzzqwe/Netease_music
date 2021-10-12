@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     goto(id) {
- this.$router.push(`/rank/${id}`);
+      this.$router.push(`/rank/${id}`);
     },
     async _getCommentPlaylist() {
       try {
@@ -107,18 +107,18 @@ export default {
           this.cover = this.obj;
           const params = {
             id,
-            offset:this.offset,
-            limit:this.limit
-          }
+            offset: this.offset,
+            limit: this.limit,
+          };
           res = await getCommentPlaylist(params);
         } else {
           id = this.$route.query.id;
           this.cover = this.currentSong;
           const params = {
             id,
-            offset:this.offset,
-            limit:this.limit
-          }
+            offset: this.offset,
+            limit: this.limit,
+          };
           res = await getSongComment(params);
         }
         if (res.code === 200) {
@@ -222,7 +222,8 @@ export default {
       padding: 0 15px;
       .title {
         font-size: 16px;
-        font-weight: 600;
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
       }
       .comment-option {
         .comment-option-list {

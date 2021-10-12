@@ -32,6 +32,8 @@
   }
   .bar-text {
     font-size: 16px;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
     line-height: 30px;
     width: 270px;
     color: #000;

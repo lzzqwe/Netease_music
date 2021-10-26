@@ -3,8 +3,8 @@ import http from './http.config'
 //基础地址
 let BASE
 if (process.env.VUE_APP_ENV === 'development') {
-    // BASE = 'http://127.0.0.1:3000'
-    BASE = 'https://music.icci.top'
+    BASE = 'http://127.0.0.1:3000'
+    // BASE = 'https://music.icci.top'
 } else if (process.env.VUE_APP_ENV === 'production') {
     BASE = ''
 }

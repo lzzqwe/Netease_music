@@ -123,7 +123,6 @@ import SliderBar from "@/components/SliderBar";
 import {
   getRecommendList,
   getPrivateMusic,
-  getHomeCircleIcon,
   getHomeSwiper,
 } from "@/api/index.js";
 import { createSong } from "@/common/js/song";
@@ -141,7 +140,6 @@ export default {
   created() {
     this.set_banners()
     this._getHomeSwiper();
-    // this._getHomeCircleIcon();
     this.getHomeData();
   },
   data() {
@@ -258,27 +256,6 @@ export default {
     selectItem(index) {
       this.select_play({ playlist: this.privateMusic, index });
     },
-    // async _getHomeCircleIcon() {
-    //   try {
-    //     const res = await getHomeCircleIcon();
-    //     if (res.code === 200) {
-    //       const nav = res.data.slice(0,5);
-    //       nav[4].name = "mv";
-    //       nav[4].url = "orpheus://mv";
-    //       nav[3].url = "orpheus://rank";
-    //       this.navIcon = nav;
-    //     }
-    //   } catch (error) {
-    //     this.$notify({
-    //       message: "获取数据失败",
-    //       color: "#FFFFFF",
-    //       background: "#00A2E8",
-    //     });
-    //   }
-    // },
-    // handleString(str) {
-    //   return str.slice(9);
-    // },
     toggleSetting() {
       this.isShowSetting = !this.isShowSetting;
     },

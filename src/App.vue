@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <router-view v-if="$route.meta.keepAlive"></router-view>
-    </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <router-view></router-view>
     <net-player></net-player>
   </div>
 </template>
@@ -20,7 +17,8 @@ import variablesBlack from "@/common/themes/variables-black";
 export default {
   metaInfo() {
     return {
-      title: "欢迎来的net-music",
+      // title: "欢迎来的net-music",
+      title: "1",
     };
   },
   created() {

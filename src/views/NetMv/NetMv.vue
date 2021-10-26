@@ -6,7 +6,12 @@
     <div class="tabs-wrap">
       <van-tabs @click="onClick" v-model="active">
         <van-tab :key="item.name" v-for="item in area" :title="item.name">
-          <base-scroll ref="mvwrap" :data="mvList" class="mv-content-wrap">
+          <base-scroll
+            ref="mvwrap"
+            @scrollToEnd="loadMore"
+            :data="mvList"
+            class="mv-content-wrap"
+          >
             <div>
               <van-search
                 v-model="value"
@@ -43,9 +48,12 @@
                   </div>
                 </li>
               </ul>
-              <!--                <div v-show="!this.mvList.length" class="loading-wrap">-->
-              <!--                  <net-loading></net-loading>-->
-              <!--                </div>-->
+            </div>
+            <div v-if="!noData" class="load-more">
+              <load-more :status="status"></load-more>
+            </div>
+            <div class="empty-container">
+              <empty :show="noData"></empty>
             </div>
           </base-scroll>
         </van-tab>
@@ -61,7 +69,8 @@ import NavBar from "@/components/NavBar";
 import BaseScroll from "@/components/BaseScroll";
 import Mv from "@/common/js/mv";
 import { mapActions, mapGetters } from "vuex";
-// import NetLoading from "../components/NetLoading";
+import empty from "@/components/BaseEmpty.vue";
+import LoadMore from "@/components/LoadMore.vue";
 export default {
   metaInfo() {
     return {
@@ -81,7 +90,12 @@ export default {
       barTitle: "mv",
       active: 0,
       value: "",
+      pullup: true,
+      noData: false,
       mvList: [],
+      offset: 0,
+      status: "loading",
+      isHave: true,
     };
   },
   updated() {
@@ -91,14 +105,36 @@ export default {
     async _getMv(value = "") {
       const params = {
         area: value,
+        offset: this.offset,
+        limit: 15,
       };
       const res = await getMv(params);
+      this.status = "loading";
       if (res.code === 200) {
-        this.mvList = res.data;
+        this.mvList = this.mvList.concat(res.data);
+        if (res.data.length > 0 && res.data.length < 15) {
+          this.status = "noMore";
+          this.isHave = false;
+          this.noData = false;
+        } else if (res.data.length === 0) {
+          this.noData = true;
+          this.status = "noMore";
+          this.isHave = false;
+        } else {
+          this.status = "loading";
+          this.isHave = true;
+          this.noData = false;
+        }
+      }
+    },
+    loadMore() {
+      if (this.isHave) {
+        this.offset++;
+        this._getMv();
       }
     },
     handlePlaylist(playList) {
-      const index = this.$refs.mvwrap.length-1;
+      const index = this.$refs.mvwrap.length - 1;
       if (playList.length > 0) {
         this.$refs.mvwrap[index].$el.classList.add("bottom");
       } else {
@@ -121,7 +157,8 @@ export default {
   components: {
     NavBar,
     BaseScroll,
-    // NetLoading
+    empty,
+    LoadMore,
   },
 };
 </script>
@@ -161,7 +198,7 @@ export default {
     /deep/ .van-tab--active {
       color: rgb(38, 41, 41);
       font-family: PingFangSC-Medium;
-        font-weight: 500;
+      font-weight: 500;
     }
     /deep/ .van-tabs__line {
       bottom: 5px;
@@ -175,6 +212,14 @@ export default {
       overflow: hidden;
       &.bottom {
         bottom: 55px;
+      }
+      .load-more {
+        text-align: center;
+        padding: 15px;
+      }
+      .empty-container {
+        width: 100%;
+        height: 100%;
       }
       .mv-list {
         display: flex;

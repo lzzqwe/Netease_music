@@ -36,11 +36,15 @@ const NetMv = (resolve) => {
 const MvPlayer = (resolve) => {
     import('../views/MvPlayer/MvPlayer.vue').then((module) => resolve(module));
 }
+const Test = (resolve) => {
+  import("../views/Test/test.vue").then((module) =>resolve(module))
+}
 Vue.use(VueRouter);
 const routes = [{
     path: '/',
     name: 'NetHome',
     component: NetHome,
+    // redirect:'/test',
     meta: { keepAlive: false }
 }, {
     path: '/rank',
@@ -97,6 +101,11 @@ const routes = [{
     name: 'NetComment',
     component: NetComment,
     meta: { keepAlive: false },
+},
+{
+ path:"/test",
+ name:"Test",
+ component:Test
 },
 {
     path: '/mv',

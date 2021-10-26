@@ -10,6 +10,7 @@
             ref="mvwrap"
             @scrollToEnd="loadMore"
             :data="mvList"
+            :pullup='pullup'
             class="mv-content-wrap"
           >
             <div>
@@ -106,22 +107,24 @@ export default {
       const params = {
         area: value,
         offset: this.offset,
-        limit: 15,
+        limit: 10,
       };
       const res = await getMv(params);
       this.status = "loading";
       if (res.code === 200) {
         this.mvList = this.mvList.concat(res.data);
-        if (res.data.length > 0 && res.data.length < 15) {
+        if (res.data.length > 0 && res.data.length < 10) {
           this.status = "noMore";
           this.isHave = false;
           this.noData = false;
+          console.log('nomore')
         } else if (res.data.length === 0) {
           this.noData = true;
           this.status = "noMore";
           this.isHave = false;
         } else {
-          this.status = "loading";
+          console.log('more');
+          this.status = "more";
           this.isHave = true;
           this.noData = false;
         }
@@ -147,6 +150,7 @@ export default {
     },
     onClick(name, title) {
       this.mvList = [];
+      this.offset =0
       if (title === "全部") {
         this._getMv();
       } else {

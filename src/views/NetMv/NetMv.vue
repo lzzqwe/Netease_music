@@ -10,7 +10,7 @@
             ref="mvwrap"
             @scrollToEnd="loadMore"
             :data="mvList"
-            :pullup='pullup'
+            :pullup="pullup"
             class="mv-content-wrap"
           >
             <div>
@@ -22,8 +22,8 @@
               <ul class="mv-list">
                 <li
                   @click="selctItem(item.id)"
-                  :key="item.id"
-                  v-for="item in mvList"
+                  :key="item.id + index"
+                  v-for="(item, index) in mvList"
                   class="item"
                 >
                   <div class="mv-album">
@@ -48,10 +48,10 @@
                     </div>
                   </div>
                 </li>
+                <div v-if="!noData" class="load-more">
+                  <load-more :status="status"></load-more>
+                </div>
               </ul>
-            </div>
-            <div v-if="!noData" class="load-more">
-              <load-more :status="status"></load-more>
             </div>
             <div class="empty-container">
               <empty :show="noData"></empty>
@@ -117,13 +117,13 @@ export default {
           this.status = "noMore";
           this.isHave = false;
           this.noData = false;
-          console.log('nomore')
+          console.log("nomore");
         } else if (res.data.length === 0) {
           this.noData = true;
           this.status = "noMore";
           this.isHave = false;
         } else {
-          console.log('more');
+          console.log("more");
           this.status = "more";
           this.isHave = true;
           this.noData = false;
@@ -150,7 +150,8 @@ export default {
     },
     onClick(name, title) {
       this.mvList = [];
-      this.offset =0
+      this.offset = 0;
+      this.status = "loading";
       if (title === "全部") {
         this._getMv();
       } else {
@@ -220,6 +221,7 @@ export default {
       .load-more {
         text-align: center;
         padding: 15px;
+        width: 100%;
       }
       .empty-container {
         width: 100%;

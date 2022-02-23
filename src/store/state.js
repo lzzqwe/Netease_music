@@ -1,7 +1,6 @@
-import { loadUserInfo, loadFavorite, loadHistory, loadSearches } from '../common/js/cache'
-import {getToken} from '../common/js/auth'
+import { loadUserInfo, loadFavorite, loadHistory, loadSearches,loadTokenInfo } from '../common/js/cache'
 export default {
-    user: loadUserInfo(), //页面刷新的时候会去localstorage读取数据
+    user:loadUserInfo(),
     fullscreen: false,
     currentIndex: -1,
     playList: [],
@@ -13,5 +12,5 @@ export default {
     playHistory: loadHistory(),
     searches: loadSearches(),
     list:[],
-    token:getToken() || ''
+    token:loadTokenInfo()
 }

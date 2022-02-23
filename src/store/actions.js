@@ -1,6 +1,6 @@
 import { getPrivateFm, getHomeSwiper } from '../api/index.js'
 import { createSong } from '../common/js/song'
-import { saveSearches, clearAllSearches,saveUserInfo } from '../common/js/cache'
+import { saveSearches, clearAllSearches,saveUserInfo,saveTokenInfo } from '../common/js/cache'
 import {
     SET_BANNERS,
     SET_CURRENTINDEX,
@@ -77,6 +77,6 @@ export default {
         commit(SET_PLAYING_STATUS, false)
     },
     save_token({ commit }, token) {
-        commit(SET_TOKEN, token)
+        commit(SET_TOKEN, saveTokenInfo(token))
     }
 }

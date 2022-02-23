@@ -138,6 +138,7 @@ export default {
         }
         .text {
           width: 103.5px;
+          height: 40px;
           text-overflow: ellipsis;
           overflow: hidden;
           padding: 0 5px;
@@ -145,7 +146,7 @@ export default {
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
           font-size: @font_size_small-m;
-          line-height: 26px;
+          line-height: 18px;
         }
       }
     }

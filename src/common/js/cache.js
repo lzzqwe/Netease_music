@@ -1,6 +1,7 @@
 import storage from 'good-storage';
 
 const NETTOKEN = 'netToken';
+const USERINFO = 'userinfo'
 // 收藏的键
 const FAVORITE_KEY = '__favorite__';
 const HISTORY_KEY = '__history__';
@@ -10,15 +11,25 @@ const FAVORITE_MAX_LEN = 200;
 const HISTORY_MAX_LEN = 200;
 const SEARCH_KEY_LEN = 10;
 //让vuex读取localstorage
+export const loadTokenInfo = () => {
+    return storage.get(NETTOKEN, '');
+}
 export const loadUserInfo = () => {
-    return storage.get(NETTOKEN, {});
+    return storage.get(USERINFO,{})
+}
+export const saveTokenInfo = (user) => {
+    storage.set(NETTOKEN, user);
+    return storage.get(NETTOKEN, '');
 }
 export const saveUserInfo = (user) => {
-    storage.set(NETTOKEN, user);
-    return storage.get(NETTOKEN, {});
+    storage.set(USERINFO, user);
+    return storage.get(USERINFO, {});
+}
+export const delUserInfo = () => {
+    storage.remove(USERINFO);
 }
 // 删除用户记录
-export const delUserInfo = () => {
+export const delTokenInfo = () => {
     storage.remove(NETTOKEN);
 }
 // 数组中插入值

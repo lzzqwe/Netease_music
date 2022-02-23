@@ -102,6 +102,7 @@
     </div>
     <slider-bar
       @toggle="toggleSetting"
+      v-if="isShowSetting"
       :isShowSetting="isShowSetting"
     ></slider-bar>
     <search-input @close="close" :is-show-search="isShowSearch"></search-input>

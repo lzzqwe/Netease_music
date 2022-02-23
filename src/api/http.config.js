@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Notify } from 'vant';
+import router from 'vue-router'
 /*
 * 全局 axios 默认配置
 */
@@ -21,15 +22,20 @@ function transformRequest(param) {
 function request(options) {
   return new Promise((resolve, reject) => {
     axios(options).then(res => {
+      console.log(res)
       if (res.data.code === 200) {
         resolve(res.data)
       } else if (res.data.code === 302) {
         window.location.href = res.data.data
-      } else {
+      }
+      else {
         // Message.error(res.data.msg)
+        console.log('00011111111111111')
         Notify('暂无数据');
       }
     }, err => {
+     // window.location.href =window.location.host.indexOf('127.0.0.1')!= -1? 'http://127.0.0.1:8080/#/login' :  `http://${window.location.host}`
+      console.log('000')
       handleError(err)
       reject(err)
     })
@@ -37,7 +43,7 @@ function request(options) {
 }
 
 function handleError(error) {
-  Message.error(error)
+  Notify(error)
   console.log(error)
 }
 
@@ -82,9 +88,5 @@ export default {
         return transformRequest(params)
       }
     })
-  },
-  head(url, params) { },
-  options(url, params) { },
-
-  patch(url, params) { }
+  }
 }

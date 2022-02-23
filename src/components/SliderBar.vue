@@ -2,7 +2,7 @@
   <transition name="van-slide-left">
     <div @click.self="toggle" v-if="isShowSetting" class="setting-wrap">
       <div class="setting">
-        <div v-if="_getToken()" class="avatar">
+        <div v-if="token" class="avatar">
           <div @click="goToMe" class="avatar-image">
             <van-image fit="cover" round :src="profile.avatarUrl"></van-image>
           </div>
@@ -100,7 +100,7 @@ export default {
     BaseScroll,
   },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["user",'token']),
   },
   created() {
     this.themeMap = {
@@ -126,15 +126,6 @@ export default {
     toggle() {
       this.$emit("toggle");
     },
-    _getToken() {
-      const token =getToken()
-      console.log(token);
-      if(token) {
-        return true
-      } else {
-        return false
-      }
-    },
     goToMe() {
       this.toggle();
       this.$router.push("/me");
@@ -152,6 +143,8 @@ export default {
           if (res.code === 200) {
             this.profile = res.profile;
           }
+        } {
+          return 
         }
       } catch (error) {
         this.$notify({

@@ -139,8 +139,8 @@ export default {
     NetLoading,
   },
   created() {
-    this.set_banners()
-    this._getHomeSwiper();
+    this.set_banners();
+    // this._getHomeSwiper();
     this.getHomeData();
   },
   data() {
@@ -178,17 +178,17 @@ export default {
         },
       ],
       result: [],
-      banners: [],
+      // banners: [],
     };
   },
   computed: {
     _getIcon() {
       return this.playing ? "iconzanting" : "iconbofang4";
     },
-    ...mapGetters(["fullscreen", "playList", "playing"]),
+    ...mapGetters(["fullscreen", "playList", "playing", "banners"]),
   },
   mounted() {
-   this.handlePlaylist(this.playList)
+    this.handlePlaylist(this.playList);
   },
   methods: {
     async _getHomeSwiper() {

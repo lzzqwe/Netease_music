@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@font-face {
+/* @font-face {
     font-family: 'PingFangSC-Regular'; 
     src: url('../font/PingFangSC-Regular.ttf'); 
     font-weight: normal;
@@ -13,7 +13,7 @@
     src: url('../font/PingFangSC-Medium.ttf'); 
     font-weight: normal;
     font-style: normal;
-  }
+  } */
 
   .van-notify {
       color:red;

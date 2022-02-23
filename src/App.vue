@@ -17,8 +17,7 @@ import variablesBlack from "@/common/themes/variables-black";
 export default {
   metaInfo() {
     return {
-      // title: "欢迎来的net-music",
-      title: "1",
+      title: "欢迎来的net-music",
     };
   },
   created() {

@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import moment from "moment";
+// import moment from "moment";
+import dayjs from 'dayjs'
 export default {
   name: "BaseComment",
   props: {
@@ -32,10 +33,11 @@ export default {
     parseTime(value) {
       const date = new Date(value);
       const year = date.getFullYear();
-      if (year >= 2021) {
-        return moment(value).format("MM-DD");
+      const nowYear = new Date().getFullYear()
+      if (year >= nowYear) {
+        return dayjs(value).format("MM-DD");
       } else {
-        return moment(value).format("YYYY-MM-DD");
+        return dayjs(value).format("YYYY-MM-DD");
       }
     },
   },

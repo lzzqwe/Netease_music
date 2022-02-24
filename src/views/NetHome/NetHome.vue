@@ -171,11 +171,11 @@ export default {
           name: "排行榜",
           path: "/rank",
         },
-        {
-          picUrl: MV,
-          name: "MV",
-          path: "/mv",
-        },
+        // {
+        //   picUrl: MV,
+        //   name: "MV",
+        //   path: "/mv",
+        // },
       ],
       result: [],
       // banners: [],

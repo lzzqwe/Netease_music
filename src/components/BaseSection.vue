@@ -121,8 +121,8 @@ export default {
             position: absolute;
             top: 6px;
             right: 6px;
-            width: 60px;
-            height: 25px;
+            width: 65px;
+            height: 18px;
             border-radius: 5px;
             background-color: rgba(164, 184, 198, 0.7);
             display: flex;

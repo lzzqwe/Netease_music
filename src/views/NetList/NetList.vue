@@ -77,7 +77,7 @@ export default {
     return {
       barTitle: "歌单广场",
       tags: [],
-      index:0,
+      index: 0,
       cat: "全部",
       songList: [],
       pullup: true,
@@ -118,7 +118,7 @@ export default {
     this._getSongList();
   },
   updated() {
-    console.log('0000');
+    console.log("0000");
     this.handlePlaylist(this.playList);
   },
   computed: {
@@ -130,7 +130,7 @@ export default {
       this.$router.push(`/playlistCollection/${id}`);
     },
     handlePlaylist(playList) {
-      let index = this.$refs.songlist.length-1
+      let index = this.$refs.songlist.length - 1;
       console.log(index);
       if (playList.length > 0) {
         this.$refs.songlist[index].$el.classList.add("bottom");
@@ -157,7 +157,7 @@ export default {
     changeTag(name, title) {
       console.log(name, title);
       this.cat = title;
-      this.index =name
+      this.index = name;
     },
     async _getSongsTags() {
       try {
@@ -283,7 +283,7 @@ export default {
   /deep/ .van-tab--active {
     color: rgb(38, 41, 41);
     font-family: PingFangSC-Medium;
-        font-weight: 500;
+    font-weight: 500;
   }
   /deep/ .van-tabs__line {
     bottom: 5px;

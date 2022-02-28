@@ -29,12 +29,19 @@
       </div>
       <div class="password">
         <van-field
+          left-icon="password"
           placeholder="请输入密码"
           required
           v-model="password"
           type="password"
-          label="密码"
-        />
+        >
+          <van-icon
+            class="iconfont iconpassword"
+            class-prefix="icon"
+            slot="left-icon"
+            name="password"
+          ></van-icon>
+        </van-field>
         <!-- <div class="password-left">
           <span class="password-icon"></span>
           <input

@@ -3,16 +3,26 @@
     <div class="login-title">云音乐登录</div>
     <div class="content">
       <div class="account">
-        <span class="account-icon"></span>
+        <!-- <span class="account-icon"></span>
         <input
           class="account-txt"
           type="text"
           v-model="userCode"
+          maxlength="11"
+          placeholder="请输入手机号"
+        /> -->
+        <van-field
+          required
+          maxlength="11"
+          v-model="userCode"
+          label="手机"
+          type="tel"
           placeholder="请输入手机号"
         />
       </div>
       <div class="password">
-        <div class="password-left">
+        <van-field placeholder="请输入密码" required v-model="password" type="password" label="密码" />
+        <!-- <div class="password-left">
           <span class="password-icon"></span>
           <input
             type="text"
@@ -24,11 +34,16 @@
         </div>
         <div class="password-right">
           <span @click="hideOrshowPassword" :class="iconStyle"></span>
-        </div>
+        </div> -->
       </div>
     </div>
-
-    <div class="login-button" @click="logonAdd">登录</div>
+    <van-button
+      :disabled="btnDisabled"
+      class="login-button"
+      type="info"
+      @click="logonAdd"
+      >登录</van-button
+    >
     <div class="user-service-agreement">
       <span class="click-agree">点击登录即代表您同意</span>
       <span class="service-agreement">《用户服务协议》</span>
@@ -51,6 +66,25 @@ export default {
     iconStyle() {
       return this.isPass ? "password-eye-hide" : "password-eye-show";
     },
+    isPhoneAvailale() {
+      const phoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+      return phoneReg.test(this.userCode) ? true : false;
+    },
+    isPassword() {
+      return this.userPassWord;
+    },
+    btnDisabled() {
+      const { isPhoneAvailale, isPassword } = this;
+      if (isPhoneAvailale) {
+        if (isPassword) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    },
     ...mapGetters(["playList"]),
   },
   mounted() {
@@ -70,6 +104,7 @@ export default {
       }
     },
     logonAdd() {
+      console.log("3333");
       let json = {
         phone: this.userCode,
         password: this.userPassWord,

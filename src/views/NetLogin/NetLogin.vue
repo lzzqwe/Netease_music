@@ -12,16 +12,29 @@
           placeholder="请输入手机号"
         /> -->
         <van-field
+          left-icon="shouji"
           required
           maxlength="11"
           v-model="userCode"
-          label="手机"
           type="tel"
           placeholder="请输入手机号"
-        />
+        >
+          <van-icon
+            class="iconfont iconshouji"
+            class-prefix="icon"
+            slot="left-icon"
+            name="shouji"
+          ></van-icon>
+        </van-field>
       </div>
       <div class="password">
-        <van-field placeholder="请输入密码" required v-model="password" type="password" label="密码" />
+        <van-field
+          placeholder="请输入密码"
+          required
+          v-model="password"
+          type="password"
+          label="密码"
+        />
         <!-- <div class="password-left">
           <span class="password-icon"></span>
           <input

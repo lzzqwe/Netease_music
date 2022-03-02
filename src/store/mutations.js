@@ -12,8 +12,7 @@ import {
     CLEAR_USER_INFO,
     CLAER_PLAYLIST,
     SET_SEARCHES,
-    CLEAR_ALL_SEARCHES,
-    SET_TOKEN
+    CLEAR_ALL_SEARCHES
 } from './mutation-types'
 export default {
     [SET_FULLSCREEN](state, fullscreen) {
@@ -58,8 +57,5 @@ export default {
     },
     [CLEAR_ALL_SEARCHES](state) {
         state.searches = []
-    },
-    [SET_TOKEN](state, token) {
-        state.token = token
     }
 }

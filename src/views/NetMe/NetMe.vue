@@ -248,7 +248,7 @@ export default {
           console.log(res);
           if (res.code === 200) {
             this.url = res.url;
-            this._getUserDetail(this.user.userId);
+            this._getUserDetail(this.userId);
           }
         })
         .catch((err) => {

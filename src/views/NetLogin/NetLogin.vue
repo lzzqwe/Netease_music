@@ -116,11 +116,7 @@ export default {
 
 <style scoped lang="less">
 .logon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  min-height: 667px;
   background-image: url("./Sign in.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -130,27 +126,27 @@ export default {
     bottom: 55px;
   }
   .login-title {
-    margin-top: 130px;
+    margin-top: 80px;
     text-align: center;
     font-size: 26px;
     font-family: PingFangSC-Medium;
     font-weight: 500;
   }
   .content {
-    margin-top: 90px;
+    margin-top: 50px;
     .account {
       margin: 0 15px 0 15px;
       padding-bottom: 14px;
       border-bottom: 1px solid #cda2a2;
       display: flex;
-      .account-icon {
-        width: 22px;
-        height: 22px;
-        display: inline-block;
-        background-image: url("./手机号.png");
-        background-size: 100% 100%;
-        margin-right: 10px;
-      }
+      // .account-icon {
+      //   width: 22px;
+      //   height: 22px;
+      //   display: inline-block;
+      //   background-image: url("./手机号.png");
+      //   background-size: 100% 100%;
+      //   margin-right: 10px;
+      // }
       /deep/ .account-txt {
         font-size: 17px;
         font-weight: normal;
@@ -172,14 +168,14 @@ export default {
       justify-content: space-between;
       .password-left {
         display: flex;
-        .password-icon {
-          width: 22px;
-          height: 22px;
-          display: inline-block;
-          background-image: url("./密码.png");
-          background-size: 100% 100%;
-          margin-right: 10px;
-        }
+        // .password-icon {
+        //   width: 22px;
+        //   height: 22px;
+        //   display: inline-block;
+        //   background-image: url("./密码.png");
+        //   background-size: 100% 100%;
+        //   margin-right: 10px;
+        // }
         /deep/ .password-txt {
           font-size: 17px;
           line-height: 24px;
@@ -191,20 +187,20 @@ export default {
         }
       }
       .password-right {
-        .password-eye-show {
-          width: 24px;
-          height: 24px;
-          display: inline-block;
-          background-image: url("./Icon Xia.png");
-          background-size: 100% 100%;
-        }
-        .password-eye-hide {
-          width: 24px;
-          height: 24px;
-          display: inline-block;
-          background-image: url("./Icon - hide.png");
-          background-size: 100% 100%;
-        }
+        // .password-eye-show {
+        //   width: 24px;
+        //   height: 24px;
+        //   display: inline-block;
+        //   background-image: url("./Icon Xia.png");
+        //   background-size: 100% 100%;
+        // }
+        // .password-eye-hide {
+        //   width: 24px;
+        //   height: 24px;
+        //   display: inline-block;
+        //   background-image: url("./Icon - hide.png");
+        //   background-size: 100% 100%;
+        // }
       }
     }
     .forget-password {
@@ -218,7 +214,7 @@ export default {
     }
   }
   .login-button {
-    margin: 70px auto;
+    margin: 10px auto;
     width: 340px;
     text-align: center;
     padding: 12px 0;

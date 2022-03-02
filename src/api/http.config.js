@@ -20,10 +20,15 @@ function transformRequest(param) {
         return `${key}=${value}`
     }).join('&')
 }
+axios.interceptors.request.use((config) => {
+    console.log(config);
+    return config
+})
 axios.interceptors.response.use((res) => {
     console.log(res);
     return res
 }, (err) => {
+    console.log(err);
     console.log(err.response);
     if (err.response.status === 301) {
         delUserInfo()
@@ -39,12 +44,8 @@ function request(options) {
             console.log(res)
             if (res.data.code === 200) {
                 resolve(res.data)
-            } else if (res.data.code === 302) {
-                window.location.href = res.data.data
             }
         }, err => {
-            // window.location.href =window.location.host.indexOf('127.0.0.1')!= -1? 'http://127.0.0.1:8080/#/login' :  `http://${window.location.host}`
-            console.log('000')
             handleError(err)
             reject(err)
         })

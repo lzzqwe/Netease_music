@@ -1,6 +1,6 @@
 import { getPrivateFm, getHomeSwiper } from '../api/index.js'
 import { createSong } from '../common/js/song'
-import { saveSearches, clearAllSearches, saveUserInfo, saveTokenInfo, delUserInfo } from '../common/js/cache'
+import { saveSearches, clearAllSearches, saveUserInfo, delUserInfo } from '../common/js/cache'
 import {
     SET_BANNERS,
     SET_CURRENTINDEX,
@@ -15,8 +15,7 @@ import {
     CLEAR_USER_INFO,
     CLAER_PLAYLIST,
     SET_SEARCHES,
-    CLEAR_ALL_SEARCHES,
-    SET_TOKEN
+    CLEAR_ALL_SEARCHES
 } from './mutation-types'
 export default {
     async set_banners({ commit }) {
@@ -75,8 +74,5 @@ export default {
         commit(CLAER_PLAYLIST)
         commit(SET_CURRENTINDEX, -1)
         commit(SET_PLAYING_STATUS, false)
-    },
-    save_token({ commit }, token) {
-        commit(SET_TOKEN, saveTokenInfo(token))
     }
 }

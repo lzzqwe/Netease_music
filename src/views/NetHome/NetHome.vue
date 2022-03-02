@@ -12,25 +12,11 @@
       <div class="net-home-content">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-content">
-            <van-swipe
-              v-if="banners.length > 0"
-              class="my-swipe"
-              indicator-color="white"
-            >
+            <van-swipe v-if="banners.length > 0" class="my-swipe" indicator-color="white">
               <van-swipe-item :key="item.bannerId" v-for="item in banners">
-                <img
-                  class="swip-item-img"
-                  width="100%"
-                  v-lazy="item.pic"
-                  alt=""
-                />
+                <img class="swip-item-img" width="100%" v-lazy="item.pic" alt />
               </van-swipe-item>
             </van-swipe>
-            <div v-else class="no-data-wrap">
-              <div class="no-data-icon">
-                <span class="no-data-txt">暂无数据</span>
-              </div>
-            </div>
           </div>
         </div>
         <base-scroll :scroll-x="scrollX" class="net-nav-wrap">
@@ -44,16 +30,13 @@
               ref="navItem"
             >
               <div class="nav-icon">
-                <img :src="item.picUrl" class="img" alt="" />
+                <img :src="item.picUrl" class="img" alt />
               </div>
               <p class="text">{{ item.name }}</p>
             </router-link>
           </ul>
         </base-scroll>
-        <base-section
-          :recommend-list="recommednList"
-          title="推荐歌单"
-        ></base-section>
+        <base-section :recommend-list="recommednList" title="推荐歌单"></base-section>
         <div class="home-bac"></div>
         <base-divder></base-divder>
         <div class="private-custom-made">
@@ -76,35 +59,29 @@
                   class="item"
                 >
                   <div class="cover">
-                    <img v-lazy="item.picUrl" class="cover-imgage" alt="" />
+                    <img v-lazy="item.picUrl" class="cover-imgage" alt />
                     <span class="iconfont iconbofangliang1"></span>
                   </div>
                   <div class="desc">
                     <div class="name">
-                      <span class="text">{{ item.name }}</span
-                      ><span class="horizontal">-</span>{{ item.singer }}
+                      <span class="text">{{ item.name }}</span>
+                      <span class="horizontal">-</span>
+                      {{ item.singer }}
                     </div>
                   </div>
                 </li>
               </ul>
             </div>
-            <div v-else class="no-data-wrap">
-              <div class="no-data-icon">
-                <span class="no-data-txt">暂无数据</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </base-scroll>
-    <div v-show="!result.length" class="loading-wrap">
-      <net-loading></net-loading>
+    <div v-show="loadingFlag" class="loading-wrap">
+      <div class="loading-content">
+        <net-loading></net-loading>
+      </div>
     </div>
-    <slider-bar
-      @toggle="toggleSetting"
-      v-if="isShowSetting"
-      :isShowSetting="isShowSetting"
-    ></slider-bar>
+    <slider-bar @toggle="toggleSetting" v-if="isShowSetting" :isShowSetting="isShowSetting"></slider-bar>
     <search-input @close="close" :is-show-search="isShowSearch"></search-input>
   </div>
 </template>
@@ -124,7 +101,6 @@ import SliderBar from "@/components/SliderBar";
 import {
   getRecommendList,
   getPrivateMusic,
-  getHomeSwiper,
 } from "@/api/index.js";
 import { createSong } from "@/common/js/song";
 import { mapActions, mapGetters } from "vuex";
@@ -150,6 +126,7 @@ export default {
       isShowSearch: false,
       recommednList: [],
       privateMusic: [],
+      loadingFlag: true,
       navIcon: [
         {
           picUrl: recommend,
@@ -191,33 +168,23 @@ export default {
     this.handlePlaylist(this.playList);
   },
   methods: {
-    async _getHomeSwiper() {
-      try {
-        const params = {
-          type: 1,
-        };
-        const res = await getHomeSwiper(params);
-        if (res.code === 200) {
-          this.banners = res.banners;
-        }
-      } catch (error) {
-        console.log("2222");
-      }
-    },
     async getHomeData() {
       const params = {
         limit: 10,
       };
+      this.loadingFlag = true
       try {
         const res_1 = await getRecommendList(params);
         const res_2 = await getPrivateMusic();
         Promise.all([res_1, res_2])
           .then((res) => {
+            this.loadingFlag = false
             this.result = res;
             this.recommednList = this.result[0].result;
             this.privateMusic = this._createSong(this.result[1].result);
           })
           .catch((err) => {
+            this.loadingFlag = false
             console.log("8888");
             throw new Error(err);
           });
@@ -285,4 +252,3 @@ export default {
 <style lang="less" scoped>
 @import "./index.less";
 </style>
-

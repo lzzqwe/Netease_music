@@ -10,7 +10,7 @@
           v-model="userCode"
           maxlength="11"
           placeholder="请输入手机号"
-        /> -->
+        />-->
         <van-field
           left-icon="shouji"
           required
@@ -19,12 +19,7 @@
           type="tel"
           placeholder="请输入手机号"
         >
-          <van-icon
-            class="iconfont iconshouji"
-            class-prefix="icon"
-            slot="left-icon"
-            name="shouji"
-          ></van-icon>
+          <van-icon class="iconfont iconshouji" class-prefix="icon" slot="left-icon" name="shouji"></van-icon>
         </van-field>
       </div>
       <div class="password">
@@ -32,7 +27,7 @@
           left-icon="password"
           placeholder="请输入密码"
           required
-          v-model="password"
+          v-model="userPassWord"
           type="password"
         >
           <van-icon
@@ -54,16 +49,10 @@
         </div>
         <div class="password-right">
           <span @click="hideOrshowPassword" :class="iconStyle"></span>
-        </div> -->
+        </div>-->
       </div>
     </div>
-    <van-button
-      :disabled="btnDisabled"
-      class="login-button"
-      type="info"
-      @click="logonAdd"
-      >登录</van-button
-    >
+    <van-button :disabled="btnDisabled" class="login-button" type="info" @click="logonAdd">登录</van-button>
     <div class="user-service-agreement">
       <span class="click-agree">点击登录即代表您同意</span>
       <span class="service-agreement">《用户服务协议》</span>
@@ -131,13 +120,17 @@ export default {
       };
       getLogin(json)
         .then((res) => {
-          this.save_token(res.token);
-          this.save_user_info(res.profile);
-          this.$router.push("/");
+          if (res.code == 200) {
+            const userId = res.account.id
+            this.save_user_Id(userId)
+            this.$router.push("/");
+            window.location.reload()
+          }
+
         })
-        .catch((err) => {});
+        .catch((err) => { });
     },
-    ...mapActions(["save_token", "save_user_info"]),
+    ...mapActions(["save_user_Id"]),
   },
 };
 </script>

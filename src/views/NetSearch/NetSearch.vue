@@ -12,11 +12,7 @@
     <div class="tab-wrap">
       <van-tabs @click="onClick" v-model="active">
         <van-tab title="综合">
-          <base-scroll
-            ref="searchwrap"
-            :data="dataList"
-            class="search-content-wrap"
-          >
+          <base-scroll ref="searchwrap" :data="dataList" class="search-content-wrap">
             <div>
               <net-card :data="songs" :title="songTitle">
                 <ul class="single-song-list">
@@ -33,9 +29,7 @@
                     <span class="iconfont iconsandian"></span>
                   </li>
                 </ul>
-                <div @click="getMore(1, 1)" class="look-over-more">
-                  {{ song.moreText }}
-                </div>
+                <div @click="getMore(1, 1)" class="look-over-more">{{ song.moreText }}</div>
               </net-card>
               <net-card :data="playLists" :title="title">
                 <ul class="single-song-list">
@@ -46,9 +40,7 @@
                     v-for="item in playLists"
                   ></base-list>
                 </ul>
-                <div @click="getMore(1000, 2)" class="look-over-more">
-                  {{ playListObj.moreText }}
-                </div>
+                <div @click="getMore(1000, 2)" class="look-over-more">{{ playListObj.moreText }}</div>
               </net-card>
               <net-card :data="this.result.video" :title="videoTitle">
                 <ul class="video-list">
@@ -59,13 +51,14 @@
                     class="item"
                   >
                     <div class="video-album-cover">
-                      <img class="image" :src="item.coverUrl" alt="" />
+                      <img class="image" :src="item.coverUrl" alt />
                     </div>
                     <div class="content">
                       <h1 class="video-title">{{ item.title }}</h1>
                       <div class="video-info">
-                        <span>00:16,</span><span>黑猫-警长,</span
-                        ><span>12万播放</span>
+                        <span>00:16,</span>
+                        <span>黑猫-警长,</span>
+                        <span>12万播放</span>
                       </div>
                     </div>
                   </li>
@@ -74,9 +67,7 @@
                   v-if="this.result.video"
                   @click="getMore(1014, 3)"
                   class="look-over-more"
-                >
-                  {{ this.result.video.moreText }}
-                </div>
+                >{{ this.result.video.moreText }}</div>
               </net-card>
               <div v-show="!this.dataList.length" class="net-loading-wrap">
                 <net-loading></net-loading>
@@ -106,11 +97,7 @@
           </base-scroll>
         </van-tab>
         <van-tab title="歌单">
-          <base-scroll
-            ref="searchwrap"
-            class="search-content-wrap"
-            :data="playLists_1"
-          >
+          <base-scroll ref="searchwrap" class="search-content-wrap" :data="playLists_1">
             <ul class="single-song-list">
               <base-list
                 @select="selectItem(item.id)"
@@ -289,11 +276,11 @@ export default {
           }
         }
       } catch (error) {
-        this.$notify({
-          message: "获取数据失败",
-          color: "#FFFFFF",
-          background: "#00A2E8",
-        });
+        // this.$notify({
+        //   message: "获取数据失败",
+        //   color: "#FFFFFF",
+        //   background: "#00A2E8",
+        // });
       }
     },
     _createSong_1(list) {
@@ -326,7 +313,7 @@ export default {
     },
     ...mapActions(["select_play", "save_searches"]),
   },
-   watch: {
+  watch: {
     playList(newValue) {
       // console.log(newValue);
       this.handlePlaylist(newValue);
@@ -404,8 +391,8 @@ export default {
     }
     /deep/ .van-tab--active {
       color: rgb(38, 41, 41);
-       font-family: PingFangSC-Medium;
-        font-weight: 500;
+      font-family: PingFangSC-Medium;
+      font-weight: 500;
     }
     /deep/ .van-tabs__line {
       bottom: 15px;
@@ -433,7 +420,7 @@ export default {
           .txt {
             font-size: @font_size_medium-s;
             font-family: PingFangSC-Medium;
-        font-weight: 500;
+            font-weight: 500;
             color: @font-black;
           }
         }

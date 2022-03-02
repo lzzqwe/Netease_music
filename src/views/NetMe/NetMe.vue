@@ -13,27 +13,24 @@
     >
       <div>
         <div ref="meBackground" class="me-background">
-          <img
-            :style="{ opacity: opacity }"
-            class="image"
-            v-lazy="profile.backgroundUrl"
-            alt=""
-          />
+          <img :style="{ opacity: opacity }" class="image" v-lazy="profile.backgroundUrl" alt />
           <div class="user-info">
             <div class="avatar">
               <van-uploader :after-read="afterRead">
-                <img class="image" v-lazy="profile.avatarUrl" alt="" />
+                <img class="image" v-lazy="profile.avatarUrl" alt />
               </van-uploader>
             </div>
             <div class="desc">
               <h1 class="name">{{ profile.nickname }}</h1>
               <div class="fans">
-                <span class="following"
-                  >{{ profile.follows }}<span class="space">关注</span></span
-                >
-                <span class="followers"
-                  >{{ profile.followeds }}<span class="space">粉丝</span></span
-                >
+                <span class="following">
+                  {{ profile.follows }}
+                  <span class="space">关注</span>
+                </span>
+                <span class="followers">
+                  {{ profile.followeds }}
+                  <span class="space">粉丝</span>
+                </span>
                 <span class="grade">Lv.6</span>
               </div>
             </div>
@@ -45,14 +42,16 @@
               <div class="basic-info">
                 <h1 class="title">基本信息</h1>
                 <div class="age">
-                  <span class="village-age"
-                    >村龄:<span class="num">1年</span></span
-                  >
+                  <span class="village-age">
+                    村龄:
+                    <span class="num">1年</span>
+                  </span>
                 </div>
                 <div class="area">
-                  <span class="area-value"
-                    >地区:<span class="name">白沙</span></span
-                  >
+                  <span class="area-value">
+                    地区:
+                    <span class="name">白沙</span>
+                  </span>
                 </div>
               </div>
               <div class="music-taste">
@@ -81,8 +80,8 @@
                 <net-loading v-show="!songlist"></net-loading>
               </div>
             </van-tab>
-            <van-tab title="视频"> </van-tab>
-            <van-tab title="动态"> </van-tab>
+            <van-tab title="视频"></van-tab>
+            <van-tab title="动态"></van-tab>
           </van-tabs>
         </div>
       </div>
@@ -113,11 +112,11 @@ export default {
   },
   name: "NetMe",
   computed: {
-    ...mapGetters(["user",'playList']),
+    ...mapGetters(["userId", 'playList']),
     createList() {
       const result = [];
       this.songlist.forEach((item) => {
-        if (item.creator.userId === this.user.userId) {
+        if (item.creator.userId === this.userId) {
           result.push(item);
         }
       });
@@ -126,7 +125,7 @@ export default {
     favoriteList() {
       const result = [];
       this.songlist.forEach((item) => {
-        if (item.creator.userId !== this.user.userId) {
+        if (item.creator.userId !== this.userId) {
           result.push(item);
         }
       });
@@ -137,8 +136,8 @@ export default {
     this._getUserDetail();
     this._getUserSonglist();
   },
-   mounted() {
-   this.handlePlaylist(this.playList)
+  mounted() {
+    this.handlePlaylist(this.playList)
   },
   watch: {
     scrollY(newValue) {
@@ -148,7 +147,7 @@ export default {
       this.opacity = Math.abs(1 - percent) > 1 ? 1 : Math.abs(1 - percent);
       this.color = newValue > bgcHeight - navHeight ? "#ffffff" : "";
       this.barTitle =
-        newValue > bgcHeight - navHeight ? this.user.nickname : "";
+        newValue > bgcHeight - navHeight ? this.profile.nickname : "";
     },
   },
   data() {
@@ -170,7 +169,7 @@ export default {
   methods: {
     async _getUserDetail() {
       const params = {
-        uid: this.user.userId,
+        uid: this.userId,
       };
       try {
         const res = await getuserInfo(params);
@@ -185,7 +184,7 @@ export default {
         });
       }
     },
-     handlePlaylist(playList) {
+    handlePlaylist(playList) {
       if (playList.length > 0) {
         this.$refs.me.$el.classList.add("bottom");
       } else {
@@ -195,7 +194,7 @@ export default {
     },
     async _getUserSonglist() {
       const params = {
-        uid: this.user.userId,
+        uid: this.userId,
       };
       try {
         const res = await getUserSonglist(params);
@@ -404,9 +403,9 @@ export default {
         padding-bottom: 20px;
         border-radius: 10px;
         .title {
-          font-size:@font_size_small;
+          font-size: @font_size_small;
           font-family: PingFangSC-Medium;
-        font-weight: 500;
+          font-weight: 500;
         }
         .age {
           margin: 20px 0;
@@ -435,7 +434,7 @@ export default {
         .title {
           font-size: @font_size_medium-s;
           font-family: PingFangSC-Medium;
-        font-weight: 500;
+          font-weight: 500;
         }
         .taste-list {
           margin-top: 23px;

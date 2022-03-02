@@ -1,5 +1,5 @@
 export default {
-    user: state => { return state.user },
+    userId: state => { return state.userId },
     banners: state => { return state.banners },
     fullscreen: state => { return state.fullscreen },
     playList: state => state.playList,

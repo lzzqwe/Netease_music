@@ -1,6 +1,6 @@
-import { loadUserInfo, loadFavorite, loadHistory, loadSearches,loadTokenInfo } from '../common/js/cache'
+import { loadUserId, loadFavorite, loadHistory, loadSearches, loadTokenInfo } from '../common/js/cache'
 export default {
-    user:loadUserInfo(),
+    userId: loadUserId(),
     fullscreen: false,
     currentIndex: -1,
     playList: [],
@@ -11,6 +11,6 @@ export default {
     favorite: loadFavorite(),
     playHistory: loadHistory(),
     searches: loadSearches(),
-    list:[],
-    token:loadTokenInfo()
+    list: [],
+    token: loadTokenInfo()
 }

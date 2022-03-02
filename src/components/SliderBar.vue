@@ -2,7 +2,7 @@
   <transition name="van-slide-left">
     <div @click.self="toggle" v-if="isShowSetting" class="setting-wrap">
       <div class="setting">
-        <div v-if="token" class="avatar">
+        <div v-if="JSON.stringify(profile) !== '{}'" class="avatar">
           <div @click="goToMe" class="avatar-image">
             <van-image fit="cover" round :src="profile.avatarUrl"></van-image>
           </div>
@@ -18,7 +18,7 @@
         </div>
         <div v-else class="avatar">
           <div class="avatar-image">
-            <img class="image" src="./default.jpg" alt="" />
+            <img class="image" src="./default.jpg" alt />
           </div>
           <div class="user-name">
             <router-link to="/login" tag="div" class="name">
@@ -76,9 +76,7 @@
 
 <script>
 import BaseScroll from "./BaseScroll";
-import {getToken,removeToken} from '../common/js/auth';
 import { getuserInfo } from "../api/index";
-import { delUserInfo } from "../common/js/cache";
 import storage from "good-storage";
 import variables from "@/common/themes/variables";
 import variablesBlack from "@/common/themes/variables-black";
@@ -100,7 +98,7 @@ export default {
     BaseScroll,
   },
   computed: {
-    ...mapGetters(["user",'token']),
+    ...mapGetters(["userId", 'token']),
   },
   created() {
     this.themeMap = {
@@ -135,16 +133,16 @@ export default {
     },
     async _getUserInfo() {
       const params = {
-        uid:this.user.userId
+        uid: this.userId
       }
       try {
-        if (this.user.userId) {
+        if (this.userId) {
           const res = await getuserInfo(params);
           if (res.code === 200) {
             this.profile = res.profile;
           }
         } {
-          return 
+          return
         }
       } catch (error) {
         this.$notify({
@@ -176,10 +174,9 @@ export default {
           message: "确定退出当前账号吗?",
         })
         .then(() => {
-          delUserInfo();
-          removeToken()
           this.clear_user_info();
-          this.$router.push("/login");
+          this.$router.push("/");
+          window.location.reload()
         });
     },
     change(flag) {
@@ -285,7 +282,7 @@ export default {
           width: 20px;
           height: 20px;
         }
-        /deep/ .van-switch--on .van-switch__node{
+        /deep/ .van-switch--on .van-switch__node {
           transform: translateX(20px);
         }
         .info-center-list {

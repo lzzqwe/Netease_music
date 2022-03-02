@@ -25,7 +25,7 @@ export default {
     [SET_CURRENTINDEX](state, currentIndex) {
         state.currentIndex = currentIndex
     },
-    [SET_BANNERS](state, banners ) {
+    [SET_BANNERS](state, banners) {
         state.banners = banners
     },
     [GET_PRIVATEFM](state, { privateFm }) {
@@ -48,7 +48,7 @@ export default {
         state.playHistory = history
     },
     [CLEAR_USER_INFO](state) {
-        state.user = {}
+        state.user = ''
     },
     [CLAER_PLAYLIST](state) {
         state.playList = []
@@ -59,7 +59,7 @@ export default {
     [CLEAR_ALL_SEARCHES](state) {
         state.searches = []
     },
-    [SET_TOKEN](state,token) {
-      state.token = token
+    [SET_TOKEN](state, token) {
+        state.token = token
     }
 }

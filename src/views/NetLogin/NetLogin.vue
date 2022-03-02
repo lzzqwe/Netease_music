@@ -3,14 +3,6 @@
     <div class="login-title">云音乐登录</div>
     <div class="content">
       <div class="account">
-        <!-- <span class="account-icon"></span>
-        <input
-          class="account-txt"
-          type="text"
-          v-model="userCode"
-          maxlength="11"
-          placeholder="请输入手机号"
-        />-->
         <van-field
           left-icon="shouji"
           required
@@ -37,19 +29,6 @@
             name="password"
           ></van-icon>
         </van-field>
-        <!-- <div class="password-left">
-          <span class="password-icon"></span>
-          <input
-            type="text"
-            :password="isPass"
-            v-model="userPassWord"
-            placeholder="请输入密码"
-            class="password-txt"
-          />
-        </div>
-        <div class="password-right">
-          <span @click="hideOrshowPassword" :class="iconStyle"></span>
-        </div>-->
       </div>
     </div>
     <van-button :disabled="btnDisabled" class="login-button" type="info" @click="logonAdd">登录</van-button>
@@ -145,23 +124,20 @@ export default {
   background-image: url("./Sign in.png");
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
   &.bottom {
     bottom: 55px;
   }
   .login-title {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 180px;
+    margin-top: 130px;
     text-align: center;
     font-size: 26px;
     font-family: PingFangSC-Medium;
     font-weight: 500;
   }
   .content {
-    position: absolute;
-    top: 240px;
-    width: 100%;
+    margin-top: 90px;
     .account {
       margin: 0 15px 0 15px;
       padding-bottom: 14px;
@@ -242,10 +218,8 @@ export default {
     }
   }
   .login-button {
-    position: absolute;
-    top: 415px;
-    left: 15px;
-    right: 15px;
+    margin: 70px auto;
+    width: 340px;
     text-align: center;
     padding: 12px 0;
     background: #1683fe;
@@ -256,13 +230,10 @@ export default {
     line-height: 25px;
   }
   .user-service-agreement {
-    position: absolute;
-    bottom: 44px;
+    margin: auto auto 80px auto;
     font-size: 14px;
     line-height: 20px;
-    left: 50%;
     width: 252px;
-    transform: translate3d(-50%, 0, 0);
     .click-agree {
       color: #333333;
     }

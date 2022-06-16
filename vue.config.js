@@ -46,6 +46,25 @@ module.exports = {
     },
 
     chainWebpack: (config) => {
+        config.entry.app = ["babel-polyfill", "./src/main.js"];
+        config.module.rule('compile')
+            .test(/\.js$/)
+            .include
+            .add(resolve('src'))
+            .add(resolve('test'))
+            .add(resolve('node_modules/webpack-dev-server/client'))
+            .add(resolve('node_modules'))
+            .end()
+            .use('babel')
+            .loader('babel-loader')
+            .options({
+                presets: [
+                    ['@babel/preset-env', {
+                        modules: false
+                    }]
+                ]
+            });
+
         config.resolve.alias
             .set('@', resolve('src'))
             .set('components', resolve('src/components'))
